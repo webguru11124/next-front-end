@@ -6,7 +6,7 @@ import {
   CompanyPasswordSvg,
   EyeSvg,
   MenuSideBarIcon,
-} from "../(icons)";
+} from "@/assets/icons";
 
 interface InputProps {
   name: string;

@@ -1,17 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import Header from "../../(common)/Header";
-import Input from "../../(common)/Input";
-import { LogoSvg } from "../../(icons)/logo";
-import { LineSvg, SignUpSvg } from "../../(icons)";
+import Header from "@/components/common/Header";
+import Input from "@/components/common/Input";
+import { LogoSvg } from "@/assets/icons/logo";
+import { LineSvg, SignUpSvg } from "@/assets/icons";
 import {
   LanguageOptionArr,
   LinksArr,
   SocialLinksArr,
-} from "../../(lib)/util.d";
-import { ILinks, ISocialLinks } from "../../(types)";
+} from "@/lib/util";
+import { ILinks, ISocialLinks } from "@/types";
 import Link from "next/link";
-import { USFlagSvg } from "../../(icons)/flag/flag.d";
+import { USFlagSvg } from "@/assets/icons/flag/flag.d";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 export default function SignUp() {

@@ -1,6 +1,8 @@
+import React from "react";
+
 export interface ILanguageOptions {
     code: string;
-    image: any;
+    image: React.ReactNode;
     id: string;
 }
 export interface ILinks {
@@ -10,7 +12,7 @@ export interface ILinks {
 }
 export interface ISocialLinks {
     id: string;
-    linkName:string;
-    linkUrl:string;
+    linkName: string;
+    linkUrl: string;
     linkIcon: any;
 }

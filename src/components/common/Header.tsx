@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { LogoSvg } from "../(icons)/logo";
+import { LogoSvg } from "@/assets/icons/logo";
 import Link from "next/link";
-import { USFlagSvg } from "../(icons)/flag/flag.d";
+import { USFlagSvg } from "@/assets/icons/flag/flag.d";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { MenuSideBarIcon } from "../(icons)";
-import { LinksArr } from "../(lib)/util.d";
-import { ILinks } from "../(types)";
+import { MenuSideBarIcon } from "@/assets/icons";
+import { LinksArr } from "@/lib/util";
+import { ILinks } from "@/types";
 
 const Header = () => {
   const [activeLanguage, setActiveLanguage] = useState<boolean>(false);
@@ -14,11 +14,10 @@ const Header = () => {
   return (
     <>
       <header
-        className={`relative flex z-10 md:hidden ${
-          showLinks
-            ? "min-h6 relative bg-blue-primary flex flex-col gap-4 items-center"
-            : "max-h-16 "
-        } bg-white px-10 justify-between flex-row items-center py-4 box-shadow`}
+        className={`relative flex z-10 md:hidden ${showLinks
+          ? "min-h6 relative bg-blue-primary flex flex-col gap-4 items-center"
+          : "max-h-16 "
+          } bg-white px-10 justify-between flex-row items-center py-4 box-shadow`}
       >
         <div>
           <button onClick={() => setShowLinks((prev) => !prev)}>
