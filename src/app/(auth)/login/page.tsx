@@ -9,7 +9,7 @@ import {
   LanguageOptionArr,
   LinksArr,
   SocialLinksArr,
-} from "../../../lib/util";
+} from "@/lib/util";
 import { ILinks, ISocialLinks } from "@/types";
 import Link from "next/link";
 import { USFlagSvg } from "@/assets/icons/flag/flag.d";

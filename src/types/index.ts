@@ -14,5 +14,6 @@ export interface ISocialLinks {
     id: string;
     linkName: string;
     linkUrl: string;
-    linkIcon: any;
+    linkIcon: React.ReactNode;
 }
+    
