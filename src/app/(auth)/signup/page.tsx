@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
 import { LogoSvg } from "@/assets/icons/logo";
-import { LineSvg, SignUpSvg } from "@/assets/icons";
+import { CompanyEmailSvg, CompanyHouseSvg, CompanyPasswordSvg, LineSvg, SignUpSvg } from "@/assets/icons";
 import {
   LanguageOptionArr,
   LinksArr,
@@ -97,9 +97,9 @@ export default function SignUp() {
               method="post"
               className="bg-white flex flex-col gap-3 pt-8"
             >
-              <Input name="company" placeholder="Your Company" />
-              <Input name="email" placeholder="Your Email" />
-              <Input name="password" placeholder="Your Password" />
+              <Input icon={<CompanyHouseSvg />} name="company" placeholder="Your Company" />
+              <Input icon={<CompanyEmailSvg />} type="email" name="email" placeholder="Your Email" />
+              <Input icon={<CompanyPasswordSvg />} type="password" name="password" placeholder="Your Password" />
               <div className="py-4">
                 <button
                   type="submit"
@@ -131,9 +131,11 @@ export default function SignUp() {
                 <span className="text-center pt-3 pb-5 text-[14px] font-medium">
                   Already have an Account ?
                 </span>
-                <button className="text-blue-primary border-2 font-semibold border-blue-primary bg-transparent rounded-md text-[14px] py-3 w-full flex flex-row items-center justify-center">
-                  <Link href={"/auth/login"}>Login Now</Link>
-                </button>
+                <Link href={"/login"}>
+                  <button className="text-blue-primary border-2 font-semibold border-blue-primary bg-transparent rounded-md text-[14px] py-3 w-full flex flex-row items-center justify-center">
+                    Login Now
+                  </button>
+                </Link>
               </div>
             </form>
           </div>

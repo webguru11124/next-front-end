@@ -27,6 +27,7 @@ module.exports = {
       green: "#13ce66",
       yellow: "#ffc82c",
       "text-color": "#404040",
+      "gray-white": "#F5F6F8",
       "gray-dark": "#273444",
       gray: "#8492a6",
       "gray-light": "#d3dce6",
@@ -45,6 +46,7 @@ module.exports = {
     },
     borderRadius: {
       md: "12px",
+      full: "999px"
     },
     fontSize: {
       sm: "12px",

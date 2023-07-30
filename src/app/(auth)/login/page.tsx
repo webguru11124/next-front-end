@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Header from "@/components/common/Header";
 import Input from "@/components/common/Input";
 import { LogoSvg } from "@/assets/icons/logo";
-import { CheckMark, LineSvg, LoginSvg, SignUpSvg } from "@/assets/icons";
+import { CheckMark, CompanyEmailSvg, CompanyPasswordSvg, LineSvg, LoginSvg, SignUpSvg } from "@/assets/icons";
 import {
   LanguageOptionArr,
   LinksArr,
@@ -120,8 +120,8 @@ const Login = () => {
               method="post"
               className="bg-white flex flex-col gap-2 pt-8"
             >
-              <Input name="email" placeholder="Your Email" />
-              <Input name="password" placeholder="Your Password" />
+              <Input icon={<CompanyEmailSvg />} type="email" name="email" placeholder="Your Email" />
+              <Input icon={<CompanyPasswordSvg />} type="password" name="password" placeholder="Your Password" />
               <div className="flex justify-end text-sm text-[#6F74DD]">
                 Forget Password?
               </div>
@@ -156,9 +156,11 @@ const Login = () => {
                 <span className="text-center pt-3 pb-5 text-sm font-medium text-[#828282]">
                   Already have an Account ?
                 </span>
-                <button className="text-blue-primary border-[1px] font-semibold border-blue-primary bg-transparent rounded-[5px] text-[14px] py-2 w-full flex flex-row items-center justify-center">
-                  <Link href={"/auth/signup"}>Signup Now</Link>
-                </button>
+                <Link href={"/signup"}>
+                  <button className="text-blue-primary border-[1px] font-semibold border-blue-primary bg-transparent rounded-[5px] text-[14px] py-2 w-full flex flex-row items-center justify-center">
+                    Signup Now
+                  </button>
+                </Link>
               </div>
             </form>
           </div>
