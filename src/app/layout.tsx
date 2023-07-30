@@ -1,3 +1,6 @@
+import Header from "@/app/Header"
+import "@/globals.css";
+
 export default function RootLayout({
     children,
 }: {
@@ -5,7 +8,12 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body className="bg-gray-white ">
+                <Header />
+                <div className="px-20 pt-10 ">
+                    {children}
+                </div>
+            </body>
         </html>
     )
 }

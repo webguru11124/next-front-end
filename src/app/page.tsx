@@ -1,3 +1,5 @@
+import Header from "@/components/common/Header"
+
 export default function Page({
     params,
     searchParams,
@@ -5,5 +7,7 @@ export default function Page({
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
-    return <h1>My Page</h1>
+    return <section>
+        <h1>My Page</h1>
+    </section>
 }
