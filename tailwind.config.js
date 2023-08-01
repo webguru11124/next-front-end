@@ -30,8 +30,12 @@ module.exports = {
       "gray-white": "#F5F6F8",
       "gray-dark": "#273444",
       gray: "#8492a6",
+      "red": "#FF5647",
+      "gray-max-light": "#F0F0F0",
       "gray-light": "#d3dce6",
       "gray-lighter": "#7E7E7E",
+      "gray-border": "#e2e2e2",
+      "gray-placeholder": "#9CA3AF"
     },
     fontWeight: {
       thin: 100,
