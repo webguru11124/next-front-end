@@ -155,7 +155,7 @@ const Login = () => {
                 <span className="text-center pt-3 pb-5 text-sm font-medium text-[#828282]">
                   Already have an Account ?
                 </span>
-                <Link href={"/signup"}>
+                <Link href={"/register"}>
                   <button className="text-blue-primary border-[1px] font-semibold border-blue-primary bg-transparent rounded-[5px] text-[14px] py-2 w-full flex flex-row items-center justify-center">
                     Signup Now
                   </button>

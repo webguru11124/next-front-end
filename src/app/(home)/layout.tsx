@@ -1,4 +1,4 @@
-
+import Header from "@/app/(home)/header"
 import "@/globals.css";
 import { NextAuthProvider } from "@/app/providers";
 export const metadata = {
@@ -11,15 +11,13 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    return (
-        <html lang="en">
-            <body className="bg-gray-white ">
-                <NextAuthProvider>
-
-                    {children}
-                </NextAuthProvider>
-
-            </body>
-        </html>
+    return (<>
+        <Header />
+        <main>
+            <div className="px-20 pt-10 ">
+                {children}
+            </div>
+        </main>
+    </>
     )
 }

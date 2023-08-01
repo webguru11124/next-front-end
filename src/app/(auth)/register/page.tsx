@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Header from "@/app/(auth)/Header";
+import Header from "@/app/(auth)/header";
 import Input from "@/components/Input";
 import { LogoSvg } from "@/assets/icons/logo";
 import { CompanyEmailSvg, CompanyHouseSvg, CompanyPasswordSvg, LineSvg, SignUpSvg } from "@/assets/icons";
@@ -97,7 +97,7 @@ export default function SignUp() {
               method="post"
               className="bg-white flex flex-col gap-3 pt-8"
             >
-              <Input icon={<CompanyHouseSvg />} name="company" placeholder="Your Company" />
+              <Input icon={<CompanyHouseSvg />} name="name" placeholder="Your  Name" />
               <Input icon={<CompanyEmailSvg />} type="email" name="email" placeholder="Your Email" />
               <Input icon={<CompanyPasswordSvg />} type="password" name="password" placeholder="Your Password" />
               <div className="py-4">
