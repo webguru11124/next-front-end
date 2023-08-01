@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Header from "@/components/common/Header";
-import Input from "@/components/common/Input";
+import Header from "@/app/(auth)/Header";
+import Input from "@/components/Input";
 import { LogoSvg } from "@/assets/icons/logo";
 import { CompanyEmailSvg, CompanyHouseSvg, CompanyPasswordSvg, LineSvg, SignUpSvg } from "@/assets/icons";
 import {

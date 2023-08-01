@@ -1,4 +1,5 @@
 import { FiChevronLeft } from "react-icons/fi"
+import EditModal from "./editModal"
 export default function ProfileLayout({
     children,
 }: {
@@ -13,5 +14,6 @@ export default function ProfileLayout({
         <div className="flex justify-center mt-20">
             {children}
         </div>
+        <EditModal></EditModal>
     </section>
 }
