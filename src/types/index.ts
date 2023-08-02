@@ -16,4 +16,15 @@ export interface ISocialLinks {
     linkUrl: string;
     linkIcon: React.ReactNode;
 }
-    
+
+export interface RegisterFormData {
+    name: string;
+    email: string;
+    password: string;
+
+}
+export interface LoginFormData {
+    email: string;
+    password: string;
+
+}
