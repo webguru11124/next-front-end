@@ -45,7 +45,7 @@ export default function ProfilePanel() {
                     </div>
                     <div className="mt-1">
                         <button className="flex text-xl text-red" onClick={() => {
-                            signOut()
+                            signOut({ redirect: true, callbackUrl: "/login" })
                         }}>
                             <GoSignOut className="mr-1" />
                             <div>Sign Out</div>

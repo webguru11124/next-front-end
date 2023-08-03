@@ -35,7 +35,8 @@ module.exports = {
       "gray-light": "#d3dce6",
       "gray-lighter": "#7E7E7E",
       "gray-border": "#e2e2e2",
-      "gray-placeholder": "#9CA3AF"
+      "gray-placeholder": "#9CA3AF",
+      "blue-lighter": "#EEF2FF"
     },
     fontWeight: {
       thin: 100,
@@ -51,6 +52,9 @@ module.exports = {
     borderRadius: {
       md: "12px",
       full: "999px"
+    },
+    width: {
+      header: "271px"
     },
     fontSize: {
       sm: "12px",
@@ -83,6 +87,14 @@ module.exports = {
         {
           lineHeight: "2.25rem",
           letterSpacing: "-0.02em",
+          fontWeight: "700",
+        },
+      ],
+      "4xl": [
+        "32px",
+        {
+          lineHeight: "2.5rem",
+          letterSpacing: "-0.01em",
           fontWeight: "700",
         },
       ],

@@ -27,13 +27,15 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 try {
-                    const res: AxiosResponse<loginResult> = await loginUser({ email: credentials.email, password: credentials.password });
-                    console.log("res", res.data);
+                    const res: AxiosResponse<loginResult> = await loginUser({
+                        email: credentials.email, password: credentials.password
+                    });
                     if (res.data.success) {
                         return {
                             id: res.data.result.user_id,
                             email: credentials.email,
                             randomKey: "Hey cool",
+
                         }
                     }
                     else return null;

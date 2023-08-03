@@ -5,7 +5,7 @@ import { ILanguageOptions, ILinks, ISocialLinks } from '@/types';
 export const LanguageOptionArr: ILanguageOptions[] = [
     {
         code: 'USA',
-        image: <USFlagSvg/>,
+        image: <USFlagSvg />,
         id: '1',
     },
     {
@@ -62,3 +62,12 @@ export const SocialLinksArr: ISocialLinks[] = [
         linkIcon: <AppleSvg />
     }
 ]
+
+export const formatDate = (date: Date): string => {
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+}

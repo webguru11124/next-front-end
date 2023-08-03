@@ -1,5 +1,5 @@
 
-
+import { redirect } from 'next/navigation';
 export default function Page({
     params,
     searchParams,
@@ -7,7 +7,6 @@ export default function Page({
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
-    return <section>
-        <h1>My Page</h1>
-    </section>
+    redirect('dashboard')
+    return <>Hello</>
 }

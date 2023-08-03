@@ -33,6 +33,6 @@ export interface loginResult {
     message: string;
     result: {
         token: string;
-        user_id: number;
+        user_id: string;
     }
 }
