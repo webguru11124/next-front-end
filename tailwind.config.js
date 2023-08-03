@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 import plugin from "tailwindcss/plugin";
 module.exports = {
   content: [
@@ -50,11 +52,9 @@ module.exports = {
       black: 900,
     },
     borderRadius: {
+      sm: "6px",
       md: "12px",
       full: "999px"
-    },
-    width: {
-      header: "271px"
     },
     fontSize: {
       sm: "12px",
@@ -104,6 +104,18 @@ module.exports = {
       serif: ["Merriweather", "serif"],
     },
     extend: {
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+      },
+      width: {
+        header: "271px",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
