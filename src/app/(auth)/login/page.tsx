@@ -1,30 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import Header from "../../(common)/Header";
-import Input from "../../(common)/Input";
-import { LogoSvg } from "../../(icons)/logo";
-import { CheckMark, LineSvg, LoginSvg, SignUpSvg } from "../../(icons)";
-import {
-  LanguageOptionArr,
-  LinksArr,
-  SocialLinksArr,
-} from "../../(lib)/util.d";
-import { ILinks, ISocialLinks } from "../../(types)";
-import Link from "next/link";
-import { USFlagSvg } from "../../(icons)/flag/flag.d";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+
+
+import React from "react";
+import { LogoSvg } from "@/assets/icons/logo";
+import { CheckMark, LoginSvg, } from "@/assets/icons";
+import Header from "@/app/(auth)/header";
+import LoginForm from "@/app/(auth)/login/loginForm";
 
 const Login = () => {
-  const [activeLanguage, setActiveLanguage] = useState<boolean>(false);
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = e.target as HTMLFormElement;
-    const formData = {
-      contactName: target.value,
-      contactEmail: target.value,
-      contactUsername: target.value,
-    };
-  };
+
   return (
     <section className="flex md:px-0 xs:px-4 font-sans md:min-h-screen flex-col justify-start xs:justify-center xs:h-[100vh] md:h-auto md:flex-row">
       <div className="absolute z-1 left-0 top-0 bg-blue-light w-[100vw] h-[60vh] xs:block md:hidden " />
@@ -68,98 +51,14 @@ const Login = () => {
         </div>
       </div>
       <div className="px-4 sm:px-20 lg:px-6 xl:px-24 flex flex-col items-center w-full mx-auto md:py-10 relative">
-        <div className="md:flex hidden flex-row items-center justify-between gap-6 lg:gap-12">
-          <div className="flex flex-row justify-between items-center gap-6 lg:gap-12">
-            {LinksArr.map((link: ILinks) => (
-              <Link
-                key={link.id}
-                href={link.linkUrl}
-                className="text-blue text-lg font-semibold"
-              >
-                {link.linkName}
-              </Link>
-            ))}
-          </div>
-          <div className="relative">
-            <button
-              onClick={() => setActiveLanguage((prev) => !prev)}
-              className="flex flex-row gap-2 items-center"
-            >
-              <USFlagSvg />
-              <ChevronDownIcon className="h-4 w-4 text-gray-dark" />
-            </button>
-            {activeLanguage && (
-              <div className="absolute ">
-                <ul className="box-shadow border-white py-2 flex-col flex ">
-                  {LanguageOptionArr ? (
-                    LanguageOptionArr.map((language) => (
-                      <li
-                        key={language.id}
-                        className="hover:bg-gray-light py-4 rounded-md px-4"
-                      >
-                        {language.image}{" "}
-                      </li>
-                    ))
-                  ) : (
-                    <li>No Specified language</li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+        <Header></Header>
         <div className="box-shadow rounded-md bg-white w-full xl:max-w-[30vw] py-8 -mt-20 md:mt-12 px-12 md:px-12">
           <h2 className="text-[#032D60] font-semibold text-xl">Welcome!</h2>
           <p className="text-gray-lighter font-light mt-2">
             Enter your details to get started
           </p>
           <div>
-            <form
-              onSubmit={handleSubmit}
-              method="post"
-              className="bg-white flex flex-col gap-2 pt-8"
-            >
-              <Input name="email" placeholder="Your Email" />
-              <Input name="password" placeholder="Your Password" />
-              <div className="flex justify-end text-sm text-[#6F74DD]">
-                Forget Password?
-              </div>
-              <div className="py-4">
-                <button
-                  type="submit"
-                  className="text-white rounded-[5px] bg-blue-primary text-[14px] rounded-xl flex flex-row justify-center py-2 w-full text-center font-semibold"
-                >
-                  Login
-                </button>
-              </div>
-              <div className="flex flex-row items-center justify-center gap-5 text-[10px]">
-                <LineSvg />
-                <span>Or</span>
-                <LineSvg />
-              </div>
-              <div className="flex  flex-row justify-center place-items-center md:justify-center gap-4 md:gap-4">
-                {SocialLinksArr ? (
-                  SocialLinksArr.map((social) => (
-                    <div
-                      key={social.id}
-                      className="px-[8px] py-[8px] rounded-[4px] mt-2 border-[1px] border-blue"
-                    >
-                      {social.linkIcon}
-                    </div>
-                  ))
-                ) : (
-                  <span>No Relevant Links Data</span>
-                )}
-              </div>
-              <div className="flex flex-col mt-2 justify-center">
-                <span className="text-center pt-3 pb-5 text-sm font-medium text-[#828282]">
-                  Already have an Account ?
-                </span>
-                <button className="text-blue-primary border-[1px] font-semibold border-blue-primary bg-transparent rounded-[5px] text-[14px] py-2 w-full flex flex-row items-center justify-center">
-                  <Link href={"/auth/signup"}>Signup Now</Link>
-                </button>
-              </div>
-            </form>
+            <LoginForm></LoginForm>
           </div>
         </div>
         <div className="py-2 flex flex-col justify-center items-center">

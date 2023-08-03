@@ -1,10 +1,11 @@
 import Image from "next/image";
 import React from "react";
+import Logo from "@/assets/img/logo.png"
 
 export const LogoSvg = () => {
   return (
     <Image
-      src={"/(images)/logo.png"}
+      src={Logo}
       alt="Logo Image"
       width={150}
       height={60}
