@@ -7,6 +7,7 @@ import Popup from "@/components/Popup";
 import SelectBox from "@/components/SelectBox";
 import { ModalType, useClose, useModalType, useOpen } from "@/store/useModalStore"
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { GoSignOut } from "react-icons/go"
 import { LuEdit } from "react-icons/lu"
 
@@ -22,6 +23,7 @@ const COMPLETION_STATUSES = [
 ];
 
 export default function ProfilePanel() {
+    const router = useRouter();
     const close = useClose();
     const modal = useModalType();
     return (modal === ModalType.ProfileModal && <Popup width="md" className="h-[714px] py-4">
@@ -38,7 +40,7 @@ export default function ProfilePanel() {
                         <span className="text-gray-lighter">Role:</span> Admin
                     </div>
                     <div>
-                        <button className="flex text-xl text-blue-primary">
+                        <button className="flex text-xl text-blue-primary" onClick={() => { router.push("/profile"), close(); }}>
                             <LuEdit className="mr-1" />
                             <div>Edit Profile</div>
                         </button>
@@ -65,7 +67,18 @@ export default function ProfilePanel() {
                 <span className="text-gray-lighter">Email: </span>
                 <span>go@go.com</span>
             </div>
-
+            <div className="mt-4">
+                <button className="flex text-xl text-blue-primary font-semibold" onClick={() => { router.push("/users"), close(); }}>
+                    <LuEdit className="mr-1" />
+                    <div>Manage user</div>
+                </button>
+            </div>
+            <div className="mt-7">
+                <button className="flex text-xl text-blue-primary font-semibold" onClick={() => { router.push("/organizations"), close(); }}>
+                    <LuEdit className="mr-1" />
+                    <div>Manage Organization</div>
+                </button>
+            </div>
         </div>
     </Popup>)
 }

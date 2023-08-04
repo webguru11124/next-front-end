@@ -40,37 +40,35 @@ const Popup = ({
     const open = useOpen();
     const handleClose = useClose();
     return open && (
-        <PopupContainer className="fixed z-50 top-0 left-0 w-screen h-screen ">
-            <div className="flex items-center w-full h-full justify-end   ">
-                <OutsideClickHandler onOutsideClick={handleClose}>
-                    <ContentContainer
-                        className={cx(
-                            'rounded-md Popup_content_container bg-white shadow-md',
-                            { 'overflow-y-auto': !overflow },
-                            width &&
-                            css(`
+        <div className="absolute top-full bottom-0 right-0 flex  justify-end   ">
+            <OutsideClickHandler onOutsideClick={handleClose}>
+                <ContentContainer
+                    className={cx(
+                        'rounded-md  bg-white shadow-md',
+                        { 'overflow-y-auto': !overflow },
+                        width &&
+                        css(`
               width: ${PopupWidth[width]}
             `)
+                    )}
+                >
+                    {heading && (
+                        <div className="border-b border-gray-light pt-6 pb-4 px-6">
+                            {heading}
+                        </div>
+                    )}
+                    <div
+                        className={cx(
+                            'overflow-auto ',
+                            className,
+                            containerPaddingClass
                         )}
                     >
-                        {heading && (
-                            <div className="border-b border-gray-light pt-6 pb-4 px-6">
-                                {heading}
-                            </div>
-                        )}
-                        <div
-                            className={cx(
-                                'overflow-auto Popup_content',
-                                className,
-                                containerPaddingClass
-                            )}
-                        >
-                            {children}
-                        </div>
-                    </ContentContainer>
-                </OutsideClickHandler>
-            </div>
-        </PopupContainer>
+                        {children}
+                    </div>
+                </ContentContainer>
+            </OutsideClickHandler>
+        </div>
     );
 };
 

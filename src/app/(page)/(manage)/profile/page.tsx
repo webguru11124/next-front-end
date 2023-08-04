@@ -1,6 +1,6 @@
 "use client"
 
-import Avatar, { AvatarSize } from "@/components/Avatar"
+import Avatar from "@/components/Avatar"
 import { ModalType, useModal } from "@/store/useModalStore";
 
 export default function ProfilePage() {

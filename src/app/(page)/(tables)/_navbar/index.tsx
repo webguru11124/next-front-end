@@ -3,12 +3,12 @@ import { BsPersonVcard, BsFillGeoFill } from "react-icons/bs"
 import { HiOutlineUserGroup } from "react-icons/hi"
 
 import { BsPeople } from "react-icons/bs"
-import NavItem from "@/app/(page)/_navbar/item"
-import NavItemOpenable from "@/app/(page)/_navbar/item/openable"
+import NavItem from "@/app/(page)/(tables)/_navbar/item"
+import NavItemOpenable from "@/app/(page)/(tables)/_navbar/item/openable"
 
 export default function Navbar() {
     return <div className=" bg-white h-screen">
-        <div className="flex flex-col justify-center pt-14">
+        <div className="flex flex-col justify-center pt-14 ">
             <NavItem icon={<LuLayoutDashboard />} name="Dashboard" url="/dashboard" ></NavItem>
             <NavItem icon={<LuLayoutDashboard />} name="Extra Fields" url="/extra"></NavItem>
             <NavItem icon={<LuLayoutDashboard />} name="Items" url="/items"></NavItem>

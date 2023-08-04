@@ -24,7 +24,7 @@ export default function Header() {
             <div className="w-header">
                 <LogoSvg />
             </div>
-            <div className="grow flex justify-between">
+            <div className="relative grow flex justify-between">
                 <div className="text-xl hidden md:block">
                     <div className="font-semibold">Welcome!</div>
                     <div className="text-lg mt-2">{formattedDate}</div >
@@ -39,9 +39,12 @@ export default function Header() {
                         <Avatar size="sm" />
                         <span className="">Sam D.</span>
                     </button>
+
+
                 </div>
+
+                <ProfilePanel />
             </div>
         </div>
-        <ProfilePanel></ProfilePanel>
     </>
 }

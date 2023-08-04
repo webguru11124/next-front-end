@@ -1,6 +1,5 @@
 import Header from "@/app/(page)/header"
 import "@/globals.css";
-import Navbar from "@/app/(page)/_navbar";
 import { Suspense } from "react";
 import Loading from "@/app/(page)/loading";
 export const metadata = {
@@ -15,18 +14,9 @@ export default function RootLayout({
 }) {
     return (<>
         <Header />
-        <div className="flex">
-            <div className="w-header">
-                <Navbar />
-            </div>
-            <main className="">
-                <div className="px-6 py-6 ">
-                    <Suspense fallback={<Loading />}>
-                        {children}
-                    </Suspense>
-                </div>
-            </main>
-        </div>
+        <Suspense fallback={<Loading />}>
+            {children}
+        </Suspense>
     </>
     )
 }
