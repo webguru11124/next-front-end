@@ -8,6 +8,8 @@ import { create } from 'zustand';
 export enum ModalType {
   PorfileEditModal,
   ProfileModal,
+  OrganizationEditModal,
+  InviteUser
 }
 export interface ModalOptions {
   catchOnCancel?: boolean;

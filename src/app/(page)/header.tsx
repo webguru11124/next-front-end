@@ -7,7 +7,7 @@ import { IoIosNotificationsOutline } from "react-icons/io"
 
 import Avatar from "@/components/Avatar";
 import { ModalType, useModal } from "@/store/useModalStore";
-import ProfilePanel from "./profilePanel";
+import ProfilePanel from "./_profilePanel";
 import { formatDate } from "@/lib/util";
 export default function Header() {
     const openModal = useModal();
@@ -25,7 +25,7 @@ export default function Header() {
                 <LogoSvg />
             </div>
             <div className="relative grow flex justify-between">
-                <div className="text-xl hidden md:block">
+                <div className="text-xl mobile-only:hidden">
                     <div className="font-semibold">Welcome!</div>
                     <div className="text-lg mt-2">{formattedDate}</div >
                 </div>

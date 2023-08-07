@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @import 'react-toastify/dist/ReactToastify.css';
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}

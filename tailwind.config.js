@@ -42,7 +42,11 @@ module.exports = {
       "gray-placeholder": "#9CA3AF",
       "blue-lighter": "#EEF2FF",
       "light-border": "#D2D2D2",
-      "lighter-border": "#EDEDED"
+      "lighter-border": "#EDEDED",
+      "black": "#404040",
+      "white-darker": "#7E7E7E",
+      "green-text": "#00E431",
+      "green-light": "#D9FFE5"
     },
     fontWeight: {
       thin: 100,
@@ -50,7 +54,7 @@ module.exports = {
       light: 300,
       normal: 400,
       medium: 500,
-      semibold: 500,
+      semibold: 550,
       bold: 600,
       extrabold: 800,
       black: 900,
@@ -104,10 +108,13 @@ module.exports = {
       ],
     },
     fontFamily: {
-      sans: ["Graphik", "sans-serif"],
+      sans: ["Montserrat", "sans-serif"],
       serif: ["Merriweather", "serif"],
     },
     extend: {
+      boxShadow: {
+        '3xl': '0 4px 10px 0px rgba(0, 0, 0, 0.20)',
+      },
       borderWidth: {
         DEFAULT: '1px',
         '0': '0',
@@ -128,6 +135,7 @@ module.exports = {
     },
   },
   plugins: [
+    // require('daisyui'),
     plugin(function ({ addVariant }) {
       addVariant(
         "mobile-only",
