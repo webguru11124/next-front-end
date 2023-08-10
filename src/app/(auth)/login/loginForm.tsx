@@ -52,7 +52,6 @@ export default function LoginForm() {
             });
 
             setLoading(false);
-            console.log(res);
             if (!res?.error) {
                 toast.error(`Successed`, { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
                 router.push(callbackUrl);

@@ -9,6 +9,7 @@ import Avatar from "@/components/Avatar";
 import { ModalType, useModal } from "@/store/useModalStore";
 import ProfilePanel from "./_profilePanel";
 import { formatDate } from "@/lib/util";
+import { Popover } from '@headlessui/react'
 export default function Header() {
     const openModal = useModal();
 
@@ -35,15 +36,23 @@ export default function Header() {
                 <div className="flex items-center ">
                     <IoIosNotificationsOutline size={26} className="mr-6" />
 
-                    <button className="rounded-md bg-gray-white flex py-1.5 w-[165px] text-blue-primary items-center" onClick={() => openModal({ modalType: ModalType.ProfileModal })}>
-                        <Avatar size="sm" />
-                        <span className="">Sam D.</span>
-                    </button>
+                    <Popover className="relative ">
+                        <Popover.Button className="focus:outline-none ">
+                            <div className="rounded-md bg-gray-white flex py-1.5 w-[165px] text-blue-primary items-center">
+                                <Avatar size="sm" />
+                                <span className="">Sam D.</span>
+                            </div>
+                        </Popover.Button>
+
+                        <Popover.Panel className="absolute right-0">
+                            {({ close }) => (
+                                <ProfilePanel close={close} />
+                            )}
+                        </Popover.Panel>
+                    </Popover>
 
 
                 </div>
-
-                <ProfilePanel />
             </div>
         </div>
     </>

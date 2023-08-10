@@ -1,4 +1,4 @@
-import Header from "@/app/(page)/header"
+import Header from "@/app/(page)/_header"
 import "@/globals.css";
 import { Suspense } from "react";
 import Loading from "@/app/(page)/loading";

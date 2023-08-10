@@ -1,6 +1,7 @@
 
 import Header from "./header"
-import InviteUserModal from "./inviteUser"
+import InviteUserModal from "./_inviteUser"
+import UserDetailModal from "./userDetailModal"
 export default function ProfileLayout({
     children,
 }: {
