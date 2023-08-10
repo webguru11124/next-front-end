@@ -20,10 +20,7 @@ const ActiveLink = ({
     // Check if the router fields are updated client-side
     // Dynamic route will be matched via props.as
     // Static route will be matched via props.href
-    const linkPathname = new URL(
-        (props.as || props.href) as string,
-        location.href
-    ).pathname;
+    const linkPathname = (props.as || props.href) as string;
 
     const newClassName =
         linkPathname === pathname
