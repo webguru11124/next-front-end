@@ -19,7 +19,8 @@ export default function ProfileCard() {
                     </div>
                 </div>
                 <div>
-                    <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold" onClick={() => openModal({ modalType: ModalType.PorfileEditModal })}>Edit</button>
+                    <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold"
+                        onClick={() => openModal({ modalType: ModalType.PorfileEditModal })}>Edit</button>
                 </div>
 
             </div >

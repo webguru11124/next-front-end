@@ -1,4 +1,5 @@
 import Header from "@/app/(page)/(manage)/header";
+import EditModal from "./profile/editModal";
 
 export default function ManageLayout({ children }: { children: React.ReactNode }) {
     return <>
@@ -7,6 +8,7 @@ export default function ManageLayout({ children }: { children: React.ReactNode }
                 <Header></Header>
             </div>
             {children}
+            <EditModal />
         </div>
     </>
 }

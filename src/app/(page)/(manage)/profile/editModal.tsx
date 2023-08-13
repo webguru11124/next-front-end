@@ -56,7 +56,6 @@ export default function EditModal() {
                         label="Gender"
                         options={COMPLETION_STATUSES}
                         placeholder={`${('Select your gender')}`}
-                        onChange={(val) => ({})}
                     />
                     <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
                         Regional Settings
@@ -66,22 +65,18 @@ export default function EditModal() {
                             label="Country"
                             options={COMPLETION_STATUSES}
                             placeholder={`${('Select a country')}`}
-                            onChange={(val) => ({})}
                         />
                     </div>
                     <SelectBox
                         label="Language"
                         options={COMPLETION_STATUSES}
                         placeholder={`${('Select a language')}`}
-                        onChange={(val) => ({})}
                     />
                     <div className="col-span-2">
                         <SelectBox
                             label="Time Zone"
-
                             options={COMPLETION_STATUSES}
                             placeholder={`${('Select your timezone')}`}
-                            onChange={(val) => ({})}
                         />
                     </div>
                 </div>

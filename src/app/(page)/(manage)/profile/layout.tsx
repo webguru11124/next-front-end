@@ -10,6 +10,6 @@ export default function ProfileLayout({
         <div className="flex justify-center mt-20">
             {children}
         </div>
-        <EditModal></EditModal>
+        <EditModal />
     </section>
 }
