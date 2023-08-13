@@ -25,7 +25,7 @@ export default function Header() {
             <div className="w-header">
                 <LogoSvg />
             </div>
-            <div className="relative grow flex justify-between">
+            <div className="relative grow flex justify-between mobile-only:justify-end">
                 <div className="text-xl mobile-only:hidden">
                     <div className="font-semibold">Welcome!</div>
                     <div className="text-lg mt-2">{formattedDate}</div >
@@ -34,7 +34,7 @@ export default function Header() {
                     <Input icon={<BiSearch />} name="search" placeholder="Search here" className="bg-gray-white border-none  rounded-md placeholder:text-black" />
                 </div>
                 <div className="flex items-center ">
-                    <IoIosNotificationsOutline size={26} className="mr-6" />
+                    <button><IoIosNotificationsOutline size={26} className="mr-6" /></button>
 
                     <Popover className="relative ">
                         <Popover.Button className="focus:outline-none ">
@@ -44,7 +44,7 @@ export default function Header() {
                             </div>
                         </Popover.Button>
 
-                        <Popover.Panel className="absolute right-0">
+                        <Popover.Panel className="absolute right-0 z-50">
                             {({ close }) => (
                                 <ProfilePanel close={close} />
                             )}

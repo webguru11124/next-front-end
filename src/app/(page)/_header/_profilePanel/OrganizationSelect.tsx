@@ -10,7 +10,6 @@ import o3 from "@/assets/img/o3.png";
 import o4 from "@/assets/img/o4.png";
 import o5 from "@/assets/img/o5.png";
 import Image from 'next/image';
-import { relative } from 'path';
 import Link from 'next/link';
 import { PanelCloseType } from './types';
 
@@ -24,6 +23,7 @@ const orgs = [
 
 export default function OrganizationSelect({ close }: { close: PanelCloseType }) {
     const [org, setOrg] = useState(orgs[0])
+
     return (
         <>
             <div className="mt-9 flex justify-between mb-2.5">
@@ -57,5 +57,13 @@ export default function OrganizationSelect({ close }: { close: PanelCloseType })
 
                 ))}
             </RadioGroup>
+            <div className='mt-9 w-full flex justify-center'>
+                <Link href="/organizations/new"
+                    className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold "
+                    onClick={() => close()}
+                >
+                    Add Organization
+                </Link>
+            </div>
         </>)
 }

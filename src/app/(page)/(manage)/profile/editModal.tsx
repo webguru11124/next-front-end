@@ -19,7 +19,7 @@ const COMPLETION_STATUSES = [
     },
 ];
 
-export default function EditModal() {
+export default function EditProfileModal() {
     const close = useClose();
     const modal = useModalType();
     return (modal === ModalType.PorfileEditModal && <Modal width="xl" className="h-[714px] py-4">
