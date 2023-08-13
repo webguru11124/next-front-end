@@ -6,6 +6,7 @@ import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
 import { ModalType, useClose, useModalType, useOpen } from "@/store/useModalStore"
 import { GrClose } from "react-icons/gr"
+import RoleSelect from "./roleSelection";
 
 
 const COMPLETION_STATUSES = [
@@ -56,13 +57,13 @@ export default function InviteUserModal() {
                         onChange={(val) => ({})}
                     />
                 </div>
+                <RoleSelect />
 
                 <div className="py-10 flex justify-center">
                     <button className="btn rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white mr-12 font-bold" onClick={close} >Save</button>
                     <button className="rounded-md text-[18px] border-2 border-red py-2.5 px-7 text-red  font-bold" onClick={close} >Cancel</button>
                 </div>
             </form>
-
         </div >
     </Modal >)
 }

@@ -39,7 +39,7 @@ export default function OrganizationSelect({ close }: { close: PanelCloseType })
                 {orgs.map((org) => (
                     <RadioGroup.Option key={org.id} value={org}>
                         {({ active, checked }) => (
-                            <div className='bg-gray-white rounded-sm mt-2 py-2 px-4 '>
+                            <div className='bg-gray-white rounded-sm mt-2 py-2 px-4 cursor-pointer'>
                                 <div className='flex justify-between items-center'>
                                     <div className='flex items-center'>
                                         <div className='w-[34px] h-[34px] relative mr-2'>
@@ -47,7 +47,7 @@ export default function OrganizationSelect({ close }: { close: PanelCloseType })
                                         </div>
                                         <span> My Organizations</span>
                                     </div>
-                                    <div className='flex items-center cursor-pointer'>
+                                    <div className='flex items-center '>
                                         <span className={`w-5 h-5 border-3 border-light-border rounded-full inline-block ${active ? "bg-blue-primary" : "bg-none"}`}></span>
                                     </div>
                                 </div>

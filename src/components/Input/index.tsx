@@ -30,7 +30,7 @@ const Input = ({ icon, name, placeholder, type, className, error, register, labe
           {...(register && name ? register(name) : {})}
           type={type ?? "text"}
           name={name}
-          className={cx(`w-full rounded-md border border-[#e2e2e2] outline-none py-2 text-lg  ${className}`, { "px-[3em]": !!icon, "px-[1em]": !!!icon })}
+          className={cx(`w-full rounded-md border border-gray-border outline-none py-2 text-lg  ${className}`, { "px-[3em]": !!icon, "px-[1em]": !!!icon })}
           placeholder={placeholder}
           {...rest}
         />
