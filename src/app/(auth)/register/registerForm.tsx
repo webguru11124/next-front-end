@@ -7,16 +7,14 @@ import {
 import { ISocialLinks } from "@/types";
 import Link from "next/link";
 
-import { signIn } from "next-auth/react";
 import { useMutation } from "@tanstack/react-query";
 import Spinner from "@/components/Spinner";
 import { useSearchParams } from "next/navigation"
-import { registerUser } from "@/api/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from 'zod';
 import { useEffect } from "react";
-import { toast } from 'react-toastify';
+import useRegisterUser from "@/api/user/useRegister";
 
 const schema = z.object({
     name: z.string().min(1).max(50).nonempty(),
@@ -30,16 +28,7 @@ export { schema };
 export type { FormFields };
 
 export default function RegisterForm() {
-    const { isLoading, isError, error: ServerError, mutate } = useMutation({
-        mutationFn: registerUser,
-        onSuccess: (data, variables, context) => {
-            toast.error(`User registered Successfully`, { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
-            signIn(undefined, { callbackUrl: "/" });
-        },
-        onError: (error) => {
-            toast.error(`Server Error: ${error}`, { hideProgressBar: true, autoClose: 5000, type: 'error', position: 'top-right' })
-        }
-    })
+    const { isLoading, isError, error: ServerError, mutate } = useRegisterUser();
 
     const { register, handleSubmit, control, formState: { errors: formErrors }, watch, reset } = useForm({
         defaultValues: {

@@ -14,6 +14,7 @@ import { ILinks } from "@/types"; import {
 const Header = () => {
   const [activeLanguage, setActiveLanguage] = useState<boolean>(false);
   const [showLinks, setShowLinks] = useState<boolean>(false);
+
   return (
     <>
       <div className="md:flex hidden flex-row items-center justify-between gap-6 lg:gap-12">

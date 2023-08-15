@@ -6,19 +6,21 @@ import { BiSearch } from "react-icons/bi";
 import { IoIosNotificationsOutline } from "react-icons/io"
 
 import Avatar from "@/components/Avatar";
-import { ModalType, useModal } from "@/store/useModalStore";
 import ProfilePanel from "./_profilePanel";
 import { formatDate } from "@/lib/util";
 import { Popover } from '@headlessui/react'
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import useUserQuery from "@/api/user/useUserQuery";
 export default function Header() {
-    const openModal = useModal();
-
     // Get the current date
     const currentDate = new Date();
 
     // Format the current date as "Sat, Mar 25"
     const formattedDate = formatDate(currentDate);
 
+    const { data: session } = useSession();
+    const { data, error } = useUserQuery(session?.user?.id);
 
     return <>
         <div className="flex items-center px-6 pt-7 pb-6  bg-white shadow-xl">

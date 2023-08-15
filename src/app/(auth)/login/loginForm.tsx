@@ -10,7 +10,6 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { LoginFormData } from "@/types";
-import { loginUser, registerUser } from "@/api/auth";
 import { signIn } from "next-auth/react";
 import Spinner from "@/components/Spinner";
 import { toast } from "react-toastify";
