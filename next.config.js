@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-      appDir: true,
-    }
-  };
-  
-  module.exports = nextConfig;
-  
+  pageExtensions: ["mdx", "md", "jsx", "js", "tsx", "ts"],
+  env: {
+    api_link: ***********,
+    public_link:***********,
+    current_domain:*******,
+  },
+};
+
+module.exports = nextConfig;
