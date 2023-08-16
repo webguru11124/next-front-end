@@ -1,4 +1,4 @@
-import Header from "@/app/(page)/header"
+
 import "@/globals.css";
 import Navbar from "@/app/(page)/(tables)/_navbar";
 import { Suspense } from "react";
@@ -18,7 +18,7 @@ export default function TablesLayout({
             <div className="w-header">
                 <Navbar />
             </div>
-            <main className="">
+            <main className="w-full">
                 <div className="px-6 py-6 ">
                     <Suspense fallback={<Loading />}>
                         {children}
