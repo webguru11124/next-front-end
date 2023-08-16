@@ -42,9 +42,8 @@ export const authOptions: NextAuthOptions = {
                         return {
                             id: res.result.user_id,
                             email: credentials.email,
-                            randomKey: "Hey cool",
-                            accessToken: res.result.token, // Add accessToken to the returned user object
-
+                            randomKey: res.result.token,
+                            token: res.result.token,
                         }
                     }
                     else return null;
@@ -58,19 +57,18 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         session: ({ session, token }) => {
-            console.log(session, token);
+            // console.log(session, token);
             return {
                 ...session,
                 user: {
                     ...session.user,
-                    accessToken: token.accessToken,
                     id: token.id,
-                    randomKey: token.randomKey,
+                    token: token.randomKey,
                 },
-                accessToken: token,
             };
         },
-        jwt: ({ token, user }) => {
+        jwt: ({ token, user, account, profile },) => {
+            // console.log(token, user);
             if (user) {
                 const u = user as unknown as any;
                 return {

@@ -1,11 +1,17 @@
 
 "use client"
 
+import useGetProfile from "@/api/user/useGetProfile";
 import Avatar from "@/components/Avatar"
 import { ModalType, useModal } from "@/store/useModalStore";
+import { Spinner } from "@nextui-org/react";
 
 export default function ProfileCard() {
+
+    const { data, error, isError, isLoading } = useGetProfile();
     const openModal = useModal();
+    if ((isLoading))
+        return <><Spinner></Spinner></>
     return <>
         <div className="rounded-md bg-white shadow-lg  w-[920px] p-7">
             <div className="flex justify-between items-center mb-5 ">
@@ -13,8 +19,8 @@ export default function ProfileCard() {
                     <Avatar size="md" />
                     <div className="ml-7 flex justify-between">
                         <div >
-                            <h2 className="text-blue-main  font-bold text-2xl">Sam D</h2>
-                            <h4 className="text-gray-lighter">Sam_fake@gmail.com</h4>
+                            <h2 className="text-blue-main  font-bold text-2xl">{data.f_name}</h2>
+                            <h4 className="text-gray-lighter">{data.email}</h4>
                         </div>
                     </div>
                 </div>
@@ -30,7 +36,7 @@ export default function ProfileCard() {
                         Full Name:
                     </div>
                     <div className="mt-2 text-xl">
-                        Sam d
+                        {`${data.f_name} ${data.l_name}`}
                     </div>
                 </div>
 

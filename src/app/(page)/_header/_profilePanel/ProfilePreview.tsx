@@ -6,16 +6,22 @@ import { GoSignOut } from "react-icons/go"
 import { LuEdit, } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 import { PanelCloseType } from "./types";
+import useGetProfile from "@/api/user/useGetProfile";
+import Spinner from "@/components/Spinner";
 
 export default function ProfilePreview({ close }: { close: PanelCloseType }) {
     const router = useRouter();
+
+    const { data, error, isError, isLoading } = useGetProfile();
+    if ((isLoading))
+        return <><Spinner></Spinner></>
     return (<> <div className="flex gap-6 self-baseline">
         <div>
             <Avatar size="md" />
         </div>
         <div className="flex flex-col gap-y-1">
             <span className=" text-blue-main font-semibold text-2xl">
-                Sam D.
+                {data.f_name}
             </span>
             <div className="mt-1">
                 <span className="text-gray-lighter">Role:</span> Admin
@@ -39,7 +45,7 @@ export default function ProfilePreview({ close }: { close: PanelCloseType }) {
     </div>
         <div className="mt-4">
             <span className="text-gray-lighter">User ID: </span>
-            <span>224353543523</span>
+            <span>{data.id}</span>
         </div>
         <div className="mt-4">
             <span className="text-gray-lighter">Organization ID: </span>
@@ -47,7 +53,7 @@ export default function ProfilePreview({ close }: { close: PanelCloseType }) {
         </div>
         <div className="mt-4">
             <span className="text-gray-lighter">Email: </span>
-            <span>go@go.com</span>
+            <span>{data.email}</span>
         </div>
         <div className="mt-4">
             <button className="flex text-xl text-blue-primary  font-bold" onClick={() => { close(); router.push("/users"), close(); }}>

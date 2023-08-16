@@ -28,7 +28,7 @@ export interface LoginFormData {
     password: string;
 
 }
-export interface loginResult {
+export interface LoginResult {
     success: boolean;
     message: string;
     result: {

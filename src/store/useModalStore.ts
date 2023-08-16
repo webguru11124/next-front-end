@@ -10,7 +10,8 @@ export enum ModalType {
   ProfileModal,
   OrganizationEditModal,
   InviteUser,
-  UserDetail
+  UserDetail,
+  VendorDetail
 }
 export interface ModalOptions {
   catchOnCancel?: boolean;

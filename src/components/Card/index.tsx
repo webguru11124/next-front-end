@@ -5,6 +5,7 @@ const CardWidth = {
     md: '475px',
     lg: '920px',
     xl: '630px',
+    fl: 'full'
 };
 
 
@@ -13,9 +14,10 @@ export default function Card({ size, children }: { size: keyof typeof CardWidth,
 
     // Access the actual size value using the size prop.
     const width = CardWidth[size];
-
+    const width_style = width != "full" ? `w-[${width}]` : 'w-full'
+    const padding = size === "md" ? "p-7" : (size === "lg" ? "py-9 px-12" : "p-4");
     return (
-        <div className={cx(`rounded-md bg-white shadow-lg  w-[${width}] `, { "p-7": size === "md", "py-9 px-12": size === "lg" })}>
+        <div className={`rounded-md bg-white shadow-lg  ${width_style} ${padding}  w-full`}>
             {children}
         </div>
     );

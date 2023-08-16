@@ -9,18 +9,13 @@ import Avatar from "@/components/Avatar";
 import ProfilePanel from "./_profilePanel";
 import { formatDate } from "@/lib/util";
 import { Popover } from '@headlessui/react'
-import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
-import useUserQuery from "@/api/user/useUserQuery";
+import ProfileButton from "./userButton";
 export default function Header() {
     // Get the current date
     const currentDate = new Date();
 
     // Format the current date as "Sat, Mar 25"
     const formattedDate = formatDate(currentDate);
-
-    const { data: session } = useSession();
-    const { data, error } = useUserQuery(session?.user?.id);
 
     return <>
         <div className="flex items-center px-6 pt-7 pb-6  bg-white shadow-xl">
@@ -40,10 +35,7 @@ export default function Header() {
 
                     <Popover className="relative ">
                         <Popover.Button className="focus:outline-none ">
-                            <div className="rounded-md bg-gray-white flex py-1.5 w-[165px] text-blue-primary items-center">
-                                <Avatar size="sm" />
-                                <span className="">Sam D.</span>
-                            </div>
+                            <ProfileButton />
                         </Popover.Button>
 
                         <Popover.Panel className="absolute right-0 z-50">
