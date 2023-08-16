@@ -5,6 +5,7 @@ import useGetProfile from "@/api/user/useGetProfile";
 import Avatar from "@/components/Avatar"
 import { ModalType, useModal } from "@/store/useModalStore";
 import { Spinner } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
 
 export default function ProfileCard() {
 
@@ -26,7 +27,7 @@ export default function ProfileCard() {
                 </div>
                 <div>
                     <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold"
-                        onClick={() => openModal({ modalType: ModalType.PorfileEditModal })}>Edit</button>
+                        onClick={() => openModal({ modalType: ModalType.PorfileEditModal, id: data.id })}>Edit</button>
                 </div>
 
             </div >
@@ -53,7 +54,7 @@ export default function ProfileCard() {
                         Language:
                     </div>
                     <div className="mt-2 text-xl">
-                        English
+                        {data.language ?? "english"}
                     </div>
                 </div>
             </div>
@@ -73,7 +74,7 @@ export default function ProfileCard() {
                         Email:
                     </div>
                     <div className="mt-2 text-xl">
-                        Sam_fake@gmail.com
+                        {data.email}
                     </div>
                 </div>
 
@@ -82,7 +83,7 @@ export default function ProfileCard() {
                         Phone:
                     </div>
                     <div className="mt-2 text-xl">
-                        0987-
+                        {data.phone ?? "no phone"}
                     </div>
                 </div>
             </div>
