@@ -8,14 +8,14 @@ import {
   EyeSvg,
   MenuSideBarIcon,
 } from "@/assets/icons";
-import { FieldError, UseFormRegister } from 'react-hook-form';
+import { FieldError, FieldErrorsImpl, Merge, UseFormRegister } from 'react-hook-form';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
   placeholder: string;
   label?: string;
   register?: UseFormRegister<any>;
-  error?: FieldError | undefined;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }
 
 const Input = ({ icon, name, placeholder, type, className, error, register, label, ...rest }: InputProps) => {
