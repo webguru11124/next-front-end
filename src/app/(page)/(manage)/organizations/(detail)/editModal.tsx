@@ -5,7 +5,7 @@ import Avatar from "@/components/Avatar";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
-import { ModalType, useClose, useModalType, useOpen, useSelectedID } from "@/store/useModalStore"
+import { ModalType, useClose, useModalType, useOpen, } from "@/store/useModalStore"
 import { GrClose } from "react-icons/gr"
 
 
@@ -23,9 +23,6 @@ const COMPLETION_STATUSES = [
 export default function OrganizationEditModal() {
     const close = useClose();
     const modal = useModalType();
-    const id = useSelectedID();
-    const { data } = useUserQuery(`${id}`);
-    console.log(data);
     return (modal === ModalType.OrganizationEditModal && <Modal width="xl" className="h-[714px] py-4">
         <div className="flex flex-col h-full">
             <div className="flex relative justify-center">
@@ -48,7 +45,7 @@ export default function OrganizationEditModal() {
                         Personal Details
                     </div>
                     <div className="col-start-1">
-                        <Input label="First Name" name="first_name" placeholder="Enter first Name" value={data.f_name} />
+                        <Input label="First Name" name="first_name" placeholder="Enter first Name" />
                     </div>
                     <Input label="Last Name" name="last_name" placeholder="Enter last Name" />
                     <Input label="Email" name="email" placeholder="Enter email here" />
