@@ -54,7 +54,7 @@ export default function EditProfileModal() {
         resolver: zodResolver(schema),
         mode: 'onChange',
     });
-    const onSubmit = async (data: FormFields) => {
+    const onSubmit = async (data: FormFields | any) => {
         console.log(data)
     };
 
