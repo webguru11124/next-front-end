@@ -67,10 +67,10 @@ export default function LoginForm() {
     return (<>
         <form
             onSubmit={handleSubmit(onSubmit)}
-            method="post"
             className="bg-white flex flex-col gap-2 pt-8"
         >
-            <Input icon={<CompanyEmailSvg />} type="email" name="email" placeholder="Your Email" register={register} error={formErrors.email} />
+            <Input icon={<CompanyEmailSvg />} type="email" name="email" placeholder="Your Email" register={register}
+                error={formErrors.email} />
             <Input icon={<CompanyPasswordSvg />} type="password" name="password" placeholder="Your Password" register={register} error={formErrors.password} />
             <div className="flex justify-end text-sm text-[#6F74DD]">
                 Forget Password?

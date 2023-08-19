@@ -10,60 +10,61 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr"
 import { z } from "zod";
-import { User } from "../users/types";
-import { Vendor } from "../../(tables)/(contact)/vendors/types";
+import { User, getUserFromSource } from "../users/types";
+import { useEffect } from "react";
+import useGetProfile from "@/api/user/useGetProfile";
+import { Spinner } from "@nextui-org/react";
+import { Countries, Genders, Languages, Timezones } from "@/constants/forms";
+import useUserMutation from "@/api/user/useUserMutation";
 
 
-const COMPLETION_STATUSES = [
-    {
-        value: 'male',
-        label: 'male',
-    },
-    {
-        value: 'female',
-        label: 'female',
-    },
-];
 
-const schema = z.object({
+export const UserSchema = z.object({
     email: z.string().email(),
     f_name: z.string().min(1),
-    l_name: z.string(),
-    phone: z.string(),
-    gender: z.string(),
-    country: z.string(),
-    language: z.string(),
-    timezone: z.string(),
+    l_name: z.string().nullable(),
+    number: z.string().nullable(),
+    gender: z.string().nullable(),
+    country: z.string().nullable(),
+    language: z.string().nullable(),
+    timezone: z.string().nullable(),
 });
 
-type FormFields = z.infer<typeof schema>;
+export type UserForm = z.infer<typeof UserSchema>;
+
 export default function EditProfileModal() {
     const close = useClose();
     const modal = useModalType();
-    const data = useSelected();
-
-    let initialData: User | null = null;
-    if (data instanceof User) {
-        initialData = data;
-    }
-
+    let initalData: UserForm = {
+        email: "jack@test.com",
+        f_name: "jai",
+        l_name: "smith",
+        number: "123-4567",
+        gender: "male",
+        country: "US",
+        language: "english",
+        timezone: "EST",
+    };
+    const { data, error, isError, isLoading, id, refetch } = useGetProfile();
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
-        defaultValues: {
-            email: initalData?.email,
-            f_name: initalData?.f_name,
-            l_name: initalData?.l_name,
-            phone: initalData?.number,
-            gender: "",
-            country: "",
-            language: "",
-            timezone: "",
-        },
-        resolver: zodResolver(schema),
+        defaultValues: initalData,
+        resolver: zodResolver(UserSchema),
         mode: 'onChange',
     });
-    const onSubmit = async (data: FormFields | any) => {
-        console.log(data)
+    useEffect(() => {
+        if (data) {
+            reset(getUserFromSource(data));
+        }
+    }, [data, reset]);
+    const { mutate, isLoading: updateLoading, isError: updateError } = useUserMutation();
+    const onSubmit = async (data: UserForm) => {
+        if (id)
+            mutate({ id, ...data });
+        console.log(data);
     };
+
+    if ((isLoading))
+        return <><Spinner></Spinner></>;
 
     return (modal === ModalType.PorfileEditModal && <Modal width="xl" className="h-[714px] py-4">
         <div className="flex flex-col h-full">
@@ -100,8 +101,9 @@ export default function EditProfileModal() {
                     <Input label="Phone" name="number" placeholder="Enter phone here" register={register} />
                     <SelectBox
                         label="Gender"
-                        options={COMPLETION_STATUSES}
-                        register={register}
+                        name="gender"
+                        options={Genders}
+                        control={control}
                         placeholder={`${('Select your gender')}`}
                     />
                     <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
@@ -109,29 +111,33 @@ export default function EditProfileModal() {
                     </div>
                     <div className="col-start-1">
                         <SelectBox
+                            name="country"
                             label="Country"
-                            options={COMPLETION_STATUSES}
-                            register={register}
+                            options={Countries}
+                            control={control}
                             placeholder={`${('Select a country')}`}
                         />
                     </div>
                     <SelectBox
+                        name="language"
                         label="Language"
-                        options={COMPLETION_STATUSES}
-                        register={register}
+                        options={Languages}
+                        control={control}
                         placeholder={`${('Select a language')}`}
                     />
                     <div className="col-span-2">
                         <SelectBox
+                            name="timezone"
                             label="Time Zone"
-                            options={COMPLETION_STATUSES}
-                            register={register}
+                            options={Timezones}
+                            control={control}
                             placeholder={`${('Select your timezone')}`}
                         />
                     </div>
                 </div>
                 <div className="py-10 flex justify-center">
-                    <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white mr-12 font-bold" >Save</button>
+                    <button type="submit" className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white mr-12 font-bold" >Save</button>
+
                     <button onClick={() => close()} className="rounded-md text-[18px] border-2 border-red py-2.5 px-7 text-red  font-bold" >Cancel</button>
                 </div>
             </form>

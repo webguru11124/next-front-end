@@ -8,18 +8,15 @@ import Error from "@/components/Error"
 
 import Option from './Option';
 import { Combobox } from '@headlessui/react'
-import { FieldError, UseFormRegister } from 'react-hook-form';
+import { Control, FieldError, UseFormRegister, useController } from 'react-hook-form';
 import { BsCheck2 } from "react-icons/bs"
 
-
-interface OptionItem {
-    value: string;
-}
 interface SelectBoxProps extends SelectHTMLAttributes<HTMLSelectElement> {
-    register?: UseFormRegister<any>;
-    options: Array<OptionItem>;
+    control: Control<any, unknown>;
+    options: Array<string>;
     placeholder: string;
     label?: string;
+    name: string;
     error?: FieldError | undefined | any;
 }
 
@@ -34,24 +31,34 @@ const OptionsContainer = styled.div`
 const SelectBox: React.FC<SelectBoxProps> = ({
     placeholder,
     label,
-    register,
+    control,
     options,
     name,
     error,
 }) => {
-    const [query, setQuery] = useState('')
+    const [query, setQuery] = useState('');
+
+    const {
+        field: { onChange, value },
+    } = useController({
+        control,
+        name: name,
+    });
 
     const filteredValue =
         query === ''
             ? options
             : options.filter((options) => {
-                return options.value.toLowerCase()
+                return options.toLowerCase()
                     .replace(/\s+/g, '')
                     .includes(query.toLowerCase().replace(/\s+/g, ''))
             })
+    const handleChange = (data: any) => {
+        onChange(data);
+    }
     return (
         <div>
-            <Combobox {...(register && name ? register(name) : {})} >
+            <Combobox onChange={handleChange} value={value} name={name} as="div"  >
                 {label && <Combobox.Label><label>{label}</label></Combobox.Label>}
                 <div className="relative w-full mt-2 text-lg ">
                     <div className="relative  mt-2">
@@ -59,7 +66,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
                             className="w-full  py-2 px-[1em] pr-10 border  border-gray-border   outline-none rounded-md "
                             onChange={(event) => setQuery(event.target.value)}
                             placeholder={placeholder}
-                            displayValue={(value: OptionItem) => value?.value}
+                            displayValue={(value: string): string => (value)}
                         />
                         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                             <BsChevronDown
@@ -83,7 +90,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
                                             className={`block truncate ${selected ? 'font-medium' : 'font-normal'
                                                 }`}
                                         >
-                                            {value.value}
+                                            {value}
                                         </span>
                                         {selected ? (
                                             <span

@@ -19,7 +19,7 @@ export enum ModalType {
 export type ModalOptions = {
   catchOnCancel?: boolean;
   modalType?: ModalType | null;
-  data: Vendor | User | null;
+  id: string | null;
 }
 
 type ModalStoreType = {
@@ -39,7 +39,7 @@ const useModalStore = create<ModalStoreType>((set) => ({
   open: false,
   state: {
     catchOnCancel: false,
-    data: null
+    id: null
   },
   modal: (options) => {
     set(
@@ -81,6 +81,6 @@ const useModalStore = create<ModalStoreType>((set) => ({
 export default useModalStore;
 export const useOpen = () => useModalStore((state) => state.open);
 export const useModalType = () => useModalStore((state) => state.state.modalType)
-export const useSelected = () => useModalStore((state) => state.state.data)
+export const useSelected = () => useModalStore((state) => state.state.id)
 export const useClose = () => useModalStore((state) => state.handleClose);
 export const useModal = () => useModalStore((state) => state.modal);
