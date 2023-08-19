@@ -2,7 +2,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 export default function useAxios() {
     const { data: session } = useSession();
-    const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1";  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1";  
     const instance = axios.create({
         baseURL: apiUrl,
     })
@@ -20,6 +20,8 @@ export default function useAxios() {
 
         updatedConfig.headers['Hostname-Version'] = API_HOSTNAME_VERSION;
         updatedConfig.headers['Accept'] = 'application/json';
+        updatedConfig.headers['Access-Control-Allow-Origin'] = '*';
+
 
         if (token) {
             updatedConfig.headers.authorization = `Bearer ${token}`;
