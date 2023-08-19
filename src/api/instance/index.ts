@@ -20,7 +20,6 @@ export default function useAxios() {
 
         updatedConfig.headers['Hostname-Version'] = API_HOSTNAME_VERSION;
         updatedConfig.headers['Accept'] = 'application/json';
-        updatedConfig.headers['Access-Control-Allow-Origin'] = '*';
 
 
         if (token) {
