@@ -31,7 +31,7 @@ export default function useAxios() {
             updatedConfig.headers.tenant = apiUrl;
         }
         updatedConfig.headers['api-name'] = 'barge_diary';
-
+console.log(updatedConfig);
         return updatedConfig;
     });
     return instance;
