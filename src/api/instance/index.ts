@@ -13,6 +13,7 @@ export default function useAxios() {
     instance.interceptors.request.use((requestConfig) => {
         const updatedConfig = { ...requestConfig };
        
+        updatedConfig.withCredentials = true;
 
         if (contentLanguage) {
             updatedConfig.headers['content-language'] = contentLanguage;
