@@ -20,7 +20,7 @@ interface SelectBoxProps extends SelectHTMLAttributes<HTMLSelectElement> {
     options: Array<OptionItem>;
     placeholder: string;
     label?: string;
-    error?: FieldError | undefined;
+    error?: FieldError | undefined | any;
 }
 
 const OptionsContainer = styled.div`
