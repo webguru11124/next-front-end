@@ -2,7 +2,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 export default function useAxios() {
     const { data: session } = useSession();
-    const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1"
+    const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1";  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     const instance = axios.create({
         baseURL: apiUrl,
     })
