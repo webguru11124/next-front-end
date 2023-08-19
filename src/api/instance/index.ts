@@ -12,7 +12,7 @@ export default function useAxios() {
     const token = session?.user?.token;
     instance.interceptors.request.use((requestConfig) => {
         const updatedConfig = { ...requestConfig };
-        updatedConfig.withCredentials = true;
+       
 
         if (contentLanguage) {
             updatedConfig.headers['content-language'] = contentLanguage;
