@@ -1,4 +1,5 @@
 
+
 export interface Vendor {
   id: string;
   avatar: string;
@@ -7,7 +8,9 @@ export interface Vendor {
   f_name?: string;
   phone?: string;
   number?: string;
-  l_name: string;
-  gender: string;
-  hobby: string;
+  l_name?: string;
+  role?: any;
+
+  gender?: string;
+  hobby?: string;
 }
