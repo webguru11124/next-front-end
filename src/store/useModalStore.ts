@@ -29,7 +29,7 @@ type ModalStoreType = {
   };
   open: boolean;
   state: ModalOptions;
-  modal: (options: Partial<ModalOptions>) => Promise<void>;
+  modal: (options: Partial<ModalOptions> | any) => Promise<void>;
   handleClose: () => void;
   handleSubmit: () => void;
 };

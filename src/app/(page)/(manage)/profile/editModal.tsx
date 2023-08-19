@@ -61,8 +61,8 @@ export default function EditProfileModal() {
         resolver: zodResolver(schema),
         mode: 'onChange',
     });
-    const onSubmit = async (data: FormFields) => {
-        console.log("data", data)
+    const onSubmit = async (data: FormFields | any) => {
+        console.log(data)
     };
 
     return (modal === ModalType.PorfileEditModal && <Modal width="xl" className="h-[714px] py-4">

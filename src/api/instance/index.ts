@@ -2,7 +2,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 export default function useAxios() {
     const { data: session } = useSession();
-    const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1"
+    const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1";  
     const instance = axios.create({
         baseURL: apiUrl,
     })
@@ -12,6 +12,7 @@ export default function useAxios() {
     const token = session?.user?.token;
     instance.interceptors.request.use((requestConfig) => {
         const updatedConfig = { ...requestConfig };
+       
         updatedConfig.withCredentials = true;
 
         if (contentLanguage) {
@@ -21,6 +22,7 @@ export default function useAxios() {
         updatedConfig.headers['Hostname-Version'] = API_HOSTNAME_VERSION;
         updatedConfig.headers['Accept'] = 'application/json';
 
+
         if (token) {
             updatedConfig.headers.authorization = `Bearer ${token}`;
         }
@@ -29,7 +31,7 @@ export default function useAxios() {
             updatedConfig.headers.tenant = apiUrl;
         }
         updatedConfig.headers['api-name'] = 'barge_diary';
-
+console.log(updatedConfig);
         return updatedConfig;
     });
     return instance;
