@@ -19,7 +19,7 @@ export default function TablesLayout({
                 <Navbar />
             </div>
             <main className="w-full">
-                <div className="p-6">
+                <div className="p-6 ">
                     <Suspense fallback={<Loading />}>
                         {children}
                     </Suspense>

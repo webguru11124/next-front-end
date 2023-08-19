@@ -16,7 +16,7 @@ export enum ModalType {
   UserDetail,
   VendorDetail
 }
-export interface ModalOptions {
+export type ModalOptions = {
   catchOnCancel?: boolean;
   modalType?: ModalType | null;
   data: Vendor | User | null;

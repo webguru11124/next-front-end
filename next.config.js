@@ -4,8 +4,8 @@ const nextConfig = {
   env: {
     NEXTAUTH_SECRET: "my_ultra_secure_nextauth_secret",
     NEXTAUTH_URL: "http://localhost:3000",
-    API_URL: "http://localhost:4000/api/v1",
-    LOGIN_URL: "http://localhost:4000/api/v1/users/login",
+    API_URL: "http://localhost:5000/api/v1",
+    LOGIN_URL: "http://localhost:5000/api/v1/users/login",
     PUBLIC_LINK: "/",
     CURRENT_DOMAIN: "",
     // api_link: ***********,

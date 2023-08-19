@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr"
 import { z } from "zod";
 import { User } from "../users/types";
+import { Vendor } from "../../(tables)/(contact)/vendors/types";
 
 
 const COMPLETION_STATUSES = [
@@ -40,12 +41,18 @@ export default function EditProfileModal() {
     const close = useClose();
     const modal = useModalType();
     const data = useSelected();
+
+    let initialData: User | null = null;
+    if (data instanceof User) {
+        initialData = data;
+    }
+
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
         defaultValues: {
-            email: data?.email,
-            f_name: data?.f_name,
-            l_name: data?.l_name,
-            phone: data?.number,
+            email: initalData?.email,
+            f_name: initalData?.f_name,
+            l_name: initalData?.l_name,
+            phone: initalData?.number,
             gender: "",
             country: "",
             language: "",
@@ -55,7 +62,7 @@ export default function EditProfileModal() {
         mode: 'onChange',
     });
     const onSubmit = async (data: FormFields) => {
-        console.log(data)
+        console.log("data", data)
     };
 
     return (modal === ModalType.PorfileEditModal && <Modal width="xl" className="h-[714px] py-4">
