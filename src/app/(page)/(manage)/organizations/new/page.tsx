@@ -5,7 +5,7 @@ import Card from "@/components/Card";
 import Input from "@/components/Input";
 import SelectBox from "@/components/SelectBox";
 import { Countries, Currencies, Genders, Languages, OrgTypes, Province, Roles, Timezones } from "@/constants/forms";
-import { OrgForm, OrgSchema } from "@/types/organization";
+import { OrgForm, OrgSchema, convertOrgToServerFormat, initalOrg } from "@/types/organization";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -14,17 +14,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 export default function CreateOrganization() {
     const router = useRouter();
-    let initalData: OrgForm = {
-        invite_email: null,
-        country: null,
-        timezone: null,
-        language: null,
-        province: null,
-        type: null,
-        invite_role: null,
-        currency: null,
-        name: "",
-    };
+    let initalData: OrgForm = initalOrg();
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
         defaultValues: initalData,
         resolver: zodResolver(OrgSchema),
@@ -32,8 +22,7 @@ export default function CreateOrganization() {
     });
     const { mutate } = useOrganizationCreate();
     const onSubmit = (data: OrgForm) => {
-        mutate(data);
-        console.log(data);
+        mutate(convertOrgToServerFormat(data));
     }
 
     return (<div >

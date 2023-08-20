@@ -10,53 +10,42 @@ import { ModalType, useClose, useModalType, useOpen, useSelected, } from "@/stor
 import { GrClose } from "react-icons/gr"
 import { zodResolver } from "@hookform/resolvers/zod";
 import useOrganizationUpdate from "@/api/organization/useOrganizationUpdate";
-import { OrgForm, OrgSchema } from "@/types/organization";
+import { OrgForm, OrgSchema, Organization, convertOrgToServerFormat, initalOrg } from "@/types/organization";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import useOrganizationQuery from "@/api/organization/useOrganizationQuery";
 
 
-const COMPLETION_STATUSES = [
-    {
-        value: 'male',
-        label: 'male',
-    },
-    {
-        value: 'female',
-        label: 'female',
-    },
-];
-
 export default function OrganizationEditModal() {
     const close = useClose();
     const modal = useModalType();
-    let initalData: OrgForm = {
-        invite_email: null,
-        country: null,
-        timezone: null,
-        language: null,
-        province: null,
-        type: null,
-        invite_role: null,
-        currency: null,
-        name: "",
-    };
+    let initalData: OrgForm = initalOrg()
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
         defaultValues: initalData,
         resolver: zodResolver(OrgSchema),
         mode: 'onChange',
     });
     const id = useSelected();
-    const { data } = useOrganizationQuery(`${id}`);
+    const { data } = useOrganizationQuery(id ?? "");
     useEffect(() => {
         if (data) {
-            reset((data));
+            const resetData: OrgForm = {
+                ...data,
+                country: Countries[data.country],
+                type: OrgTypes[data.type],
+                currency: Currencies[data.currency],
+                language: Languages[data.language],
+                province: data.province ?? null,
+                timezone: data.time_zone ?? null
+            }
+            reset((resetData));
         }
     }, [data, reset]);
     const { mutate } = useOrganizationUpdate();
     const onSubmit = (data: OrgForm) => {
-        mutate({ ...data, id });
-        console.log(data);
+        const mutateData: Organization = { id, ...convertOrgToServerFormat(data) };
+        console.log(mutateData)
+        mutate(mutateData);
     }
     return (modal === ModalType.OrganizationEditModal && <Modal width="xl" className="h-[714px] py-4">
         <div className="flex flex-col h-full">
@@ -74,7 +63,7 @@ export default function OrganizationEditModal() {
                 </button>
 
             </div>
-            <form >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-2 gap-x-14  gap-y-6 px-6  ">
                     <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
                         Organization Details

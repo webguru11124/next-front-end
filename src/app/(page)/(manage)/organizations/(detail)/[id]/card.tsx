@@ -9,10 +9,12 @@ import { useRouter } from "next/navigation";
 import useOrganizationQuery from "@/api/organization/useOrganizationQuery";
 import Spinner from "@/components/Spinner";
 import { Countries, Currencies, Languages, OrgTypes, Province, Roles, Timezones } from "@/constants/forms";
+import useOrganizationDelete from "@/api/organization/useOrganizationDelete";
 export default function OrganiaztionCard({ id }: { id: string }) {
     const router = useRouter();
     const open = useModal();
     const { data, isLoading } = useOrganizationQuery(id);
+    const { mutate } = useOrganizationDelete();
     if (isLoading) return <Spinner />
     return <>
         <Card size="lg">
@@ -26,7 +28,13 @@ export default function OrganiaztionCard({ id }: { id: string }) {
                             onClick={() => open({ modalType: ModalType.OrganizationEditModal, id })}>
                             <FiEdit />
                         </button>
-                        <button className=" text-2xl p-2 text-red shadow-3xl rounded-md ">
+                        <button className=" text-2xl p-2 text-red shadow-3xl rounded-md "
+                            onClick={() => {
+                                if (window.confirm("Are you Sure?")) {
+                                    mutate(id);
+                                }
+                            }
+                            }>
                             <FiTrash />
                         </button>
                     </div>
@@ -65,7 +73,7 @@ export default function OrganiaztionCard({ id }: { id: string }) {
                     State/Province
                 </div>
                 <div className="text-xl">
-                    {Province[data?.province]}
+                    {data?.province}
                 </div>
                 <div className="text-gray-lighter text-xl">
                     Currency
@@ -83,8 +91,8 @@ export default function OrganiaztionCard({ id }: { id: string }) {
                     Timezone
                 </div>
                 <div className="text-xl">
-                    {Timezones[data?.timezone]}
+                    {data?.time_zone}
                 </div>
-            </div></Card>
+            </div></Card >
     </>
 }
