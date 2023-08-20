@@ -79,7 +79,7 @@ const useModalStore = create<ModalStoreType>((set) => ({
 }));
 
 export default useModalStore;
-export const useOpen = () => useModalStore((state) => state.open);
+export const useOpen = () => useModalStore((state) => state.open && state.state.id != null);
 export const useModalType = () => useModalStore((state) => state.state.modalType)
 export const useSelected = () => useModalStore((state) => state.state.id)
 export const useClose = () => useModalStore((state) => state.handleClose);

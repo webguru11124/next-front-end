@@ -26,7 +26,7 @@ export default function OrganizationEditModal() {
         mode: 'onChange',
     });
     const id = useSelected();
-    const { data } = useOrganizationQuery(id ?? "");
+    const { data } = useOrganizationQuery(`${id}`);
     useEffect(() => {
         if (data) {
             const resetData: OrgForm = {
@@ -44,7 +44,6 @@ export default function OrganizationEditModal() {
     const { mutate } = useOrganizationUpdate();
     const onSubmit = (data: OrgForm) => {
         const mutateData: Organization = { id, ...convertOrgToServerFormat(data) };
-        console.log(mutateData)
         mutate(mutateData);
     }
     return (modal === ModalType.OrganizationEditModal && <Modal width="xl" className="h-[714px] py-4">

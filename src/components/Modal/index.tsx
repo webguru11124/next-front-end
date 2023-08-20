@@ -38,6 +38,8 @@ const Modal = ({
     containerPaddingClass = 'py-6 px-6',
 }: ModalProps) => {
     const handleClose = useClose();
+    const open = useOpen();
+    if (!open) return <></>
     return (
         <ModalContainer className="fixed z-50 top-0 left-0 w-screen h-screen ">
             <div className="flex items-center w-full h-full justify-center ">
