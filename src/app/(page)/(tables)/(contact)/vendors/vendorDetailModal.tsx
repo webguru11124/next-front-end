@@ -10,17 +10,6 @@ import { FiTrash } from "react-icons/fi"
 import { Vendor } from "./types";
 
 
-const COMPLETION_STATUSES = [
-    {
-        value: 'male',
-        label: 'male',
-    },
-    {
-        value: 'female',
-        label: 'female',
-    },
-];
-
 export default function VendorDetailModal({ vendor }: { vendor: Vendor }) {
     const close = useClose();
     const openModal = useModal()

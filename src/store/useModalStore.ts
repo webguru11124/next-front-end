@@ -2,8 +2,6 @@
 // If you prefer to use Context API, refer to that link
 "use client"
 
-import { User } from '@/app/(page)/(manage)/users/types';
-import { Vendor } from '@/app/(page)/(tables)/(contact)/vendors/types';
 import { produce } from 'immer';
 import { create } from 'zustand';
 
@@ -11,6 +9,7 @@ export enum ModalType {
   PorfileEditModal,
   VendorEditModal,
   ProfileModal,
+  ExtraEditModel,
   OrganizationEditModal,
   InviteUser,
   UserDetail,
@@ -79,7 +78,7 @@ const useModalStore = create<ModalStoreType>((set) => ({
 }));
 
 export default useModalStore;
-export const useOpen = () => useModalStore((state) => state.open && state.state.id != null);
+export const useOpen = () => useModalStore((state) => state.open);
 export const useModalType = () => useModalStore((state) => state.state.modalType)
 export const useSelected = () => useModalStore((state) => state.state.id)
 export const useClose = () => useModalStore((state) => state.handleClose);

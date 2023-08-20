@@ -47,7 +47,6 @@ export default function EditProfileModal() {
     const onSubmit = async (data: UserForm) => {
         if (id)
             mutate({ id, ...data });
-        console.log(data);
     };
 
     if ((isLoading))

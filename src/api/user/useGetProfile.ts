@@ -10,3 +10,7 @@ export default function useGetProfile() {
 
     return { data, error, isError, isLoading, id: session?.user?.id, refetch }
 }
+export const useCurrentUser = () => {
+    const { data: session } = useSession();
+    return { id: session?.user?.id }
+}

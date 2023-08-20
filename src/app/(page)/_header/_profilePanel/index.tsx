@@ -13,6 +13,7 @@ import Avatar from '@/components/Avatar';
 import useOrganizationsByUserQuery from '@/api/organization/useOrganizationsByUserQuery';
 import { useState } from 'react';
 import { Roles } from '@/constants/forms';
+import { useCurrentOrganization, useCurrentOrganizationIndex, useSetCurrentOrganizationIndex } from '@/store/useOrganizationStore';
 
 
 export default function ProfilePanel({ close }: { close: PanelCloseType }) {
@@ -21,7 +22,9 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
 
     const { data, error, isError, isLoading: ProfileLoading, id } = useGetProfile();
     const { data: organizations, isLoading: OrganizationLoading } = useOrganizationsByUserQuery(`${id}`);
-    const [value, setValue] = useState(0);
+    const currentOrganizationIndex = useCurrentOrganizationIndex();
+    const setCurrentOrganization = useSetCurrentOrganizationIndex();
+    const { data: currentOrganization, isLoading } = useCurrentOrganization();
     if ((ProfileLoading || OrganizationLoading))
         return <>
         </>
@@ -37,7 +40,7 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
                         {data?.f_name}
                     </span>
                     <div className="mt-1">
-                        <span className="text-gray-lighter">Role:</span> {Roles[organizations[value].role]}
+                        <span className="text-gray-lighter">Role:</span> {Roles[currentOrganization?.role]}
                     </div>
                     <div>
                         <button className="flex text-xl text-blue-primary font-bold" onClick={() => { close(); router.push("/profile"), close(); }}>
@@ -62,7 +65,7 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
             </div>
             <div className="mt-4">
                 <span className="text-gray-lighter">Organization ID: </span>
-                <span>{organizations[value].id}</span>
+                <span>{currentOrganization?.id}</span>
             </div>
             <div className="mt-4">
                 <span className="text-gray-lighter">Email: </span>
@@ -81,7 +84,7 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
                 </button>
             </div>
 
-            <OrganizationSelect close={close} value={value} organizations={organizations} onChange={setValue} />
+            <OrganizationSelect close={close} value={currentOrganizationIndex} organizations={organizations} onChange={setCurrentOrganization} />
 
         </div>
     </div>
