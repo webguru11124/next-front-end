@@ -6,20 +6,9 @@ import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
 import { ModalType, useClose, useModal, useModalType, useOpen } from "@/store/useModalStore"
 import { GrClose } from "react-icons/gr"
-import { User } from "./types";
 import { FiTrash } from "react-icons/fi"
+import { User } from "@/types/user";
 
-
-const COMPLETION_STATUSES = [
-    {
-        value: 'male',
-        label: 'male',
-    },
-    {
-        value: 'female',
-        label: 'female',
-    },
-];
 
 export default function UserDetailModal({ user }: { user: User }) {
     const close = useClose();
@@ -34,7 +23,7 @@ export default function UserDetailModal({ user }: { user: User }) {
                     </div>
                     <div className="flex flex-col ">
                         <div className="text-2xl text-blue-main font-bold">
-                            {user.name}
+                            {user.f_name}
                         </div>
                         <div className="flex  mt-8 justify-between">
                             <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold"
@@ -72,7 +61,7 @@ export default function UserDetailModal({ user }: { user: User }) {
                             Role:
                         </div>
                         <div className="text-xl">
-                            {user.role}
+                            Admin
                         </div>
                     </div>
                 </div>

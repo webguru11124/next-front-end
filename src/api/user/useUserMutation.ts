@@ -7,10 +7,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import { toast } from 'react-toastify';
 import { useClose } from "@/store/useModalStore";
-import { User } from "@/app/(page)/(manage)/users/types";
-import { UserForm } from "@/app/(page)/(manage)/profile/editModal";
-import useUserQuery from "./useUserQuery";
 import queryKeys from "./queryKeys";
+import { User } from "@/types/user";
 export default function useUserMutation() {
     const axios = useAxios();
     const close = useClose();

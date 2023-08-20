@@ -10,27 +10,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr"
 import { z } from "zod";
-import { User, getUserFromSource } from "../users/types";
 import { useEffect } from "react";
 import useGetProfile from "@/api/user/useGetProfile";
 import { Spinner } from "@nextui-org/react";
 import { Countries, Genders, Languages, Timezones } from "@/constants/forms";
 import useUserMutation from "@/api/user/useUserMutation";
+import { UserForm, UserSchema, getUserFromSource } from "@/types/user";
 
 
-
-export const UserSchema = z.object({
-    email: z.string().email(),
-    f_name: z.string().min(1),
-    l_name: z.string().nullable(),
-    number: z.string().nullable(),
-    gender: z.string().nullable(),
-    country: z.string().nullable(),
-    language: z.string().nullable(),
-    timezone: z.string().nullable(),
-});
-
-export type UserForm = z.infer<typeof UserSchema>;
 
 export default function EditProfileModal() {
     const close = useClose();

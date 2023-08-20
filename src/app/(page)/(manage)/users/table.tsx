@@ -1,14 +1,14 @@
 import Avatar from "@/components/Avatar";
 import UserDetailModal from "./userDetailModal";
-import { User } from "./types";
 import { useState } from "react";
 import { ModalType, useModal } from "@/store/useModalStore";
+import { User } from "@/types/user";
 
 const users: Array<User> = [{
-    name: "abc",
-    avatar: "avatar.pang",
+    f_name: "abc",
+    img_url: "avatar.png",
     email: "abc@abc.com",
-    role: "Admin",
+    // role: "Admin",
     id: "1",
     // orga
 }]
@@ -34,10 +34,10 @@ export default function UsersTable() {
                         open({ modalType: ModalType.UserDetail })
                     }}>
                     <td className="border border-lighter-border py-3"><div className="flex justify-center"><Avatar size="sm"></Avatar></div></td>
-                    <td className="border border-lighter-border py-3">{user.name}</td>
+                    <td className="border border-lighter-border py-3">{user.f_name}</td>
                     <td className="border border-lighter-border py-3">{user.email}</td>
                     <td className="border border-lighter-border py-3">ABc</td>
-                    <td className="border border-lighter-border py-3">{user.role}</td>
+                    <td className="border border-lighter-border py-3">Admin</td>
                 </tr>))
                 }
 

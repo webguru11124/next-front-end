@@ -14,14 +14,23 @@ export default function ProfilePreview({ close }: { close: PanelCloseType }) {
 
     const { data, error, isError, isLoading } = useGetProfile();
     if ((isLoading))
-        return <><Spinner></Spinner></>
+        return <>      <div className="mt-1">
+            <button className="flex text-xl text-red  font-bold" onClick={() => {
+                close();
+                signOut({ redirect: true, callbackUrl: "/login" })
+            }}>
+                <GoSignOut className="mr-1" />
+                <div>Sign Out</div>
+            </button>
+        </div>
+            <Spinner></Spinner></>
     return (<> <div className="flex gap-6 self-baseline">
         <div>
             <Avatar size="md" />
         </div>
         <div className="flex flex-col gap-y-1">
             <span className=" text-blue-main font-semibold text-2xl">
-                {data.f_name}
+                {data?.f_name}
             </span>
             <div className="mt-1">
                 <span className="text-gray-lighter">Role:</span> Admin
@@ -45,7 +54,7 @@ export default function ProfilePreview({ close }: { close: PanelCloseType }) {
     </div>
         <div className="mt-4">
             <span className="text-gray-lighter">User ID: </span>
-            <span>{data.id}</span>
+            <span>{data?.id}</span>
         </div>
         <div className="mt-4">
             <span className="text-gray-lighter">Organization ID: </span>
@@ -53,7 +62,7 @@ export default function ProfilePreview({ close }: { close: PanelCloseType }) {
         </div>
         <div className="mt-4">
             <span className="text-gray-lighter">Email: </span>
-            <span>{data.email}</span>
+            <span>{data?.email}</span>
         </div>
         <div className="mt-4">
             <button className="flex text-xl text-blue-primary  font-bold" onClick={() => { close(); router.push("/users"), close(); }}>

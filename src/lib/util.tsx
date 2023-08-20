@@ -71,3 +71,13 @@ export const formatDate = (date: Date): string => {
     };
     return new Intl.DateTimeFormat('en-US', options).format(date);
 }
+
+export const formatDateAsShort = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
+
+};

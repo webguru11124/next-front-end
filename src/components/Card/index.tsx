@@ -17,7 +17,7 @@ export default function Card({ size, children }: { size: keyof typeof CardWidth,
     const width_style = width != "full" ? `w-[${width}]` : 'w-full'
     const padding = size === "md" ? "p-7" : (size === "lg" ? "py-9 px-12" : "p-4");
     return (
-        <div className={`rounded-md bg-white shadow-lg  ${width_style} ${padding}  w-full`}>
+        <div className={`rounded-md bg-white shadow-lg  ${width_style} ${padding}  `}>
             {children}
         </div>
     );
