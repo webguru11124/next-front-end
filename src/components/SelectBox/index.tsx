@@ -6,7 +6,6 @@ import { BsChevronDown } from 'react-icons/bs';
 
 import Error from "@/components/Error"
 
-import Option from './Option';
 import { Combobox } from '@headlessui/react'
 import { Control, FieldError, UseFormRegister, useController } from 'react-hook-form';
 import { BsCheck2 } from "react-icons/bs"
@@ -58,7 +57,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
     }
     return (
         <div>
-            <Combobox onChange={handleChange} value={value} name={name} as="div"  >
+            <Combobox onChange={handleChange} value={value ?? ""} name={name} as="div"  >
                 {label && <Combobox.Label><label>{label}</label></Combobox.Label>}
                 <div className="relative w-full mt-2 text-lg ">
                     <div className="relative  mt-2">

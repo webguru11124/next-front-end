@@ -27,13 +27,14 @@ export type OrgForm = z.infer<typeof OrgSchema>;
 
 export const initalOrg = () => ({
     invite_email: null,
-    country: null,
-    time_zone: null,
-    language: null,
-    province: null,
-    type: null,
-    invite_role: null,
-    currency: null,
+    invite_name: null,
+    country: "",
+    time_zone: "",
+    language: "",
+    province: "",
+    type: "",
+    invite_role: "",
+    currency: "",
     name: "",
 })
 export interface Organization extends OrgForm {
@@ -41,6 +42,7 @@ export interface Organization extends OrgForm {
 
 }
 export const convertOrgToServerFormat = (data: OrgForm): OrgForm => {
+    console.log(data);
     const mutateData: OrgForm = { name: data.name };
     if (data.country) mutateData.country = Countries.indexOf(data.country).toString();
     if (data.currency) mutateData.currency = Currencies.indexOf(data.currency).toString();

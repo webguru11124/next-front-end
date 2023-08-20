@@ -98,7 +98,7 @@ export default function CreateOrganization() {
                         />
                         <div className="col-span-2">
                             <SelectBox
-                                name="timezone"
+                                name="time_zone"
                                 control={control}
                                 label="Time Zone"
                                 options={Timezones}

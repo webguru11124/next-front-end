@@ -36,7 +36,7 @@ export default function OrganizationEditModal() {
                 currency: Currencies[data.currency],
                 language: Languages[data.language],
                 province: data.province ?? null,
-                timezone: data.time_zone ?? null
+                time_zone: data.time_zone ?? null
             }
             reset((resetData));
         }
@@ -128,7 +128,7 @@ export default function OrganizationEditModal() {
                     />
                     <div className="col-span-2">
                         <SelectBox
-                            name="timezone"
+                            name="time_zone"
                             control={control}
                             label="Time Zone"
                             options={Timezones}

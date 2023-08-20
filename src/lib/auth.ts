@@ -37,7 +37,6 @@ export const authOptions: NextAuthOptions = {
                         })
                     });
                     const res: LoginResult = await response.json();
-                    console.log(res);
                     if (res.success) {
                         return {
                             id: res.result.user_id,
@@ -49,7 +48,6 @@ export const authOptions: NextAuthOptions = {
                     else return null;
                 }
                 catch (error) {
-                    console.log("login error", error);
                     return null;
                 }
             },
@@ -57,7 +55,6 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         session: ({ session, token }) => {
-            // console.log(session, token);
             return {
                 ...session,
                 user: {
@@ -68,7 +65,6 @@ export const authOptions: NextAuthOptions = {
             };
         },
         jwt: ({ token, user, account, profile },) => {
-            // console.log(token, user);
             if (user) {
                 const u = user as unknown as any;
                 return {
