@@ -1,5 +1,5 @@
-import OrganiaztionCard from "../card";
+import OrganiaztionCard from "./card";
 
-export default function OrganizationPage() {
-    return <div><OrganiaztionCard /></div>
+export default function OrganizationPage({ params }: { params: { id: string } }) {
+    return <div><OrganiaztionCard id={params.id} /></div>
 }

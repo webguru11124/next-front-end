@@ -74,6 +74,14 @@ module.exports = {
           fontWeight: "300",
         },
       ],
+      "2lg": [
+        "1.1rem",
+        {
+          lineHeight: "1.5rem",
+          letterSpacing: "-0.01em",
+          fontWeight: "300",
+        },
+      ],
       xl: [
         "1.3rem",
         {

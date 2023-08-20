@@ -21,10 +21,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   register?: UseFormRegister<any>;
   error?:
-    | FieldError
-    | Merge<FieldError, FieldErrorsImpl<any>>
-    | undefined
-    | any;
+  | FieldError
+  | Merge<FieldError, FieldErrorsImpl<any>>
+  | undefined
+  | any;
 }
 
 const Input = ({
@@ -59,7 +59,7 @@ const Input = ({
             <EyeSvg />
           </div>
         )}
-        {error && <span className="text-red">{error.message}</span>}
+        {error && <div className="text-red">{error.message}</div>}
       </div>
     </div>
   );

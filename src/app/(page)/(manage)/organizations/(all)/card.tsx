@@ -17,7 +17,7 @@ export default function OrganiaztionCard({ organization }: { organization: Organ
             <div className="flex items-center">
                 <div className="ml-7 flex justify-between">
                     <div >
-                        <h2 className="text-blue-main  font-bold text-2xl">Organization Name</h2>
+                        <h2 className="text-blue-main  font-bold text-2xl">{organization?.name}</h2>
                     </div>
                 </div>
             </div>

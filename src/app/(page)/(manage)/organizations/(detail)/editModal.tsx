@@ -5,8 +5,15 @@ import Avatar from "@/components/Avatar";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
-import { ModalType, useClose, useModalType, useOpen, } from "@/store/useModalStore"
+import { Countries, Currencies, Genders, Languages, OrgTypes, Province, Roles, Timezones } from "@/constants/forms";
+import { ModalType, useClose, useModalType, useOpen, useSelected, } from "@/store/useModalStore"
 import { GrClose } from "react-icons/gr"
+import { zodResolver } from "@hookform/resolvers/zod";
+import useOrganizationUpdate from "@/api/organization/useOrganizationUpdate";
+import { OrgForm, OrgSchema } from "@/types/organization";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import useOrganizationQuery from "@/api/organization/useOrganizationQuery";
 
 
 const COMPLETION_STATUSES = [
@@ -23,12 +30,40 @@ const COMPLETION_STATUSES = [
 export default function OrganizationEditModal() {
     const close = useClose();
     const modal = useModalType();
+    let initalData: OrgForm = {
+        invite_email: null,
+        country: null,
+        timezone: null,
+        language: null,
+        province: null,
+        type: null,
+        invite_role: null,
+        currency: null,
+        name: "",
+    };
+    const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
+        defaultValues: initalData,
+        resolver: zodResolver(OrgSchema),
+        mode: 'onChange',
+    });
+    const id = useSelected();
+    const { data } = useOrganizationQuery(`${id}`);
+    useEffect(() => {
+        if (data) {
+            reset((data));
+        }
+    }, [data, reset]);
+    const { mutate } = useOrganizationUpdate();
+    const onSubmit = (data: OrgForm) => {
+        mutate({ ...data, id });
+        console.log(data);
+    }
     return (modal === ModalType.OrganizationEditModal && <Modal width="xl" className="h-[714px] py-4">
         <div className="flex flex-col h-full">
             <div className="flex relative justify-center">
                 <div className="flex flex-col  mr-[50px]">
                     <span className="font-bold  text-blue-main text-2xl">
-                        Organization Name
+                        {data?.name}
                     </span>
                 </div>
                 <button
@@ -42,50 +77,78 @@ export default function OrganizationEditModal() {
             <form >
                 <div className="grid grid-cols-2 gap-x-14  gap-y-6 px-6  ">
                     <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
-                        Personal Details
+                        Organization Details
                     </div>
                     <div className="col-start-1">
-                        <Input label="First Name" name="first_name" placeholder="Enter first Name" />
+                        <Input label="Organization Name" name="name" placeholder="Enter Name here" register={register} error={formErrors.name} />
                     </div>
-                    <Input label="Last Name" name="last_name" placeholder="Enter last Name" />
-                    <Input label="Email" name="email" placeholder="Enter email here" />
-                    <Input label="Phone" name="phone" placeholder="Enter phone here" />
                     <SelectBox
-                        label="Gender"
-                        options={COMPLETION_STATUSES}
-                        placeholder={`${('Select your gender')}`}
-                        onChange={(val) => ({})}
+                        name="country"
+                        control={control}
+                        label="Country"
+                        options={Countries}
+                        placeholder={`${('Select a country')}`}
+                    />
+                    <SelectBox
+                        name="province"
+                        control={control}
+                        label="State/Province"
+                        options={Province}
+                        placeholder={`${('Select hazard')}`}
+                    />
+                    <SelectBox
+                        name="type"
+                        control={control}
+                        label="Type"
+                        options={OrgTypes}
+                        placeholder={`${('Select type of organization')}`}
+                    />
+                    <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
+                        Invite User
+                    </div>
+                    <div className="col-start-1">
+                        <Input label="Name" name="invite_name" placeholder="Enter the name of user " register={register} />
+
+                    </div>
+                    <Input label="Email" name="invite_email" placeholder="Enter the email of user" register={register} error={formErrors.invite_email} />
+                    <SelectBox
+                        name="invite_role"
+                        control={control}
+                        label="Role"
+                        options={Roles}
+                        placeholder={`${('Select role of user')}`}
                     />
                     <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
                         Regional Settings
                     </div>
                     <div className="col-start-1">
                         <SelectBox
-                            label="Country"
-                            options={COMPLETION_STATUSES}
-                            placeholder={`${('Select a country')}`}
-                            onChange={(val) => ({})}
+                            name="currency"
+                            control={control}
+                            label="currency"
+                            options={Currencies}
+                            placeholder={`${('Select a currency')}`}
                         />
                     </div>
                     <SelectBox
+                        name="language"
+                        control={control}
                         label="Language"
-                        options={COMPLETION_STATUSES}
+                        options={Languages}
                         placeholder={`${('Select a language')}`}
-                        onChange={(val) => ({})}
                     />
                     <div className="col-span-2">
                         <SelectBox
+                            name="timezone"
+                            control={control}
                             label="Time Zone"
-
-                            options={COMPLETION_STATUSES}
+                            options={Timezones}
                             placeholder={`${('Select your timezone')}`}
-                            onChange={(val) => ({})}
-                        />
-                    </div>
+                        /></div>
                 </div>
                 <div className="py-10 flex justify-center">
                     <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white mr-12 font-bold" >Save</button>
-                    <button className="rounded-md text-[18px] border-2 border-red py-2.5 px-7 text-red  font-bold" >Cancel</button>
+                    <button className="rounded-md text-[18px] border-2 border-red py-2.5 px-7 text-red  font-bold" onClick={() => close()} >Cancel</button>
                 </div>
             </form>
         </div>

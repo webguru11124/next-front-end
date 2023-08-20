@@ -6,20 +6,24 @@ import Card from "@/components/Card";
 import { ModalType, useModal } from "@/store/useModalStore";
 import { FiEdit, FiTrash } from "react-icons/fi"
 import { useRouter } from "next/navigation";
-
-export default function OrganiaztionCard() {
+import useOrganizationQuery from "@/api/organization/useOrganizationQuery";
+import Spinner from "@/components/Spinner";
+import { Countries, Currencies, Languages, OrgTypes, Province, Roles, Timezones } from "@/constants/forms";
+export default function OrganiaztionCard({ id }: { id: string }) {
     const router = useRouter();
-    const id = "675687568"
     const open = useModal();
+    const { data, isLoading } = useOrganizationQuery(id);
+    if (isLoading) return <Spinner />
     return <>
         <Card size="lg">
             <div className="w-full flex justify-between items-center mb-3 ">
                 <div className="w-full  flex justify-between items-center">
                     <div >
-                        <h2 className="text-blue-main  font-bold text-2xl">Organization Name</h2>
+                        <h2 className="text-blue-main  font-bold text-2xl">{data?.name}</h2>
                     </div>
                     <div className="flex gap-x-7">
-                        <button className=" text-2xl p-2 text-blue-primary shadow-3xl rounded-md " onClick={() => open({ modalType: ModalType.OrganizationEditModal })}>
+                        <button className=" text-2xl p-2 text-blue-primary shadow-3xl rounded-md "
+                            onClick={() => open({ modalType: ModalType.OrganizationEditModal, id })}>
                             <FiEdit />
                         </button>
                         <button className=" text-2xl p-2 text-red shadow-3xl rounded-md ">
@@ -43,42 +47,43 @@ export default function OrganiaztionCard() {
                     Type
                 </div>
                 <div className="text-xl">
-                    Trading
+                    {OrgTypes[data?.type]}
                 </div>
                 <div className="text-gray-lighter text-xl">
                     Your Role
                 </div>
                 <div className="text-xl">
-                    Admin
+                    {Roles[data?.role]}
                 </div>
                 <div className="text-gray-lighter text-xl">
                     Country
                 </div>
                 <div className="text-xl">
-                    Turkey
+                    {Countries[data?.country]}
                 </div>
                 <div className="text-gray-lighter text-xl">
                     State/Province
                 </div>
                 <div className="text-xl">
-                    Turkey
+                    {Province[data?.province]}
                 </div>
                 <div className="text-gray-lighter text-xl">
                     Currency
                 </div>
                 <div className="text-xl">
-                    USD                </div>
+                    {Currencies[data?.currency]}
+                </div>
                 <div className="text-gray-lighter text-xl">
                     Language
                 </div>
                 <div className="text-xl">
-                    English
+                    {Languages[data?.language]}
                 </div>
                 <div className="text-gray-lighter text-xl">
                     Timezone
                 </div>
                 <div className="text-xl">
-                    GMT +5 Turkey
+                    {Timezones[data?.timezone]}
                 </div>
             </div></Card>
     </>

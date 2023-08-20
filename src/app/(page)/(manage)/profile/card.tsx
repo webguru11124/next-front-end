@@ -4,9 +4,9 @@
 import useGetProfile from "@/api/user/useGetProfile";
 import Avatar from "@/components/Avatar"
 import { ModalType, useModal } from "@/store/useModalStore";
+import { User, getUserFromSource } from "@/types/user";
 import { Spinner } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-import { User, getUserFromSource } from "../users/types";
 
 export default function ProfileCard() {
 
