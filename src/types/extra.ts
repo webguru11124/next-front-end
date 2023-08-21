@@ -23,6 +23,10 @@ export type ExtraForm = z.infer<typeof ExtraSchema>;
 export interface Extra extends ExtraFormWithServer {
     id: string | null;
 }
+export interface ExtraWithServer extends ExtraFormWithServer {
+    id: string | null;
+    dropdowns: Array<string>;
+}
 export const formExtraToForm = (data: Extra): ExtraForm => {
     const formData: ExtraForm = {
         name: data.name,

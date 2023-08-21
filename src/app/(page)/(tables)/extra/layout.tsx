@@ -1,3 +1,4 @@
+import DropdownEditModal from "./dropdownEditModal";
 import EditExtraModal from "./extraEditModal";
 import Header from "./header";
 
@@ -8,5 +9,6 @@ export default function ExtraFieldLayout({ children }: { children: React.ReactNo
             {children}
         </div>
         <EditExtraModal />
+        <DropdownEditModal />
     </>
 }

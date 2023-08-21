@@ -22,7 +22,11 @@ export default function EditExtraModal() {
     const id = useSelected();
     const modal = useModalType();
     let initalData: ExtraForm = {
-        name: ""
+        name: "",
+        table: "",
+        show_in_table: "",
+        required: "",
+        drop_down: "",
     };
     const { data, error, isError, isLoading, refetch } = useExtraFieldQuery(`${id}`);
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
@@ -31,10 +35,13 @@ export default function EditExtraModal() {
         mode: 'onChange',
     });
     useEffect(() => {
-        if (data) {
+        if (id && data) {
             reset(formExtraToForm(data));
         }
-    }, [data, reset]);
+        if (!id) {
+            reset(initalData);
+        }
+    }, [data, reset, id]);
     const { mutate: update, isLoading: updateLoading, isError: updateError } = useExtraFieldUpdate();
     const { mutate: create, isLoading: createLoading, isError: createError } = useExtraFieldCreate();
     const onSubmit = async (data: ExtraForm) => {

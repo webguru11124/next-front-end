@@ -13,7 +13,8 @@ export enum ModalType {
   OrganizationEditModal,
   InviteUser,
   UserDetail,
-  VendorDetail
+  VendorDetail,
+  DropdownEditModal
 }
 export type ModalOptions = {
   catchOnCancel?: boolean;

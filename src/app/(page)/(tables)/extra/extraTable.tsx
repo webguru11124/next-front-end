@@ -2,7 +2,7 @@
 import Avatar from "@/components/Avatar";
 import { useState } from "react";
 import { ModalType, useModal } from "@/store/useModalStore";
-import { Extra, ExtraForm, ExtraFormWithServer, formExtraToForm } from "@/types/extra";
+import { Extra, ExtraForm, ExtraFormWithServer, ExtraWithServer, formExtraToForm } from "@/types/extra";
 import useExtraFieldQueryWithOrganization from "@/api/extra/useExtraFieldQueryWithOrganization";
 import Spinner from "@/components/Spinner";
 import { Tables } from "@/constants/tables";
@@ -26,17 +26,29 @@ export default function ExtraTable() {
                 </tr>
             </thead>
             <tbody className="text-center">
-                {extra_fields && extra_fields.map((extra: Extra) => ({ id: extra.id, extra: formExtraToForm(extra) })).
-                    map(({ extra, id }: { extra: ExtraForm, id: string }) => (<tr className="py-3  cursor-pointer" key={id}
-                        onClick={() => {
-                            open({ modalType: ModalType.ExtraEditModel, id })
-                        }}>
-                        <td className="border border-lighter-border py-3">{extra.name}</td>
-                        <td className="border border-lighter-border py-3">{extra.table}</td>
-                        <td className="border border-lighter-border py-3">{extra.show_in_table}</td>
-                        <td className="border border-lighter-border py-3">{extra.required}</td>
-                        <td className="border border-lighter-border py-3">{extra.drop_down}</td>
-                    </tr>))
+                {extra_fields && extra_fields.map((extra: ExtraWithServer) =>
+                    ({ id: extra.id, extra: formExtraToForm(extra), dropdowns: extra.dropdowns.filter(e => e) })).
+                    map(({ extra, id, dropdowns }: { extra: ExtraForm, id: string, dropdowns: Array<string> }) => (
+                        <tr className="py-3  cursor-pointer" key={id}>
+                            <td className="border border-lighter-border py-3" onClick={() => {
+                                open({ modalType: ModalType.ExtraEditModel, id })
+                            }}>{extra.name}</td>
+                            <td className="border border-lighter-border py-3" onClick={() => {
+                                open({ modalType: ModalType.ExtraEditModel, id })
+                            }}>{extra.table}</td>
+                            <td className="border border-lighter-border py-3" onClick={() => {
+                                open({ modalType: ModalType.ExtraEditModel, id })
+                            }}>{extra.show_in_table}</td>
+                            <td className="border border-lighter-border py-3" onClick={() => {
+                                open({ modalType: ModalType.ExtraEditModel, id })
+                            }}>{extra.required}</td>
+                            <td className="border border-lighter-border py-3" onClick={() => {
+                                open({ modalType: ModalType.ExtraEditModel, id })
+                            }}>{extra.drop_down}</td>
+                            <td className="border border-lighter-border py-3" onClick={() => {
+                                extra.drop_down === "true" && open({ modalType: ModalType.DropdownEditModal, id })
+                            }}>{dropdowns.length > 0 ? JSON.stringify(dropdowns) : "No data"}</td>
+                        </tr>))
                 }
 
             </tbody>
