@@ -10,14 +10,14 @@ import SelectBox from "@/components/SelectBox";
 import Spinner from "@/components/Spinner";
 import { Tables } from "@/constants/forms";
 import { ModalType, useClose, useModalType, useOpen, useSelected } from "@/store/useModalStore"
-import { ExtraForm, ExtraSchema } from "@/types/extra";
+import { ExtraForm, ExtraFormWithServer, ExtraSchema, convertToExtraToServer, formExtraToForm } from "@/types/extra";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr"
 
 
-export default function EditdVendorModal() {
+export default function EditExtraModal() {
     const close = useClose();
     const id = useSelected();
     const modal = useModalType();
@@ -32,21 +32,20 @@ export default function EditdVendorModal() {
     });
     useEffect(() => {
         if (data) {
-            reset((data));
+            reset(formExtraToForm(data));
         }
     }, [data, reset]);
     const { mutate: update, isLoading: updateLoading, isError: updateError } = useExtraFieldUpdate();
     const { mutate: create, isLoading: createLoading, isError: createError } = useExtraFieldCreate();
     const onSubmit = async (data: ExtraForm) => {
+        const mutateData: ExtraFormWithServer = convertToExtraToServer(data);
         if (id)
-            update({ id, ...data });
+            update({ id, ...mutateData });
         else
-            create({ ...data });
+            create({ ...mutateData });
     };
 
-    if ((isLoading))
-        return <><Spinner></Spinner></>;
-    return (modal === ModalType.ExtraEditModel && <Modal width="xl" className="h-[714px] py-4">
+    return (modal === ModalType.ExtraEditModel && <Modal width="xl" className="h-[604px] py-4">
         <div className="flex flex-col h-full">
             <div className="flex relative justify-center">
                 <div className="flex flex-col  mr-[50px]">
@@ -62,13 +61,13 @@ export default function EditdVendorModal() {
                 </button>
 
             </div>
-            <form >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-2 gap-x-14  gap-y-6 px-6  ">
-                    <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
+                    <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-20 text-blue-main ml-[-48px] px-12 ">
                         Field Details
                     </div>
                     <div className="col-start-1">
-                        <Input label="Name" name="name" placeholder="Enter name here" />
+                        <Input label="Name" name="name" placeholder="Enter name here" register={register} error={formErrors.name} />
                     </div>
                     <SelectBox
                         name="table"
@@ -93,7 +92,7 @@ export default function EditdVendorModal() {
                     />
 
                     <SelectBox
-                        name="dropdown"
+                        name="drop_down"
                         control={control}
                         label="Dropdown"
                         options={["true", "false"]}
@@ -101,7 +100,7 @@ export default function EditdVendorModal() {
                     />
                 </div>
                 <div className="py-10 flex justify-center">
-                    <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white mr-12 font-bold" >Save</button>
+                    <button type="submit" className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white mr-12 font-bold" >Save</button>
                     <button onClick={() => close()} className="rounded-md text-[18px] border-2 border-red py-2.5 px-7 text-red  font-bold" >Cancel</button>
                 </div>
             </form>

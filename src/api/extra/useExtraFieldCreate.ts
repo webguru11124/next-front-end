@@ -7,14 +7,16 @@ import { signIn } from "next-auth/react";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
 import queryKeys from "./queryKeys";
-import { ExtraForm } from "@/types/extra";
+import { ExtraFormWithServer } from "@/types/extra";
 import { useClose } from "@/store/useModalStore";
+import { useCurrentOrganizationId } from "@/store/useOrganizationStore";
 export default function useExtraFieldCreate() {
     const axios = useAxios();
     const queryClient = useQueryClient(); // Create a queryClient instance
     const close = useClose()
-    const extraCreate = (formData: ExtraForm) => {
-        return axios.post(`extra_field`, { ...formData })
+    const { id } = useCurrentOrganizationId();
+    const extraCreate = (formData: ExtraFormWithServer) => {
+        return axios.post(`extra_field`, { ...formData, organization_id: id })
     };
     const { mutate, isLoading, isError, error, data } = useMutation({
         mutationFn: extraCreate,

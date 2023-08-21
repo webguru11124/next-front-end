@@ -9,10 +9,12 @@ export default function Header() {
             <h1 className="text-blue-main text-4xl">Extra Fields</h1>
             <div>
                 <div className="flex gap-x-6">
-                    <button className="bg-blue-primary p-3 rounded-sm shadow-md">
+                    <button className="bg-blue-primary p-3 rounded-sm shadow-md"
+                        onClick={() => openModal({ modalType: ModalType.ExtraEditModel, id: null })}>
                         <BsPlus size={22} className="bg-white text-blue-primary font-bold"></BsPlus>
                     </button>
-                    <button className="bg-white p-3 rounded-sm shadow-md" onClick={() => openModal({ modalType: ModalType.ExtraEditModel, id: null })}>
+                    <button className="bg-white p-3 rounded-sm shadow-md"
+                    >
                         <SlOptions size={22} className="text-black font-bold"></SlOptions>
                     </button>
                 </div>

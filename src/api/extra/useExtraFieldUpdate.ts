@@ -21,10 +21,11 @@ export default function useExtraFieldUpdate() {
     const { mutate, isLoading, isError, error, data } = useMutation({
         mutationFn: extraUpdate,
         onSuccess: (data, variables, context) => {
+            if (id)
+                queryClient.invalidateQueries();
             toast.error(`Extra Field Updated Successfully`, { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
             close();
-            if (id)
-                queryClient.invalidateQueries([queryKeys.getExtra(id), queryKeys.getExtrasWithOrganization(id)]);
+
 
         },
         onError: (error) => {
