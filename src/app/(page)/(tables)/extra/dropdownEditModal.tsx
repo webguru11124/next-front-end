@@ -28,8 +28,8 @@ export default function DropdownEditModal() {
         table: "",
         values: [],
     };
-    const { data: values, error, isError, isLoading, refetch, } = useExtraValueQuery(`${id}`);
-    const { data: extra_field, isLoading: extraLoading, } = useExtraFieldQuery(`${id}`);
+    const { data: values, error, isError, isLoading, refetch, } = useExtraValueQuery(id);
+    const { data: extra_field, isLoading: extraLoading, } = useExtraFieldQuery(id);
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm<ExtraValueForm>({
         defaultValues: initalData,
         mode: 'onChange',
@@ -46,13 +46,7 @@ export default function DropdownEditModal() {
     }, [values, extra_field, reset]);
     const { mutate, isLoading: mutateLoading, isError: updateError } = useExtraValueMutation();
     const onSubmit = async (data: ExtraValueForm) => {
-        console.log(data);
         mutate({ name: data.field, place: Tables.indexOf(data.table) + 1, id, values: data.values });
-        // // const mutateData: ExtraFormWithServer = convertToExtraToServer(data);
-        // if (id)
-        //     update({ id, ...mutateData });
-        // else
-        //     create({ ...mutateData });
     };
     const addButton = (<button
         type="button"
@@ -93,7 +87,7 @@ export default function DropdownEditModal() {
                     </div>
                     {fields.length > 0 ?
                         <>
-                            {<div className="col-start-1">
+                            {fields.length > 0 && <div className="col-start-1">
                                 <Input label={`Value 1`} name="values.0.value" placeholder="Enter field here" register={register} />
                             </div>
                             }{fields.slice(1).map((field, index) =>

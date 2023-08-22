@@ -12,10 +12,10 @@ import { GrClose } from "react-icons/gr"
 import { z } from "zod";
 import { useEffect } from "react";
 import useGetProfile from "@/api/user/useGetProfile";
-import { Spinner } from "@nextui-org/react";
 import { Countries, Genders, Languages, Timezones } from "@/constants/forms";
 import useUserMutation from "@/api/user/useUserMutation";
 import { UserForm, UserSchema, getUserFromSource } from "@/types/user";
+import Spinner from "@/components/Spinner";
 
 
 
@@ -32,7 +32,7 @@ export default function EditProfileModal() {
         language: "english",
         timezone: "EST",
     };
-    const { data, error, isError, isLoading, id, refetch } = useGetProfile();
+    const { data, error, isError, isLoading, refetch, id } = useGetProfile();
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
         defaultValues: initalData,
         resolver: zodResolver(UserSchema),
@@ -48,11 +48,16 @@ export default function EditProfileModal() {
         if (id)
             mutate({ id, ...data });
     };
-
+    if (modal !== ModalType.PorfileEditModal)
+        return <div></div>;
     if ((isLoading))
-        return <><Spinner></Spinner></>;
+        return <Modal width="xl" className="h-[714px] py-4">
+            <div className="flex flex-col h-full">
+                <Spinner />
+            </div>
+        </Modal>;
 
-    return (modal === ModalType.PorfileEditModal && <Modal width="xl" className="h-[714px] py-4">
+    return (<Modal width="xl" className="h-[714px] py-4">
         <div className="flex flex-col h-full">
             <div className="flex relative justify-center">
                 <div className="flex flex-col  mr-[50px]">

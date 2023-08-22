@@ -19,7 +19,7 @@ import { GrClose } from "react-icons/gr"
 
 export default function EditExtraModal() {
     const close = useClose();
-    const id = useSelected();
+    const id: string | null = useSelected();
     const modal = useModalType();
     let initalData: ExtraForm = {
         name: "",
@@ -28,7 +28,7 @@ export default function EditExtraModal() {
         required: "",
         drop_down: "",
     };
-    const { data, error, isError, isLoading, refetch } = useExtraFieldQuery(`${id}`);
+    const { data, error, isError, isLoading, refetch } = useExtraFieldQuery(id);
     const { register, handleSubmit, control, formState: { errors: formErrors, isSubmitted }, watch, reset } = useForm({
         defaultValues: initalData,
         resolver: zodResolver(ExtraSchema),

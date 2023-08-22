@@ -4,17 +4,20 @@ import Avatar from "@/components/Avatar";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
-import { ModalType, useClose, useModal, useModalType, useOpen } from "@/store/useModalStore"
+import { ModalType, useClose, useModal, useModalType, useOpen, useSelected } from "@/store/useModalStore"
 import { GrClose } from "react-icons/gr"
 import { FiTrash } from "react-icons/fi"
 import { User } from "@/types/user";
+import useOrganizationUserRemove from "@/api/organization/useOrganizationUserRemove";
 
 
-export default function UserDetailModal({ user }: { user: User }) {
+export default function UserDetailModal({ user }: { user: User | null }) {
     const close = useClose();
-    const openModal = useModal()
+    const openModal = useModal();
     const modal = useModalType();
-    return (modal === ModalType.UserDetail && <Modal width="lg" className="h-[451px] py-4 px-20">
+    const { mutate } = useOrganizationUserRemove();
+    if (modal !== ModalType.UserDetail || user === null) return <div></div>;
+    return (<Modal width="lg" className="h-[451px] py-4 px-20">
         <div className="flex flex-col h-full">
             <div className="flex relative ">
                 <div className="flex   mr-12 items-center mt-5 mb-4">
@@ -23,15 +26,20 @@ export default function UserDetailModal({ user }: { user: User }) {
                     </div>
                     <div className="flex flex-col ">
                         <div className="text-2xl text-blue-main font-bold">
-                            {user.f_name}
+                            {user?.f_name}
                         </div>
                         <div className="flex  mt-8 justify-between">
                             <button className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold"
-                                onClick={() => { close(); openModal({ modalType: ModalType.PorfileEditModal }) }}>
+                                onClick={() => { close(); openModal({ modalType: ModalType.InviteUser, id: user?.id }) }}>
                                 Edit User
                             </button>
                             <div className="flex gap-x-7 ml-6">
-                                <button className=" text-2xl p-2 text-red shadow-3xl rounded-md ">
+                                <button className=" text-2xl p-2 text-red shadow-3xl rounded-md "
+                                    onClick={() => {
+                                        if (user.id && window.confirm("Are you sure")) {
+                                            mutate(user.id);
+                                        }
+                                    }}>
                                     <FiTrash />
                                 </button>
                             </div>
@@ -53,7 +61,7 @@ export default function UserDetailModal({ user }: { user: User }) {
                             Email:
                         </div>
                         <div className="text-xl">
-                            {user.email}
+                            {user?.email}
                         </div>
                     </div>
                     <div className="flex gap-x-5">

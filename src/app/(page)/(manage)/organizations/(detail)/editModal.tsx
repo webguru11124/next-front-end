@@ -1,7 +1,5 @@
 "use client"
 
-import useUserQuery from "@/api/user/useUserQuery";
-import Avatar from "@/components/Avatar";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
@@ -26,7 +24,7 @@ export default function OrganizationEditModal() {
         mode: 'onChange',
     });
     const id = useSelected();
-    const { data } = useOrganizationQuery(`${id}`);
+    const { data } = useOrganizationQuery(id);
     useEffect(() => {
         if (data) {
             const resetData: OrgForm = {
