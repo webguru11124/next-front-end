@@ -7,38 +7,38 @@ import { toast } from "react-toastify";
 import { useClose } from "@/store/useModalStore";
 import { User } from "@/types/user";
 export default function useUserMutation() {
-  const axios = useAxios();
-  const close = useClose();
-  let id: string | null;
-  const registerUser = (formData: User) => {
-    id = formData.id;
-    return axios.put(`users/${formData.id}`, { ...formData });
-  };
-  const queryClient = useQueryClient(); // Create a queryClient instance
+    const axios = useAxios();
+    const close = useClose();
+    let id: string | null;
+    const registerUser = (formData: User) => {
+        id = formData.id;
+        return axios.put(`users/${formData.id}`, { ...formData });
+    };
+    const queryClient = useQueryClient(); // Create a queryClient instance
 
-  const { mutate, isLoading, isError, error, data } = useMutation({
-    mutationFn: registerUser,
-    onSuccess: (data, variables, context) => {
-      toast.error(`User updated Successfully`, {
-        hideProgressBar: true,
-        autoClose: 5000,
-        type: "success",
-        position: "top-right",
-      });
+    const { mutate, isLoading, isError, error, data } = useMutation({
+        mutationFn: registerUser,
+        onSuccess: (data, variables, context) => {
+            toast.error(`User updated Successfully`, {
+                hideProgressBar: true,
+                autoClose: 5000,
+                type: "success",
+                position: "top-right",
+            });
 
-      if (id) queryClient.invalidateQueries();
+            if (id) queryClient.invalidateQueries();
 
-      close();
-    },
-    onError: (error) => {
-      toast.error(`Server Error: ${error}`, {
-        hideProgressBar: true,
-        autoClose: 5000,
-        type: "error",
-        position: "top-right",
-      });
-    },
-  });
+            close();
+        },
+        onError: (error) => {
+            toast.error(`Server Error: ${error}`, {
+                hideProgressBar: true,
+                autoClose: 5000,
+                type: "error",
+                position: "top-right",
+            });
+        },
+    });
 
-  return { mutate, isLoading, isError, error, data };
+    return { mutate, isLoading, isError, error, data };
 }

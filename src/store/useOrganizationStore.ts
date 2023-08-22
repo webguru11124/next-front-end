@@ -3,7 +3,8 @@
 "use client";
 
 import useOrganizationsByUserQuery from "@/api/organization/useOrganizationsByUserQuery";
-import useGetProfile, { useCurrentUser } from "@/api/user/useGetProfile";
+import useCurrentUser from "@/api/user/useCurrentUser";
+import useGetProfile from "@/api/user/useGetProfile";
 import { create } from "zustand";
 
 type State = {
