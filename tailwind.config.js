@@ -34,7 +34,7 @@ module.exports = {
       gray: "#8492a6",
       "light-color": "#57575A",
       "light-bg": "#F0F0F0",
-      "red": "#FF5647",
+      red: "#FF5647",
       "gray-max-light": "#F0F0F0",
       "gray-light": "#d3dce6",
       "gray-lighter": "#7E7E7E",
@@ -43,10 +43,10 @@ module.exports = {
       "blue-lighter": "#EEF2FF",
       "light-border": "#D2D2D2",
       "lighter-border": "#EDEDED",
-      "black": "#404040",
+      black: "#404040",
       "white-darker": "#7E7E7E",
       "green-text": "#00E431",
-      "green-light": "#D9FFE5"
+      "green-light": "#D9FFE5",
     },
     fontWeight: {
       thin: 100,
@@ -62,7 +62,7 @@ module.exports = {
     borderRadius: {
       sm: "6px",
       md: "12px",
-      full: "999px"
+      full: "999px",
     },
     fontSize: {
       sm: "12px",
@@ -121,16 +121,16 @@ module.exports = {
     },
     extend: {
       boxShadow: {
-        '3xl': '0 4px 10px 0px rgba(0, 0, 0, 0.20)',
+        "3xl": "0 4px 10px 0px rgba(0, 0, 0, 0.20)",
       },
       borderWidth: {
-        DEFAULT: '1px',
-        '0': '0',
-        '2': '2px',
-        '3': '3px',
-        '4': '4px',
-        '6': '6px',
-        '8': '8px',
+        DEFAULT: "1px",
+        0: "0",
+        2: "2px",
+        3: "3px",
+        4: "4px",
+        6: "6px",
+        8: "8px",
       },
       width: {
         header: "271px",
@@ -147,7 +147,7 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant(
         "mobile-only",
-        "@media screen and (max-width: theme('screens.md'))"
+        "@media screen and (max-width: theme('screens.md'))",
       ); // instead of hard-coded 640px use sm breakpoint value from config. Or anything
     }),
   ],

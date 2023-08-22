@@ -1,3 +1,7 @@
-
 import { MutableRefObject } from "react";
-export type PanelCloseType = (focusableElement?: HTMLElement | MutableRefObject<HTMLElement | null> | undefined) => void
+export type PanelCloseType = (
+  focusableElement?:
+    | HTMLElement
+    | MutableRefObject<HTMLElement | null>
+    | undefined,
+) => void;

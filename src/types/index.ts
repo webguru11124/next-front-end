@@ -1,38 +1,36 @@
 import React from "react";
 
 export interface ILanguageOptions {
-    code: string;
-    image: React.ReactNode;
-    id: string;
+  code: string;
+  image: React.ReactNode;
+  id: string;
 }
 export interface ILinks {
-    id: string;
-    linkName: string;
-    linkUrl: string;
+  id: string;
+  linkName: string;
+  linkUrl: string;
 }
 export interface ISocialLinks {
-    id: string;
-    linkName: string;
-    linkUrl: string;
-    linkIcon: React.ReactNode;
+  id: string;
+  linkName: string;
+  linkUrl: string;
+  linkIcon: React.ReactNode;
 }
 
 export interface RegisterFormData {
-    name: string;
-    email: string;
-    password: string;
-
+  name: string;
+  email: string;
+  password: string;
 }
 export interface LoginFormData {
-    email: string;
-    password: string;
-
+  email: string;
+  password: string;
 }
 export interface LoginResult {
-    success: boolean;
-    message: string;
-    result: {
-        token: string;
-        user_id: string;
-    }
+  success: boolean;
+  message: string;
+  result: {
+    token: string;
+    user_id: string;
+  };
 }

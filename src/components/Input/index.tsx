@@ -21,10 +21,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   register?: UseFormRegister<any>;
   error?:
-  | FieldError
-  | Merge<FieldError, FieldErrorsImpl<any>>
-  | undefined
-  | any;
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined
+    | any;
 }
 
 const Input = ({

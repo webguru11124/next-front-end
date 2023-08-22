@@ -5,13 +5,10 @@ import Link from "next/link";
 import { USFlagSvg } from "@/assets/icons/flag/flag.d";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { MenuSideBarIcon } from "@/assets/icons";
-import { ILinks } from "@/types"; import {
-  LanguageOptionArr,
-  LinksArr,
-  SocialLinksArr,
-} from "@/lib/util";
+import { ILinks } from "@/types";
+import { LanguageOptionArr, LinksArr, SocialLinksArr } from "@/lib/util";
 
-const Header = () => {
+export default function Header() {
   const [activeLanguage, setActiveLanguage] = useState<boolean>(false);
   const [showLinks, setShowLinks] = useState<boolean>(false);
 
@@ -117,6 +114,4 @@ const Header = () => {
       </header> */}
     </>
   );
-};
-
-export default Header;
+}

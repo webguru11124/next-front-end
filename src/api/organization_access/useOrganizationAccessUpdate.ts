@@ -1,34 +1,31 @@
-import { LoginFormData } from "@/types";
 import useAxios from "../instance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useClose } from "@/store/useModalStore";
-import { User } from "@/types/user";
-export default function useUserMutation() {
+import { useCurrentOrganizationId } from "@/store/useOrganizationStore";
+import { InviteUser } from "@/types/invite";
+export default function useOrganizationAccessUpdate() {
   const axios = useAxios();
-  const close = useClose();
-  let id: string | null;
-  const registerUser = (formData: User) => {
-    id = formData.id;
-    return axios.put(`users/${formData.id}`, { ...formData });
-  };
   const queryClient = useQueryClient(); // Create a queryClient instance
-
+  const close = useClose();
+  const { id } = useCurrentOrganizationId();
+  const orgAcessUpdate = (formData: InviteUser) => {
+    return axios.put(`organization/${id}/users/${formData.id}`, {
+      ...formData,
+    });
+  };
   const { mutate, isLoading, isError, error, data } = useMutation({
-    mutationFn: registerUser,
+    mutationFn: orgAcessUpdate,
     onSuccess: (data, variables, context) => {
-      toast.error(`User updated Successfully`, {
+      toast.error(`Update  Successfully`, {
         hideProgressBar: true,
         autoClose: 5000,
         type: "success",
         position: "top-right",
       });
-
-      if (id) queryClient.invalidateQueries();
-
       close();
+      queryClient.invalidateQueries();
     },
     onError: (error) => {
       toast.error(`Server Error: ${error}`, {

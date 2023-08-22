@@ -1,10 +1,8 @@
-
 import React from "react";
 import Header from "@/app/(auth)/header";
 import { LogoSvg } from "@/assets/icons/logo";
 import { SignUpSvg } from "@/assets/icons";
 import RegisterForm from "@/app/(auth)/register/registerForm";
-
 
 export default function SignUp() {
   return (

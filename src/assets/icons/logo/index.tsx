@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Logo from "@/assets/img/logo.png"
+import Logo from "@/assets/img/logo.png";
 import Link from "next/link";
 
 export const LogoSvg = () => {
@@ -14,6 +14,7 @@ export const LogoSvg = () => {
         style={{ objectFit: "contain", minWidth: "80px" }}
         className="xs:w-[100px] sm:w-[120px]"
         priority
-      /></Link>
+      />
+    </Link>
   );
 };

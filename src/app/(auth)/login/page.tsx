@@ -1,13 +1,10 @@
-
-
 import React from "react";
 import { LogoSvg } from "@/assets/icons/logo";
-import { CheckMark, LoginSvg, } from "@/assets/icons";
+import { CheckMark, LoginSvg } from "@/assets/icons";
 import Header from "@/app/(auth)/header";
 import LoginForm from "@/app/(auth)/login/loginForm";
 
-const Login = () => {
-
+export default function Login() {
   return (
     <section className="flex md:px-0 xs:px-4 font-sans md:min-h-screen flex-col justify-start xs:justify-center xs:h-[100vh] md:h-auto md:flex-row">
       <div className="absolute z-1 left-0 top-0 bg-blue-light w-[100vw] h-[60vh] xs:block md:hidden " />
@@ -69,5 +66,4 @@ const Login = () => {
       </div>
     </section>
   );
-};
-export default Login;
+}

@@ -7,18 +7,18 @@ import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experime
 import { useState } from "react";
 
 type Props = {
-    children?: React.ReactNode;
+  children?: React.ReactNode;
 };
 
-export const NextAuthProvider = ({ children }: Props) => {
-    const [client] = useState(new QueryClient());
+export default function NextAuthProvider({ children }: Props) {
+  const [client] = useState(new QueryClient());
 
-    return (<SessionProvider>
-        <QueryClientProvider client={client}>
-            <ReactQueryStreamedHydration>
-                {children}
-            </ReactQueryStreamedHydration>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-    </SessionProvider>);
-};
+  return (
+    <SessionProvider>
+      <QueryClientProvider client={client}>
+        <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </SessionProvider>
+  );
+}

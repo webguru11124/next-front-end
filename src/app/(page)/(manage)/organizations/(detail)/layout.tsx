@@ -1,16 +1,15 @@
-
-import OrganizationEditModal from "./editModal"
-import Header from "./header"
+import OrganizationEditModal from "./editModal";
+import Header from "./header";
 export default function ProfileLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    return <section className="">
-        <Header></Header>
-        <div className="flex justify-center mt-20">
-            {children}
-        </div>
-        <OrganizationEditModal></OrganizationEditModal>
+  return (
+    <section className="">
+      <Header></Header>
+      <div className="flex justify-center mt-20">{children}</div>
+      <OrganizationEditModal></OrganizationEditModal>
     </section>
+  );
 }

@@ -1,10 +1,9 @@
 // Code inspired by https://dev.to/dmtrkovalenko/the-neatest-way-to-handle-alert-Modals-in-react-1aoe
 // If you prefer to use Context API, refer to that link
-"use client"
+"use client";
 
-import { stat } from 'fs';
-import { produce } from 'immer';
-import { create } from 'zustand';
+import { produce } from "immer";
+import { create } from "zustand";
 
 export enum ModalType {
   PorfileEditModal,
@@ -15,13 +14,13 @@ export enum ModalType {
   InviteUser,
   UserDetail,
   VendorDetail,
-  DropdownEditModal
+  DropdownEditModal,
 }
 export type ModalOptions = {
   catchOnCancel?: boolean;
   modalType?: ModalType | null;
   id: string | null;
-}
+};
 
 type ModalStoreType = {
   awaitingPromise: {
@@ -40,20 +39,20 @@ const useModalStore = create<ModalStoreType>((set) => ({
   open: false,
   state: {
     catchOnCancel: false,
-    id: null
+    id: null,
   },
   modal: (options) => {
     set(
       produce((state: ModalStoreType) => {
         state.open = true;
         state.state = { ...state.state, ...options };
-      })
+      }),
     );
     return new Promise<void>((resolve, reject) => {
       set(
         produce((state: ModalStoreType) => {
           state.awaitingPromise = { resolve, reject };
-        })
+        }),
       );
     });
   },
@@ -67,7 +66,7 @@ const useModalStore = create<ModalStoreType>((set) => ({
         state.state.id = null;
         state.state.catchOnCancel && state.awaitingPromise?.reject?.();
         state.open = false;
-      })
+      }),
     );
   },
   handleSubmit: () => {
@@ -75,14 +74,15 @@ const useModalStore = create<ModalStoreType>((set) => ({
       produce((state: ModalStoreType) => {
         state.awaitingPromise?.resolve?.();
         state.open = false;
-      })
+      }),
     );
   },
 }));
 
 export default useModalStore;
 export const useOpen = () => useModalStore((state) => state.open);
-export const useModalType = () => useModalStore((state) => state.state.modalType)
-export const useSelected = () => useModalStore((state) => state.state.id)
+export const useModalType = () =>
+  useModalStore((state) => state.state.modalType);
+export const useSelected = () => useModalStore((state) => state.state.id);
 export const useClose = () => useModalStore((state) => state.handleClose);
 export const useModal = () => useModalStore((state) => state.modal);

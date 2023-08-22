@@ -1,16 +1,15 @@
-
-import Header from "./header"
-import InviteUserModal from "./_inviteUser"
-import UserDetailModal from "./userDetailModal"
+import Header from "./header";
+import InviteUserModal from "./_inviteUser";
+import UserDetailModal from "./userDetailModal";
 export default function ProfileLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    return <section className="">
-        <Header></Header>
-        <div className="flex justify-center mt-20">
-            {children}
-        </div>
+  return (
+    <section className="">
+      <Header></Header>
+      <div className="flex justify-center mt-20">{children}</div>
     </section>
+  );
 }

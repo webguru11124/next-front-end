@@ -1,5 +1,4 @@
-
-export default {
-    getUser: (id: string | null) => ['getUser', id],
-    getUsers: (id: string | null) => ['getusers', id]
+export const queryKeys = {
+  getUser: (id: string | null) => ["getUser", id],
+  getUsers: (id: string | null) => ["getUsers", id],
 };

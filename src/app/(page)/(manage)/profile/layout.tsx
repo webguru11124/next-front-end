@@ -1,14 +1,15 @@
-
-import EditModal from "./editModal"
+import EditModal from "./editModal";
 export default function ProfileLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    return <div className="">
-        <h1 className="text-blue-main text-3xl font-bold mt-5 ">Manage Profile</h1>
-        <div className="flex justify-center mt-20">
-            {children}
-        </div>
+  return (
+    <div className="">
+      <h1 className="text-blue-main text-3xl font-bold mt-5 ">
+        Manage Profile
+      </h1>
+      <div className="flex justify-center mt-20">{children}</div>
     </div>
-}   
+  );
+}

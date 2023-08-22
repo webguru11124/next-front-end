@@ -2,10 +2,14 @@ import { LoginFormData, RegisterFormData } from "@/types";
 import useAxios from "../instance";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "./queryKeys";
-export default function useOrganizationQuery(id: string | null) {
+import { useCurrentOrganizationId } from "@/store/useOrganizationStore";
+export default function useOrganizationsAccessQuery(id: string | null) {
   const axios = useAxios();
-  const getOrganization = (id: string | null) =>
-    id ? axios.get(`organization/${id}`) : Promise.reject("id is null");
+  const { id: org_id } = useCurrentOrganizationId();
+  const getOrganizationAccess = (id: string | null) =>
+    id
+      ? axios.get(`organization/${org_id}/users/${id}`)
+      : Promise.reject("id is null");
   const {
     data,
     isLoading,
@@ -15,8 +19,8 @@ export default function useOrganizationQuery(id: string | null) {
     isPreviousData,
     refetch,
   } = useQuery({
-    queryKey: queryKeys.getOrganization(id),
-    queryFn: () => getOrganization(id),
+    queryKey: queryKeys.getOrganizationAccess(id),
+    queryFn: () => getOrganizationAccess(id),
   });
 
   return {
