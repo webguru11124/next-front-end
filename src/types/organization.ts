@@ -51,5 +51,6 @@ export const convertOrgToServerFormat = (data: OrgForm): OrgForm => {
     if (data.time_zone) mutateData.time_zone = data.time_zone;
     if (data.invite_email) mutateData.invite_email = data.invite_email;
     if (data.invite_role) mutateData.invite_role = Roles.indexOf(data.invite_role).toString()
+
     return mutateData;
 }

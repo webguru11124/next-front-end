@@ -17,19 +17,20 @@ export type UserForm = z.infer<typeof UserSchema>;
 
 export interface User extends UserForm {
     id: string | null;
-    img_url?: string
+    img_url?: string;
+    role?: number;
 }
 
 
 export const getUserFromSource = (data: User): User => (
     {
         id: data.id ?? null,
-        email: data.email ?? "jack@test.com",
-        f_name: data.f_name ?? "jack",
-        l_name: data.l_name ?? "smith",
-        number: data.number ?? "123-4567",
-        gender: data.gender ?? "male",
-        country: data.country ?? "US",
-        language: data.language ?? "english",
-        timezone: data.timezone ?? "EST",
+        email: data.email,
+        f_name: data.f_name ?? "",
+        l_name: data.l_name ?? "",
+        number: data.number ?? "",
+        gender: data.gender ?? "",
+        country: data.country ?? "",
+        language: data.language ?? "",
+        timezone: data.timezone ?? "",
     })
