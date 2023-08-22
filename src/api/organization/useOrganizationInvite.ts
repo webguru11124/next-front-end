@@ -7,24 +7,24 @@ import { signIn } from "next-auth/react";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
 import { useClose } from "@/store/useModalStore";
-import { Extra } from "@/types/extra";
-export default function useExtraFieldUpdate() {
+import { Organization } from "@/types/organization";
+import queryKeys from "./queryKeys";
+import { useCurrentOrganizationId } from "@/store/useOrganizationStore";
+import { InviteUserServer } from "@/types/invite";
+export default function useOrganizationInvite() {
     const axios = useAxios();
     const queryClient = useQueryClient(); // Create a queryClient instance
     const close = useClose()
-    let id: string | null;
-    const extraUpdate = (formData: Extra) => {
-        id = formData.id;
-        return axios.put(`extra_field/${formData.id}`, { ...formData })
+    const { id } = useCurrentOrganizationId();
+    const orgInvite = (formData: InviteUserServer) => {
+        return axios.post(`organization/${id}/invite`, { ...formData })
     };
     const { mutate, isLoading, isError, error, data } = useMutation({
-        mutationFn: extraUpdate,
+        mutationFn: orgInvite,
         onSuccess: (data, variables, context) => {
-            if (id)
-                queryClient.invalidateQueries();
-            toast.error(`Extra Field Updated Successfully`, { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
+            toast.error(`Invite user Successfully`, { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
             close();
-
+            queryClient.invalidateQueries();
 
         },
         onError: (error) => {

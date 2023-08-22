@@ -1,6 +1,6 @@
 
 export default {
-    getOrganizationByUser: (id: string) => ['getOrganizationByUser', id],
-    getOrganization: (id: string) => ['getOrganization', id],
+    getOrganizationByUser: (id: string | null) => ['getOrganizationByUser', id],
+    getOrganization: (id: string | null) => ['getOrganization', id],
 
 };

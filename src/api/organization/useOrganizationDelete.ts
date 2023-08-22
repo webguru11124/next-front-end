@@ -10,7 +10,7 @@ export default function useOrganizationDelete() {
     const axios = useAxios();
     const router = useRouter();
     let id: string | null;
-    const orgUpdate = (id: string) => {
+    const orgUpdate = (id: string | null) => {
         return axios.delete(`organization/${id}`)
     };
     const { mutate, isLoading, isError, error, data } = useMutation({

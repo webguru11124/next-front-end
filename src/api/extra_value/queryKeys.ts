@@ -1,4 +1,4 @@
 
 export default {
-    getExtraValue: (id: string) => ['getExtraValue', id],
+    getExtraValue: (id: string | null) => ['getExtraValue', id],
 };

@@ -1,16 +1,15 @@
 
 
-import { LoginFormData, RegisterFormData } from "@/types";
 import useAxios from "../instance";
 import { useQuery } from "@tanstack/react-query";
 import queryKeys from "./queryKeys"
-export default function useUserQuery(id: string | null) {
+export default function useUsersByOrganizatinoQuery(id: string | null) {
     const axios = useAxios();
-    const getUser = (id: string | null) => id ? axios.get(`users/${id}`) : Promise.reject("id is null");
+    const getUsersByOrganization = (id: string | null) => id ? axios.get(`organization/${id}/users`) : Promise.reject("id is null");
     const { data, isLoading, error, isError, isFetching, isPreviousData, refetch } =
         useQuery({
-            queryKey: queryKeys.getUser(id),
-            queryFn: () => getUser(id)
+            queryKey: queryKeys.getUsers(id),
+            queryFn: () => getUsersByOrganization(id)
         });
 
     return {

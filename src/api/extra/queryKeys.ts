@@ -1,5 +1,5 @@
 
 export default {
-    getExtra: (id: string) => ['getExtra', id],
-    getExtrasWithOrganization: (id: string) => ['getExtraOrganziation', id],
+    getExtra: (id: string | null) => ['getExtra', id],
+    getExtrasWithOrganization: (id: string | null) => ['getExtraOrganziation', id],
 };

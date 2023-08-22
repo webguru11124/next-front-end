@@ -21,9 +21,8 @@ export default function useUserMutation() {
         onSuccess: (data, variables, context) => {
             toast.error(`User updated Successfully`, { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
 
-            // Refetch useUserQuery with the same id
             if (id)
-                queryClient.invalidateQueries(queryKeys.getUser(id));
+                queryClient.invalidateQueries();
 
             close();
         },
