@@ -100,9 +100,8 @@ export default function ExtraTable() {
                       {extra.drop_down}
                     </td>
                     <td
-                      className={`border border-lighter-border py-3 ${
-                        dropdowns.length === 0 ? "cursor-default" : ""
-                      }`}
+                      className={`border border-lighter-border py-3 ${extra.drop_down === "false" ? "cursor-default" : ""
+                        }`}
                       onClick={() => {
                         extra.drop_down === "true" &&
                           open({ modalType: ModalType.DropdownEditModal, id });

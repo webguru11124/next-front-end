@@ -3,7 +3,7 @@
 "use client";
 
 import useOrganizationsByUserQuery from "@/api/organization/useOrganizationsByUserQuery";
-import useCurrentUser from "@/api/user/useCurrentUser";
+import useCurrentUser from "@/api/auth/useCurrentUser";
 import useGetProfile from "@/api/user/useGetProfile";
 import { Organization } from "@/types/organization";
 import { create } from "zustand";
