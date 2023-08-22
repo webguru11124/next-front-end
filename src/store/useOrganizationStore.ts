@@ -22,7 +22,7 @@ export const useCurrentOrganizationIndex = () => useOrganizationStore((state) =>
 export const useSetCurrentOrganizationIndex = () => useOrganizationStore((state) => state.setOrg);
 export const useCurrentOrganization = () => {
   const { id } = useCurrentUser();
-  const { data: organizations, isLoading } = useOrganizationsByUserQuery(`${id}`);
+  const { data: organizations, isLoading } = useOrganizationsByUserQuery(id ?? null);
   const index = useCurrentOrganizationIndex();
   return { data: organizations ? organizations[index] : null, isLoading };
 }

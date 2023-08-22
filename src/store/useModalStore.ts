@@ -2,6 +2,7 @@
 // If you prefer to use Context API, refer to that link
 "use client"
 
+import { stat } from 'fs';
 import { produce } from 'immer';
 import { create } from 'zustand';
 
@@ -63,6 +64,7 @@ const useModalStore = create<ModalStoreType>((set) => ({
         // Set catchOnCancel to false if you are not catching promise
         // to avoid uncatched promise error.
         state.state.modalType = null;
+        state.state.id = null;
         state.state.catchOnCancel && state.awaitingPromise?.reject?.();
         state.open = false;
       })

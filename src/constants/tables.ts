@@ -1,1 +1,0 @@
-export const Tables = ["Customers", "Vendors", "Items", "Forwarder",]

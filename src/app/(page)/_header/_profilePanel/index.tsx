@@ -21,7 +21,7 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
     const router = useRouter();
 
     const { data, error, isError, isLoading: ProfileLoading, id } = useGetProfile();
-    const { data: organizations, isLoading: OrganizationLoading } = useOrganizationsByUserQuery(`${id}`);
+    const { data: organizations, isLoading: OrganizationLoading } = useOrganizationsByUserQuery(id ?? null);
     const currentOrganizationIndex = useCurrentOrganizationIndex();
     const setCurrentOrganization = useSetCurrentOrganizationIndex();
     const { data: currentOrganization, isLoading } = useCurrentOrganization();
