@@ -17,7 +17,7 @@ import {
   useSelected,
 } from "@/store/useModalStore";
 import { ExtraValueForm, formExtraValueToForm } from "@/types/extra_value";
-import { randomUUID } from "crypto";
+
 
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";

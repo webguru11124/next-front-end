@@ -1,6 +1,6 @@
 "use client";
 import Avatar from "@/components/Avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalType, useModal } from "@/store/useModalStore";
 import {
   Extra,
@@ -11,6 +11,7 @@ import {
 } from "@/types/extra";
 import useExtraFieldQueryWithOrganization from "@/api/extra/useExtraFieldQueryWithOrganization";
 import Spinner from "@/components/Spinner";
+import { CheckMark } from "@/assets/icons";
 
 const extras: Array<Extra> = [];
 
@@ -18,6 +19,18 @@ export default function ExtraTable() {
   const open = useModal();
   const { data: extra_fields, isLoading } =
     useExtraFieldQueryWithOrganization();
+  const [selected, setSelected] = useState<{ [key: string]: boolean }>({ total: false });
+
+  useEffect(() => {
+    if (extra_fields) {
+      const newSelected: { [key: string]: boolean } = { total: false };
+      extra_fields.forEach((extra: Extra) => {
+        newSelected[extra.name] = false;
+      })
+      setSelected({ ...newSelected })
+    }
+  }, [extra_fields])
+
   if (isLoading) return <Spinner />;
   return (
     <>
@@ -25,7 +38,23 @@ export default function ExtraTable() {
         <thead>
           <tr className="text-light-color text-md bg-light-bg">
             <th className=" border border-light-border  py-3 px-3 ">
-              <div className="mx-auto w-6 h-6 border border-gray-light rounded-sm bg-white"></div>
+              <div className="mx-auto w-6 h-6 border border-gray-light rounded-sm bg-white cursor-pointer flex justify-center items-center"
+                onClick={() => {
+                  const total = !selected["total"];
+                  const newState: { [key: string]: boolean } = {};
+                  if (total) {
+                    for (const key in selected) {
+                      newState[key] = true;
+                    }
+                  }
+                  else {
+                    for (const key in selected) {
+                      newState[key] = false;
+                    }
+                  }
+                  setSelected({ ...newState })
+                  console.log(newState)
+                }}>{selected["total"] && <CheckMark />}</div>
             </th>
             <th className=" border border-light-border  py-3">Name</th>
             <th className=" border border-light-border  py-3">Table</th>
@@ -57,7 +86,13 @@ export default function ExtraTable() {
                 }) => (
                   <tr className="py-3  cursor-pointer" key={id}>
                     <td className="border border-lighter-border py-3">
-                      <div className="mx-auto w-6 h-6 border border-gray-light rounded-sm bg-white"></div>
+                      <div className="mx-auto w-6 h-6 border border-gray-light rounded-sm bg-white flex justify-center items-center"
+                        onClick={() => {
+                          setSelected({ ...selected, [extra.name]: !selected[extra.name] })
+                        }}
+                      >
+                        {selected[extra.name] && <CheckMark />}
+                      </div>
                     </td>
                     <td
                       className="border border-lighter-border py-3"
@@ -115,8 +150,7 @@ export default function ExtraTable() {
                 ),
               )}
         </tbody>
-      </table>
-      {/* <extraDetailModal extra={currentextra} /> */}
+      </table >
     </>
   );
 }
