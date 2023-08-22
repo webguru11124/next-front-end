@@ -5,6 +5,7 @@
 import useOrganizationsByUserQuery from "@/api/organization/useOrganizationsByUserQuery";
 import useCurrentUser from "@/api/user/useCurrentUser";
 import useGetProfile from "@/api/user/useGetProfile";
+import { Organization } from "@/types/organization";
 import { create } from "zustand";
 
 type State = {
@@ -21,6 +22,7 @@ const useOrganizationStore = create<State & Action>((set) => ({
 export default useOrganizationStore;
 export const useCurrentOrganizationIndex = () =>
   useOrganizationStore((state) => state.org_id);
+
 export const useSetCurrentOrganizationIndex = () =>
   useOrganizationStore((state) => state.setOrg);
 export const useCurrentOrganization = () => {
@@ -35,3 +37,16 @@ export const useCurrentOrganizationId = () => {
   const { data: organization, isLoading } = useCurrentOrganization();
   return { id: organization?.id, isLoading };
 };
+
+export const useSetCurrentOrgID = () => {
+  const { id } = useCurrentUser();
+  const { data: organizations, isLoading } = useOrganizationsByUserQuery(
+    id ?? null,
+  );
+
+  const setIndex = useSetCurrentOrganizationIndex();
+  const setOrg = (id: string) => {
+    setIndex(organizations.findIndex((e: Organization) => e.id === id))
+  }
+  return { set: setOrg };
+}

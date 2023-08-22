@@ -10,7 +10,7 @@ export const InviteUserSchema = z.object({
   access: z.array(
     z.object({
       table: z.string(),
-      access: z.boolean(),
+      access: z.number(),
     }),
   ),
 });
@@ -38,7 +38,7 @@ export const initalInviteUser = () => ({
   email: "",
   access: Tables.map((table) => ({
     table,
-    access: false,
+    access: 1,
   })),
 });
 export const convertInviteUserToServer = (
@@ -56,12 +56,12 @@ export const convFromAPIToForm = (data: UserAccess): InviteUserForm => {
   gift.role = Roles[data.role];
   for (const { access, table } of data.access) {
     if (table !== null && access !== null) {
-      const matchedTable = Tables[table - 1].toLowerCase();
+      const matchedTable = Tables[table - 1];
       const existingTable = gift.access.find(
         (item) => item.table === matchedTable,
       );
       if (existingTable) {
-        existingTable.access = access === 2;
+        existingTable.access = access;
       }
     }
   }

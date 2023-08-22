@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { OrganizationCardType } from "./types";
 import { formatDateAsShort } from "@/lib/util";
 import { Roles } from "@/constants/forms";
+import { useSetCurrentOrgID, useSetCurrentOrganizationIndex } from "@/store/useOrganizationStore";
 
 export default function OrganiaztionCard({
   organization,
@@ -15,6 +16,7 @@ export default function OrganiaztionCard({
 }) {
   const router = useRouter();
   const options = { day: "numeric", month: "short", year: "numeric" };
+  const { set: setOrg } = useSetCurrentOrgID();
   return (
     <>
       <Card size="md">
@@ -47,7 +49,10 @@ export default function OrganiaztionCard({
         <div className="flex flex-row-reverse">
           <button
             className="rounded-md text-[18px] border-2 border-blue-primary py-2.5 px-7 text-blue-primary font-bold"
-            onClick={() => router.push(`/organizations/${organization.id}`)}
+            onClick={() => {
+              setOrg(organization.id)
+              router.push(`/organizations/${organization.id}`)
+            }}
           >
             Go to Ogranization
           </button>
