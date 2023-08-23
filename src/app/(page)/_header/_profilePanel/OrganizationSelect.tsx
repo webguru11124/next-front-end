@@ -37,7 +37,7 @@ export default function OrganizationSelect({
   onChange: (id: number) => void;
 }) {
   return (
-    <>
+    <div>
       <div className="mt-9 flex justify-between mb-2.5">
         <div className=" text-xl text-blue-main  font-bold">
           My Organization
@@ -74,9 +74,8 @@ export default function OrganizationSelect({
                     </div>
                     <div className="flex items-center ">
                       <span
-                        className={`w-5 h-5 border-3 border-light-border rounded-full inline-block ${
-                          checked ? "bg-blue-primary" : "bg-none"
-                        }`}
+                        className={`w-5 h-5 border-3 border-light-border rounded-full inline-block ${checked ? "bg-blue-primary" : "bg-none"
+                          }`}
                       ></span>
                     </div>
                   </div>
@@ -85,7 +84,14 @@ export default function OrganizationSelect({
             </RadioGroup.Option>
           ))}
       </RadioGroup>
-      <div className="mt-9 w-full flex justify-center">
+      {
+        organizations.length === 0 && <div className="my-20 text-gray-lighter">
+          <p>You haven’t added
+            any organization yet
+          </p>
+        </div>
+      }
+      <div className="mt-9 mb-3 w-full flex justify-center">
         <Link
           href="/organizations/new"
           className="rounded-md text-[18px] bg-blue-primary py-2.5 px-7 text-white font-bold "
@@ -94,6 +100,6 @@ export default function OrganizationSelect({
           Add Organization
         </Link>
       </div>
-    </>
+    </div>
   );
 }

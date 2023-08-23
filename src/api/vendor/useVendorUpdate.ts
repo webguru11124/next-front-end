@@ -6,12 +6,13 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useClose } from "@/store/useModalStore";
 import { Extra } from "@/types/extra";
+import { VendorFormWithServer, VendorServer } from "@/types/vendor";
 export default function useVendorUpdate() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
   const close = useClose();
   let id: string | null;
-  const vendorUpdate = (formData: Extra) => {
+  const vendorUpdate = (formData: VendorServer) => {
     id = formData.id;
     return axios.put(`vendors/${formData.id}`, { ...formData });
   };

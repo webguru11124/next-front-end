@@ -19,7 +19,7 @@ import {
 import { useCurrentOrganizationId, useCurrentOrganizationIndex } from "@/store/useOrganizationStore";
 import { Extra, ExtraWithServer } from "@/types/extra";
 import { Organization } from "@/types/organization";
-import { VendorForm, VendorSchema, convertVendorToServer, initialVendorForm } from "@/types/vendor";
+import { VendorForm, VendorSchema, convertVendorToServer, fromExtraToForm, initialVendorForm } from "@/types/vendor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { BsCloudArrowUp, BsMap } from "react-icons/bs";
@@ -27,6 +27,8 @@ import { GrClose } from "react-icons/gr";
 import ExtraItem from "./extraItem";
 import { useEffect, useMemo } from "react";
 import useVendorCreate from "@/api/vendor/useVendorCreate";
+import useVendorQuery from "@/api/vendor/useVendorQuery";
+import useVendorUpdate from "@/api/vendor/useVendorUpdate";
 
 
 
@@ -41,6 +43,7 @@ export default function VendorEditModal() {
       () => data?.map((org: Organization) =>
         ({ label: org.name, value: org.id })) ?? [], [data]);
   const org_id = useCurrentOrganizationIndex();
+  const { data: vendor } = useVendorQuery(id);
   const methods = useForm<VendorForm>({
     defaultValues: { ...initialVendorForm(), organization: organizations[org_id] },
     resolver: zodResolver(VendorSchema),
@@ -50,18 +53,21 @@ export default function VendorEditModal() {
   const { data: vendor_extra, isLoading } = useExtraFieldByTable("Vendor");
 
   useEffect(() => {
-    // if (vendor_extra) {
-    //   console.log("reet")
-    //   reset({ ...watch(), extra: vendor_extra.map((extra: Extra) => ({ name: extra.name, value: "sdf" })) })
-    // }
+    if (id && vendor) {
+      reset(fromExtraToForm(vendor, organizations))
+    }
     if (!id) {
       reset({ ...initialVendorForm(), organization: organizations[org_id] })
     }
-  }, [vendor_extra, reset, watch, id, org_id, organizations])
+  }, [vendor_extra, vendor, reset, watch, id, org_id, organizations])
 
-  const { mutate, isLoading: createLoading } = useVendorCreate();
+  const { mutate: create, isLoading: createLoading } = useVendorCreate();
+  const { mutate: update, isLoading: updateLoading } = useVendorUpdate();
   const onSubmit = async (data: VendorForm) => {
-    mutate(convertVendorToServer(data, vendor_extra));
+    if (!id)
+      create(convertVendorToServer(data, vendor_extra));
+    if (id)
+      update({ id, ...convertVendorToServer(data, vendor_extra) });
   }
   if (modal !== ModalType.VendorEditModal)
     return <div></div>

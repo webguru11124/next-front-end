@@ -1,6 +1,8 @@
 import { Tables } from "@/constants";
 import { z } from "zod";
 import { ExtraFormWithServer, OptionZodSchema } from "./extra";
+import { Organization } from "./organization";
+import { OptionValue } from "@/components/SelectBox";
 
 export const VendorSchema = z.object({
     name: z.string().min(1),
@@ -18,24 +20,25 @@ export const VendorSchema = z.object({
 });
 
 export type VendorForm = z.infer<typeof VendorSchema>;
+export type VendorAtr = {
+    name: string;
+    shown: number;
+    value: number | string;
+    field_id: number;
+    drop_name: string | null;
+}
 export type VendorFromServer = {
     id: string;
     name: string;
     email: string,
     phone: string,
     website: string,
-    organization_id: number,
+    orginaztion_id: number,
     reg_document: string,
     reg_number: string,
     billing_address: string,
     shipping_address: string,
-    atr: Array<{
-        name: string;
-        shown: number;
-        value: number | string;
-        field_id: number;
-        drop_name: string | null;
-    }>
+    atr: Array<VendorAtr>
 }
 export type VendorFormWithServer = {
     name: string;
@@ -50,6 +53,9 @@ export type VendorFormWithServer = {
     [key: string]: string | number;
 };
 
+export type VendorServer = VendorFormWithServer & {
+    id: string;
+};
 export interface Vendor extends VendorForm {
     id: string | null;
 }
@@ -71,20 +77,25 @@ export const initialVendorForm = () => ({
     extra: [],
 })
 
-export const fromExtraToForm = (data: VendorFormWithServer): VendorForm => {
+export const fromExtraToForm = (data: VendorFromServer, organizations: Array<OptionValue> | null): VendorForm => {
     const mutateData: VendorForm = {
         name: data.name,
         email: data.email,
         phone: data.phone,
         website: data.website,
-        organization: { value: data.organization_id, label: "" },
+        organization: {
+            value: data.orginaztion_id,
+            label: organizations?.find((org: OptionValue) => org.value == data.orginaztion_id)?.label ?? ""
+        },
         reg_document: data.reg_document,
         reg_number: data.reg_number,
         billing_address: data.billing_address,
         shipping_address: data.shipping_address,
-        extra: []
+        extra: data.atr ? data.atr.map((extra) => ({
+            value: extra.drop_name ? extra.name : extra.value,
+            label: extra.drop_name ?? extra.value as string
+        })) : []
     };
-
     return mutateData;
 };
 export const convertVendorToServer = (form: VendorForm, extra_fields: Array<ExtraFormWithServer> | null) => {

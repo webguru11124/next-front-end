@@ -48,7 +48,7 @@ export const initalOrg = () => ({
   name: "",
 });
 export interface Organization extends OrgForm {
-  id: string | null;
+  id: number | null;
 }
 export const convertOrgToServerFormat = (data: OrgForm): OrgForm => {
   const mutateData: OrgForm = { name: data.name };

@@ -48,7 +48,7 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
             </span>
             <div className="mt-1">
               <span className="text-gray-lighter">Role:</span>{" "}
-              {Roles[currentOrganization?.role].label}
+              {Roles[currentOrganization?.role]?.label}
             </div>
             <div>
               <button
