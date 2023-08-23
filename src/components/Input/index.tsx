@@ -18,13 +18,14 @@ import {
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
   placeholder: string;
+  righticon?: React.ReactNode;
   label?: string;
   register?: UseFormRegister<any>;
   error?:
-    | FieldError
-    | Merge<FieldError, FieldErrorsImpl<any>>
-    | undefined
-    | any;
+  | FieldError
+  | Merge<FieldError, FieldErrorsImpl<any>>
+  | undefined
+  | any;
 }
 
 const Input = ({
@@ -35,6 +36,7 @@ const Input = ({
   className,
   error,
   register,
+  righticon,
   label,
   ...rest
 }: InputProps) => {
@@ -60,6 +62,7 @@ const Input = ({
           </div>
         )}
         {error && <div className="text-red">{error.message}</div>}
+        {righticon && <div className="absolute  inset-y-0 inset-x-full  py-3">{righticon}</div>}
       </div>
     </div>
   );
