@@ -53,7 +53,6 @@ export default function ExtraTable() {
                     }
                   }
                   setSelected({ ...newState })
-                  console.log(newState)
                 }}>{selected["total"] && <CheckMark />}</div>
             </th>
             <th className=" border border-light-border  py-3">Name</th>
@@ -108,7 +107,7 @@ export default function ExtraTable() {
                         open({ modalType: ModalType.ExtraEditModel, id });
                       }}
                     >
-                      {extra.table}
+                      {extra.table?.label}
                     </td>
                     <td
                       className="border border-lighter-border py-3"
@@ -116,7 +115,7 @@ export default function ExtraTable() {
                         open({ modalType: ModalType.ExtraEditModel, id });
                       }}
                     >
-                      {extra.show_in_table}
+                      {extra.show_in_table?.label}
                     </td>
                     <td
                       className="border border-lighter-border py-3"
@@ -124,7 +123,7 @@ export default function ExtraTable() {
                         open({ modalType: ModalType.ExtraEditModel, id });
                       }}
                     >
-                      {extra.required}
+                      {extra.required?.label}
                     </td>
                     <td
                       className="border border-lighter-border py-3"
@@ -132,13 +131,13 @@ export default function ExtraTable() {
                         open({ modalType: ModalType.ExtraEditModel, id });
                       }}
                     >
-                      {extra.drop_down}
+                      {extra.drop_down?.label}
                     </td>
                     <td
-                      className={`border border-lighter-border py-3 ${extra.drop_down === "false" ? "cursor-default" : ""
+                      className={`border border-lighter-border py-3 ${extra.drop_down?.value == 0 ? "cursor-default" : ""
                         }`}
                       onClick={() => {
-                        extra.drop_down === "true" &&
+                        extra.drop_down?.value == 1 &&
                           open({ modalType: ModalType.DropdownEditModal, id });
                       }}
                     >

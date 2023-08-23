@@ -1,4 +1,4 @@
-import { AppleSvg, FacebookSvg, GoogleSvg } from "@/assets/icons";
+  import { AppleSvg, FacebookSvg, GoogleSvg } from "@/assets/icons";
 import { USFlagSvg } from "@/assets/icons/flag/flag.d";
 import { ILanguageOptions, ILinks, ISocialLinks } from "@/types";
 

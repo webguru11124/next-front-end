@@ -13,7 +13,7 @@ import {
 } from "@/store/useModalStore";
 import { GrClose } from "react-icons/gr";
 import RoleSelect from "./roleSelection";
-import { Roles } from "@/constants/forms";
+import { Roles } from "@/constants";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   InviteUserForm,

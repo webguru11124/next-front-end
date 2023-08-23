@@ -62,7 +62,7 @@ const Input = ({
           </div>
         )}
         {error && <div className="text-red">{error.message}</div>}
-        {righticon && <div className="absolute  inset-y-0 inset-x-full  py-3">{righticon}</div>}
+        {righticon && <div className="absolute  inset-y-0 right-3  py-3 text-blue-primary">{righticon}</div>}
       </div>
     </div>
   );

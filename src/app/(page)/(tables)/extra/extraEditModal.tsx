@@ -8,7 +8,7 @@ import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import SelectBox from "@/components/SelectBox";
 import Spinner from "@/components/Spinner";
-import { Tables } from "@/constants/forms";
+import { Tables } from "@/constants";
 import {
   ModalType,
   useClose,
@@ -22,6 +22,7 @@ import {
   ExtraSchema,
   convertToExtraToServer,
   formExtraToForm,
+  initialExtraField,
 } from "@/types/extra";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
@@ -33,14 +34,8 @@ export default function EditExtraModal() {
   const id = useSelected();
   const modal = useModalType();
   let initalData: ExtraForm = useMemo(
-    () => ({
-      name: "",
-      table: "",
-      show_in_table: "",
-      required: "",
-      drop_down: "",
-    }),
-    [],
+    () => (initialExtraField()),
+    [initialExtraField],
   );
   const { data, error, isError, isLoading, refetch } = useExtraFieldQuery(id);
   const {
@@ -121,14 +116,14 @@ export default function EditExtraModal() {
                 name="show_in_table"
                 control={control}
                 label="Show in table"
-                options={["true", "false"]}
+                options={[{ value: 1, label: "true" }, { value: 0, label: "false" }]}
                 placeholder={`${"Select a show in table option"}`}
               />
               <SelectBox
                 name="required"
                 control={control}
                 label="Required"
-                options={["true", "false"]}
+                options={[{ value: 1, label: "true" }, { value: 0, label: "false" }]}
                 placeholder={`${"Select a required option"}`}
               />
 
@@ -136,7 +131,7 @@ export default function EditExtraModal() {
                 name="drop_down"
                 control={control}
                 label="Dropdown"
-                options={["true", "false"]}
+                options={[{ value: 1, label: "true" }, { value: 0, label: "false" }]}
                 placeholder={`${"Select a dropdown option"}`}
               />
             </div>

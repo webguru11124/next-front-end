@@ -15,9 +15,13 @@ import {
 } from "react-hook-form";
 import { BsCheck2 } from "react-icons/bs";
 
+export type OptionValue = {
+  value: any;
+  label: string;
+}
 interface SelectBoxProps extends SelectHTMLAttributes<HTMLSelectElement> {
   control: Control<any, unknown>;
-  options: Array<string>;
+  options: Array<OptionValue>;
   placeholder: string;
   label?: string;
   name: string;
@@ -52,12 +56,12 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   const filteredValue =
     query === ""
       ? options
-      : options.filter((options) => {
-          return options
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""));
-        });
+      : options.filter((option) => {
+        return option.label
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""));
+      });
   const handleChange = (data: any) => {
     onChange(data);
   };
@@ -65,8 +69,9 @@ const SelectBox: React.FC<SelectBoxProps> = ({
     <div>
       <Combobox
         onChange={handleChange}
-        value={value ?? ""}
+        value={value ?? null}
         name={name}
+        by="value"
         as="div"
       >
         {label && (
@@ -80,7 +85,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
               className="w-full  py-2 px-[1em] pr-10 border  border-gray-border   outline-none rounded-md "
               onChange={(event) => setQuery(event.target.value)}
               placeholder={placeholder}
-              displayValue={(value: string): string => value}
+              displayValue={(value: OptionValue | undefined | null): string => { return value?.label ?? "" }}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <BsChevronDown className="h-5 w-5 " />
@@ -96,30 +101,27 @@ const SelectBox: React.FC<SelectBoxProps> = ({
                 value={value}
                 className={({ active }) =>
                   `relative cursor-pointer select-none py-2 pl-10 pr-4  text-lg
-                                    ${
-                                      active
-                                        ? "bg-teal-600 text-black"
-                                        : "text-gray-900"
-                                    }`
+                                    ${active
+                    ? "bg-teal-600 text-black"
+                    : "text-gray-900"
+                  }`
                 }
               >
                 {({ selected, active }) => (
                   <>
                     <span
-                      className={`block truncate ${
-                        selected ? "font-medium" : "font-normal"
-                      }`}
+                      className={`block truncate ${selected ? "font-medium" : "font-normal"
+                        }`}
                     >
-                      {value}
+                      {value.label}
                     </span>
                     {selected ? (
                       <span
                         className={`absolute inset-y-0 left-0 flex items-center pl-3 
-                                                ${
-                                                  active
-                                                    ? "text-black"
-                                                    : "text-teal-600"
-                                                }`}
+                                                ${active
+                            ? "text-black"
+                            : "text-teal-600"
+                          }`}
                       >
                         <BsCheck2 className="h-5 w-5" aria-hidden="true" />
                       </span>

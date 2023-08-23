@@ -1,4 +1,4 @@
-import { Tables } from "@/constants/forms";
+import { Tables } from "@/constants";
 import { z } from "zod";
 
 export const VendorSchema = z.object({
@@ -20,37 +20,68 @@ export const VendorSchema = z.object({
 });
 
 export type VendorForm = z.infer<typeof VendorSchema>;
-export type ExtraFormWithServer = {
-    name: string;
-    place: number;
-    show_in_table?: boolean;
-    required?: boolean;
-    type?: boolean;
+export type VendorFormWithServer = Omit<VendorForm, "extra"> & {
+    imgUrl: string;
+    [key: string]: string | number;
+
 };
 
-export interface Extra extends ExtraFormWithServer {
+export interface Vendor extends VendorForm {
     id: string | null;
 }
-export interface ExtraWithServer extends ExtraFormWithServer {
-    id: string | null;
-    dropdowns: Array<string>;
-}
-export const formExtraToForm = (data: Extra): ExtraForm => {
-    const formData: ExtraForm = {
+// export interface VendorWithServer extends VendorFormWithServer {
+//     id: string | null;
+//     dropdowns: Array<string>;
+// }
+
+
+export const initialVendorForm = () => ({
+    name: "",
+    email: "",
+    phone: "",
+    website: "",
+    currency: "",
+    organization: "",
+    reg_document: "",
+    reg_number: "",
+    billing_address: "",
+    shipping_address: "",
+    extra: [],
+})
+
+export const fromExtraToForm = (data: VendorFormWithServer): VendorForm => {
+    const mutateData: VendorForm = {
         name: data.name,
-        show_in_table: data.show_in_table ? "true" : "false",
-        required: data.required ? "true" : "false",
-        drop_down: data.type ? "true" : "false",
-        table: Tables[data.place - 1],
+        email: data.email,
+        phone: data.phone,
+        website: data.website,
+        currency: data.currency,
+        organization: data.organization,
+        reg_document: data.reg_document,
+        reg_number: data.reg_number,
+        billing_address: data.billing_address,
+        shipping_address: data.shipping_address,
+        extra: []
     };
-    return formData;
+
+    return mutateData;
 };
-export const convertToExtraToServer = (data: ExtraForm) => {
-    const mutateData: ExtraFormWithServer = { name: data.name, place: 0 };
-    if (data.required) mutateData.required = data.required === "true";
-    if (data.table) mutateData.place = Tables.indexOf(data.table) + 1;
-    if (data.show_in_table)
-        mutateData.show_in_table = data.show_in_table === "true";
-    mutateData.type = data.drop_down ? data.drop_down === "true" : false;
+export const convertVendorToServer = (data: VendorForm) => {
+    const mutateData: VendorFormWithServer = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        website: data.website,
+        currency: data.currency,
+        organization: data.organization,
+        reg_document: data.reg_document,
+        reg_number: data.reg_number,
+        billing_address: data.billing_address,
+        shipping_address: data.shipping_address,
+        imgUrl: "",
+    };
+    data.extra.forEach((extra) => {
+        mutateData[extra.name] = extra.value;
+    });
     return mutateData;
 };

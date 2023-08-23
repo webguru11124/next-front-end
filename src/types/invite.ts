@@ -1,4 +1,5 @@
-import { Roles, Tables } from "@/constants/forms";
+import { OptionValue } from "@/components/SelectBox";
+import { Roles, Tables } from "@/constants";
 import { GiftTopIcon } from "@heroicons/react/24/outline";
 import { access } from "fs";
 import { z } from "zod";
@@ -37,7 +38,7 @@ export type UserAccess = {
 export const initalInviteUser = () => ({
   email: "",
   access: Tables.map((table) => ({
-    table,
+    table: table.label,
     access: 1,
   })),
 });
@@ -45,7 +46,7 @@ export const convertInviteUserToServer = (
   data: InviteUserForm,
 ): InviteUserServer => {
   const gift: InviteUserServer = { email: data.email, access: data.access };
-  if (data.role) gift.role = Roles.indexOf(data.role);
+  if (data.role) gift.role = Roles.map((e: OptionValue): string => e.label).indexOf(data.role);
   if (data.name) gift.name = data.name;
   return gift;
 };
@@ -53,10 +54,10 @@ export const convFromAPIToForm = (data: UserAccess): InviteUserForm => {
   const gift: InviteUserForm = initalInviteUser();
   gift.email = data.email;
   gift.name = data.f_name;
-  gift.role = Roles[data.role];
+  gift.role = Roles[data.role].label;
   for (const { access, table } of data.access) {
     if (table !== null && access !== null) {
-      const matchedTable = Tables[table - 1];
+      const matchedTable = Tables[table - 1].label;
       const existingTable = gift.access.find(
         (item) => item.table === matchedTable,
       );

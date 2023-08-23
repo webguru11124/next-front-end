@@ -4,8 +4,10 @@ import {
   Languages,
   OrgTypes,
   Roles,
-} from "@/constants/forms";
+} from "@/constants";
 import { z } from "zod";
+import { Value } from "./extra_value";
+import { OptionValue } from "@/components/SelectBox";
 
 function nullableEmail() {
   return z
@@ -51,17 +53,17 @@ export interface Organization extends OrgForm {
 export const convertOrgToServerFormat = (data: OrgForm): OrgForm => {
   const mutateData: OrgForm = { name: data.name };
   if (data.country)
-    mutateData.country = Countries.indexOf(data.country).toString();
+    mutateData.country = Countries.map((e: OptionValue): string => e.label).indexOf(data.country).toString();
   if (data.currency)
-    mutateData.currency = Currencies.indexOf(data.currency).toString();
+    mutateData.currency = Currencies.map((e: OptionValue): string => e.label).indexOf(data.currency).toString();
   if (data.language)
-    mutateData.language = Languages.indexOf(data.language).toString();
-  if (data.type) mutateData.type = OrgTypes.indexOf(data.type).toString();
+    mutateData.language = Languages.map((e: OptionValue): string => e.label).indexOf(data.language).toString();
+  if (data.type) mutateData.type = OrgTypes.map((e: OptionValue): string => e.label).indexOf(data.type).toString();
   if (data.province) mutateData.province = data.province;
   if (data.time_zone) mutateData.time_zone = data.time_zone;
   if (data.invite_email) mutateData.invite_email = data.invite_email;
   if (data.invite_role)
-    mutateData.invite_role = Roles.indexOf(data.invite_role).toString();
+    mutateData.invite_role = Roles.map((e: OptionValue): string => e.label).indexOf(data.invite_role).toString();
 
   return mutateData;
 };

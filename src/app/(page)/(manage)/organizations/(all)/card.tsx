@@ -6,7 +6,7 @@ import { ModalType, useModal } from "@/store/useModalStore";
 import { useRouter } from "next/navigation";
 import { OrganizationCardType } from "./types";
 import { formatDateAsShort } from "@/lib/util";
-import { Roles } from "@/constants/forms";
+import { Roles } from "@/constants";
 import { useSetCurrentOrgID, useSetCurrentOrganizationIndex } from "@/store/useOrganizationStore";
 
 export default function OrganiaztionCard({
@@ -38,7 +38,7 @@ export default function OrganiaztionCard({
           <div className="text-gray-lighter text-xl">Type</div>
           <div className="text-xl">{organization.type}</div>
           <div className="text-gray-lighter text-xl">Your Role</div>
-          <div className="text-xl">{Roles[organization.role ?? 0]}</div>
+          <div className="text-xl">{Roles[organization.role ?? 0].label}</div>
         </div>
         <div className="italic text-lg mb-7 text-gray-lighter">
           {`Organization created on ${formatDateAsShort(

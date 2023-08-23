@@ -5,6 +5,8 @@ import { useState } from "react";
 import { ModalType, useModal } from "@/store/useModalStore";
 import { Vendor } from "./types";
 import VendorDetailModal from "./vendorDetailModal";
+import useExtraFieldByTable from "@/api/extra/useExtraFieldByTable";
+import { Extra } from "@/types/extra";
 
 const vendors: Array<Vendor> = [
   {
@@ -21,6 +23,8 @@ const vendors: Array<Vendor> = [
 export default function VendorTable() {
   const open = useModal();
   const [currentVendor, setCurrentVendor] = useState<Vendor>(vendors[0]);
+  const { data: vendor_extra, isLoading } = useExtraFieldByTable("Vendor");
+
   return (
     <>
       <table className=" border-collapse border border-light-border w-full">
@@ -30,8 +34,9 @@ export default function VendorTable() {
             <th className=" border border-light-border  py-3">Name</th>
             <th className=" border border-light-border  py-3">Email</th>
             <th className=" border border-light-border  py-3">Phone</th>
-            <th className=" border border-light-border  py-3">Gender</th>
-            <th className=" border border-light-border  py-3">Hobby</th>
+            {vendor_extra && vendor_extra?.map((extra: Extra) => (
+              <th className=" border border-light-border  py-3" key={extra.id}>{extra.name}</th>
+            ))}
           </tr>
         </thead>
         <tbody className="text-center">

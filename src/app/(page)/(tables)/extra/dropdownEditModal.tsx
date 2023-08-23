@@ -7,9 +7,9 @@ import useExtraValueMutation from "@/api/extra_value/useExtraValueMutation";
 import useExtraValueQuery from "@/api/extra_value/useExtraValueQuery";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
-import SelectBox from "@/components/SelectBox";
+import SelectBox, { OptionValue } from "@/components/SelectBox";
 import Spinner from "@/components/Spinner";
-import { Tables } from "@/constants/forms";
+import { Tables } from "@/constants";
 import {
   ModalType,
   useClose,
@@ -29,7 +29,6 @@ export default function DropdownEditModal() {
   const modal = useModalType();
   let initalData: ExtraValueForm = {
     field: "",
-    table: "",
     values: [],
   };
   const {
@@ -69,7 +68,7 @@ export default function DropdownEditModal() {
   const onSubmit = async (data: ExtraValueForm) => {
     mutate({
       name: data.field,
-      place: Tables.indexOf(data.table) + 1,
+      place: Tables.map((e: OptionValue): string => e.label).indexOf(data.table?.label as string) + 1,
       id,
       values: data.values,
     });

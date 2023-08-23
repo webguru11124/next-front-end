@@ -15,7 +15,7 @@ import {
   Province,
   Roles,
   Timezones,
-} from "@/constants/forms";
+} from "@/constants";
 import useOrganizationDelete from "@/api/organization/useOrganizationDelete";
 export default function OrganiaztionCard({ id }: { id: string }) {
   const router = useRouter();
@@ -63,17 +63,17 @@ export default function OrganiaztionCard({ id }: { id: string }) {
           <div className="text-xl">{id}</div>
 
           <div className="text-gray-lighter text-xl">Type</div>
-          <div className="text-xl">{OrgTypes[data?.type]}</div>
+          <div className="text-xl">{OrgTypes[data?.type]?.label}</div>
           <div className="text-gray-lighter text-xl">Your Role</div>
-          <div className="text-xl">{Roles[data?.role]}</div>
+          <div className="text-xl">{Roles[data?.role]?.label}</div>
           <div className="text-gray-lighter text-xl">Country</div>
-          <div className="text-xl">{Countries[data?.country]}</div>
+          <div className="text-xl">{Countries[data?.country]?.label}</div>
           <div className="text-gray-lighter text-xl">State/Province</div>
           <div className="text-xl">{data?.province}</div>
           <div className="text-gray-lighter text-xl">Currency</div>
-          <div className="text-xl">{Currencies[data?.currency]}</div>
+          <div className="text-xl">{Currencies[data?.currency]?.label}</div>
           <div className="text-gray-lighter text-xl">Language</div>
-          <div className="text-xl">{Languages[data?.language]}</div>
+          <div className="text-xl">{Languages[data?.language]?.label}</div>
           <div className="text-gray-lighter text-xl">Timezone</div>
           <div className="text-xl">{data?.time_zone}</div>
         </div>

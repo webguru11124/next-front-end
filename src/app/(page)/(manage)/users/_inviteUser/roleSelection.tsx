@@ -1,6 +1,7 @@
 "use client";
 
-import { Tables } from "@/constants/forms";
+import { OptionValue } from "@/components/SelectBox";
+import { Tables } from "@/constants";
 import { InviteUserForm } from "@/types/invite";
 import { RadioGroup } from "@headlessui/react";
 import { useState } from "react";
@@ -20,12 +21,12 @@ export default function RoleSelect() {
       </div>
       {Tables.slice(0, 3)
         .concat(Tables.slice(-1))
-        .map((table, index) => (
+        .map(({ label: table }, index) => (
           <div className="bg-gray-white rounded-sm mb-5 py-4 px-2 " key={table}>
             <RadioGroup
-              defaultValue={getValues(`access.${Tables.indexOf(table)}.access`)}
+              defaultValue={getValues(`access.${Tables.map((e: OptionValue): string => e.label).indexOf(table)}.access`)}
               onChange={(value) => {
-                setValue(`access.${Tables.indexOf(table)}.access`, value);
+                setValue(`access.${Tables.map((e: OptionValue): string => e.label).indexOf(table)}.access`, value);
               }}
             >
               <div className="grid grid-cols-5  items-center">

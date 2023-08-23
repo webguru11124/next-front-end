@@ -1,8 +1,9 @@
-import { Tables } from "@/constants/forms";
+import { Tables } from "@/constants";
 import { Extra } from "./extra";
+import { OptionValue } from "@/components/SelectBox";
 
 export interface ExtraValueForm {
-  table: string;
+  table?: OptionValue;
   field: string;
   values: Array<Value>;
 }
@@ -24,7 +25,7 @@ export const formExtraValueToForm = ({
   extra_field: Extra | null;
   values: Array<Value> | null;
 }): ExtraValueForm => {
-  const data: ExtraValueForm = { table: "", field: "", values: [] };
+  const data: ExtraValueForm = { field: "", values: [] };
   if (extra_field) {
     data.field = extra_field.name;
     data.table = Tables[extra_field.place - 1];

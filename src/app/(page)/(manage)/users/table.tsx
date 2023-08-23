@@ -10,7 +10,7 @@ import {
 } from "@/store/useOrganizationStore";
 import useUsersByOrganizatinoQuery from "@/api/user/useUsersByOrganizationQuery";
 import { Spinner } from "@nextui-org/react";
-import { Roles } from "@/constants/forms";
+import { Roles } from "@/constants";
 
 const users: Array<User> = [
   {
@@ -68,7 +68,7 @@ export default function UsersTable() {
                   {currentOrg?.name}
                 </td>
                 <td className="border border-lighter-border py-3">
-                  {Roles[user.role ?? 0]}
+                  {Roles[user.role ?? 0].label}
                 </td>
               </tr>
             ))}

@@ -18,7 +18,7 @@ import { GrClose } from "react-icons/gr";
 import { z } from "zod";
 import { useEffect } from "react";
 import useGetProfile from "@/api/user/useGetProfile";
-import { Countries, Genders, Languages, Timezones } from "@/constants/forms";
+import { Countries, Genders, Languages, Timezones } from "@/constants";
 import useUserMutation from "@/api/user/useUserMutation";
 import { UserForm, UserSchema, getUserFromSource } from "@/types/user";
 import Spinner from "@/components/Spinner";

@@ -12,7 +12,7 @@ import { LuEdit } from "react-icons/lu";
 import Avatar from "@/components/Avatar";
 import useOrganizationsByUserQuery from "@/api/organization/useOrganizationsByUserQuery";
 import { useState } from "react";
-import { Roles } from "@/constants/forms";
+import { Roles } from "@/constants";
 import {
   useCurrentOrganization,
   useCurrentOrganizationIndex,
@@ -48,7 +48,7 @@ export default function ProfilePanel({ close }: { close: PanelCloseType }) {
             </span>
             <div className="mt-1">
               <span className="text-gray-lighter">Role:</span>{" "}
-              {Roles[currentOrganization?.role]}
+              {Roles[currentOrganization?.role].label}
             </div>
             <div>
               <button
