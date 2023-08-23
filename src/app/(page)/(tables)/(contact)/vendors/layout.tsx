@@ -1,4 +1,5 @@
 import Header from "./header";
+import VendorDetailModal from "./vendorDetailModal";
 import VendorEditModal from "./vendorEditModal";
 
 export default function VendorsLayout({
@@ -11,6 +12,7 @@ export default function VendorsLayout({
       <Header />
       <div className="w-full mt-7">{children}</div>
       <VendorEditModal />
+      <VendorDetailModal />
     </>
   );
 }

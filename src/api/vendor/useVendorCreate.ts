@@ -6,13 +6,14 @@ import { useRouter } from "next/navigation";
 import { ExtraFormWithServer } from "@/types/extra";
 import { useClose } from "@/store/useModalStore";
 import { useCurrentOrganizationId } from "@/store/useOrganizationStore";
-export default function useExtraFieldCreate() {
+import { VendorFormWithServer } from "@/types/vendor";
+export default function useVendorCreate() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
   const close = useClose();
   const { id } = useCurrentOrganizationId();
-  const vendorCreate = (formData: ExtraFormWithServer) => {
-    return axios.post(`vendors`, { ...formData, organization_id: id });
+  const vendorCreate = (formData: VendorFormWithServer) => {
+    return axios.post(`vendors`, { ...formData });
   };
   const { mutate, isLoading, isError, error, data } = useMutation({
     mutationFn: vendorCreate,

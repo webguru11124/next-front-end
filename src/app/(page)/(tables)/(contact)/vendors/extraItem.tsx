@@ -9,14 +9,14 @@ export default function ExtraItem({ extra, index }: { extra: ExtraWithServer, in
     return (extra && extra.type === 0 ?
         <Input
             register={register}
-            name={`extra.${index}.value`}
+            name={`extra.${index}`}
             label={extra.name}
             placeholder={`Enter ${extra.name} here`}
         /> : <SelectBox
             control={control}
-            name={`extra.${index}.value`}
+            name={`extra.${index}`}
             label={extra.name}
             placeholder={`Select ${extra.name} here`}
-            options={extra.dropdowns.map((value, index) => ({ value: index, label: value }))}
+            options={extra.dropdowns.map((value, index) => ({ value: value, label: value }))}
         />)
 }

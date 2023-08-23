@@ -1,29 +1,53 @@
 import { Tables } from "@/constants";
 import { z } from "zod";
+import { ExtraFormWithServer, OptionZodSchema } from "./extra";
 
 export const VendorSchema = z.object({
     name: z.string().min(1),
     email: z.string().email(),
     phone: z.string(),
     website: z.string().url(),
-    currency: z.string(),
-    organization: z.string(),
+    currency: OptionZodSchema,
+    organization: OptionZodSchema,
     reg_document: z.string(),
     reg_number: z.string(),
     billing_address: z.string(),
     shipping_address: z.string(),
-    extra: z.array(z.object({
-        name: z.string().min(1),
-        value: z.union([z.string(), z.number()])
-    }))
+    extra: z.array(z.union([OptionZodSchema, z.string(), z.null(), z.undefined()]))
 
 });
 
 export type VendorForm = z.infer<typeof VendorSchema>;
-export type VendorFormWithServer = Omit<VendorForm, "extra"> & {
-    imgUrl: string;
+export type VendorFromServer = {
+    id: string;
+    name: string;
+    email: string,
+    phone: string,
+    website: string,
+    organization_id: number,
+    reg_document: string,
+    reg_number: string,
+    billing_address: string,
+    shipping_address: string,
+    atr: Array<{
+        name: string;
+        shown: number;
+        value: number | string;
+        field_id: number;
+        drop_name: string | null;
+    }>
+}
+export type VendorFormWithServer = {
+    name: string;
+    email: string,
+    phone: string,
+    website: string,
+    organization_id: number,
+    reg_document: string,
+    reg_number: string,
+    billing_address: string,
+    shipping_address: string,
     [key: string]: string | number;
-
 };
 
 export interface Vendor extends VendorForm {
@@ -40,8 +64,6 @@ export const initialVendorForm = () => ({
     email: "",
     phone: "",
     website: "",
-    currency: "",
-    organization: "",
     reg_document: "",
     reg_number: "",
     billing_address: "",
@@ -55,8 +77,7 @@ export const fromExtraToForm = (data: VendorFormWithServer): VendorForm => {
         email: data.email,
         phone: data.phone,
         website: data.website,
-        currency: data.currency,
-        organization: data.organization,
+        organization: { value: data.organization_id, label: "" },
         reg_document: data.reg_document,
         reg_number: data.reg_number,
         billing_address: data.billing_address,
@@ -66,22 +87,22 @@ export const fromExtraToForm = (data: VendorFormWithServer): VendorForm => {
 
     return mutateData;
 };
-export const convertVendorToServer = (data: VendorForm) => {
-    const mutateData: VendorFormWithServer = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        website: data.website,
-        currency: data.currency,
-        organization: data.organization,
-        reg_document: data.reg_document,
-        reg_number: data.reg_number,
-        billing_address: data.billing_address,
-        shipping_address: data.shipping_address,
+export const convertVendorToServer = (form: VendorForm, extra_fields: Array<ExtraFormWithServer> | null) => {
+    const data: VendorFormWithServer = {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        website: form.website,
+        organization_id: form.organization?.value as number,
+        reg_document: form.reg_document,
+        reg_number: form.reg_number,
+        billing_address: form.billing_address,
+        shipping_address: form.shipping_address,
         imgUrl: "",
     };
-    data.extra.forEach((extra) => {
-        mutateData[extra.name] = extra.value;
-    });
-    return mutateData;
+    if (extra_fields)
+        form.extra.forEach((extra, index) => {
+            data[extra_fields[index].name] = typeof extra === "string" ? extra : extra?.value as string;
+        });
+    return data;
 };

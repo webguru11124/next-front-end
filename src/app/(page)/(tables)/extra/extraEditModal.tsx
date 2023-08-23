@@ -35,7 +35,7 @@ export default function EditExtraModal() {
   const modal = useModalType();
   let initalData: ExtraForm = useMemo(
     () => (initialExtraField()),
-    [initialExtraField],
+    [],
   );
   const { data, error, isError, isLoading, refetch } = useExtraFieldQuery(id);
   const {

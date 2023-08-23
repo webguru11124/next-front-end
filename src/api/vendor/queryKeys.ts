@@ -1,7 +1,7 @@
 export const queryKeys = {
-  getExtra: (id: string | null) => ["getExtra", id],
-  getExtrasWithOrganization: (id: string | null) => [
-    "getExtraOrganziation",
+  getVendors: (id: string | null) => ["getVendors", id],
+  getVendor: (id: string | null) => [
+    "getVendor",
     id,
   ],
 };
