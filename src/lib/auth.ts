@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
 
         try {
           const apiUrl =
-            process.env.LOGIN_URL || "http://localhost:5000/api/v1/users/login";
+            process.env.LOGIN_URL;
           const response = await fetch(`${apiUrl}`, {
             method: "POST",
             headers: {
