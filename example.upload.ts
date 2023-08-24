@@ -1,90 +1,109 @@
-//upload example
 
+//multie files uploader  please read it and edit it accordingly
 
-//index.ts
-
-app.use("/api/v1/upload", uploadrouter);
-//should point a media folder in src directory
-console.log(path.join(__dirname, "./", "media"))
-app.use("/public", express.static(path.join(__dirname, "./", "media")));
-
-
-
-//router 
-
-
-import express, { NextFunction, Request, Response } from "express";
-const router = express.Router();
-import AuthMiddleware from "../middleware/auth";
-
-import { UploadFile, upload } from "../controllers/upload.controller";
-import { nextTick } from "process";
-import multer from "multer";
-import { logger } from "../middleware/logger";
-
-const uploads = upload.single("Image");
-const errorChecker = (req: Request, res: Response, next: NextFunction) => {
- 
-  uploads(req, res, function (err: any) {
-    console.log(err);
-
-    if (err instanceof multer.MulterError) {
-      next(new Error(err.message ?? "Unknown Error"));
-    } else if (err) {
-      next(new Error(e.message ?? "Unknown Error"));
+const [files,setFiles] = useState<any>([])
+ const onChangeFile = async (e: any) => {
+    if (typeof window === "undefined") {
+      return;
     }
-
-    next();
-  });
-};
-router.post("/", AuthMiddleware.VerifyToken, errorChecker, UploadFile);
-
-export router ;
-
-
-
-
-
-//upload controller
-
-
-
-
-import { randomUUID } from "crypto";
-
-import multer from "multer";
-import path from "path";
-const storage = multer.diskStorage({
-  destination: (req: Request, file: any, cb: any) => {
-/// should be in src directory
+    const file = e.target.files[0];
+//to show a extra item in array that is loading
+      setFiles([
+        ...(files ? files : []),
+        {
+          loading: true,
+        },
+      ]);
     
-//should point a media folder in src directory
-console.log(path.join(__dirname, ".,/", "/media"))
+    const formData = new FormData();
+    formData.append("Image", file);
+
+    setLoading(true);
+  //change here
+    try {
+     
+      const res = await fetch("api linki" + "upload", {
+        method: "POST",
+        redirect: "follow",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      const data = await res.json();
     
-    cb(null, path.join(__dirname, "../", "/media"));
-  },
-  filename: (req: Request, file, cb) => {
-    const uniqueSuffix = randomUUID() + "." + file.mimetype.split("/")[1];
-
-    cb(null, uniqueSuffix);
-  },
-});
-export const upload = multer({ storage: storage });
-export const UploadFile = async (req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    message: "File updated successfully",
-    result: req.file?.filename,
-  });
-  return;
-};
-
+      setFiles([
+        ...(files
+          ? files.filter((e: any, index: number) => {
+              return files.findIndex((e: any) => e.loading) != index;
+            })
+          : []),
+        {
+          url: process.env.public_link + data.result,
+          order: Array ? Array.length - 1 : 0,
+        },
+      ]);
+    } catch (e) {
+      setLoading(false);
+      toast.error("Error Uploading file");
+    }
+  };
 
 
 
 
 
-//usage
+
+ <div className="flex items-center justify-center w-fullgap-2 mt-4">
+              <label
+                htmlFor={"dropzone-file"}
+                className="flex flex-col items-center justify-center w-full h-[40px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-100 "
+              >
+                <div className="flex flex-row items-start align-start  justify-start mt-4">
+                  <svg
+                    className="w-8 h-8 mb-4 text-main "
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+
+                  {loadng ? ( handle loading here ): (
+                    <p className="mb-2 text-sm text-main mt-[5px] ml-[5px]">
+                      <span className="font-semibold">Click to upload</span> or
+                      drag and drop
+                    </p>
+                  )}
+                </div>
+
+                <input
+                  id={"dropzone-file"}
+                  type="file"
+                  onClick={onInputClick}
+                  name="upload"
+                  accept={
+                    type != "file" ? "image/*,video/*" : "*/*"
+                  }
+                  onChange={onChangeFile}
+                  className="hidden"
+                />
+              </label>
+            </div>
+
+               
+
+
+                   
+
+
 
 
 
