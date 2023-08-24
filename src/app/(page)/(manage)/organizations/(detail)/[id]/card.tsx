@@ -17,10 +17,14 @@ import {
   Timezones,
 } from "@/constants";
 import useOrganizationDelete from "@/api/organization/useOrganizationDelete";
+import { fromAPIToOrgForm } from "@/types/organization";
+import { useMemo } from "react";
 export default function OrganiaztionCard({ id }: { id: string }) {
   const router = useRouter();
   const open = useModal();
   const { data, isLoading } = useOrganizationQuery(id);
+
+  const organization = useMemo(() => fromAPIToOrgForm(data), [data]);
   const { mutate } = useOrganizationDelete();
   if (isLoading) return <Spinner />;
   return (
@@ -30,7 +34,7 @@ export default function OrganiaztionCard({ id }: { id: string }) {
           <div className="w-full  flex justify-between items-center">
             <div>
               <h2 className="text-blue-main  font-bold text-2xl">
-                {data?.name}
+                {organization?.name}
               </h2>
             </div>
             <div className="flex gap-x-7">
@@ -63,19 +67,19 @@ export default function OrganiaztionCard({ id }: { id: string }) {
           <div className="text-xl">{id}</div>
 
           <div className="text-gray-lighter text-xl">Type</div>
-          <div className="text-xl">{OrgTypes[data?.type]?.label}</div>
+          <div className="text-xl">{organization?.type?.label}</div>
           <div className="text-gray-lighter text-xl">Your Role</div>
-          <div className="text-xl">{Roles[data?.role]?.label}</div>
+          <div className="text-xl">{organization?.role?.label}</div>
           <div className="text-gray-lighter text-xl">Country</div>
-          <div className="text-xl">{Countries[data?.country]?.label}</div>
+          <div className="text-xl">{organization?.country?.label}</div>
           <div className="text-gray-lighter text-xl">State/Province</div>
-          <div className="text-xl">{data?.province}</div>
+          <div className="text-xl">{organization?.province?.label}</div>
           <div className="text-gray-lighter text-xl">Currency</div>
-          <div className="text-xl">{Currencies[data?.currency]?.label}</div>
+          <div className="text-xl">{organization?.currency?.label}</div>
           <div className="text-gray-lighter text-xl">Language</div>
-          <div className="text-xl">{Languages[data?.language]?.label}</div>
+          <div className="text-xl">{organization?.language?.label}</div>
           <div className="text-gray-lighter text-xl">Timezone</div>
-          <div className="text-xl">{data?.time_zone}</div>
+          <div className="text-xl">{organization?.time_zone?.label}</div>
         </div>
       </Card>
     </>

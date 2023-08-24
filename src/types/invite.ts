@@ -3,11 +3,12 @@ import { Roles, Tables } from "@/constants";
 import { GiftTopIcon } from "@heroicons/react/24/outline";
 import { access } from "fs";
 import { z } from "zod";
+import { optionalSchema } from "./extra";
 
 export const InviteUserSchema = z.object({
   email: z.string().email(),
   name: z.string().optional(),
-  role: z.string().optional(),
+  role: optionalSchema,
   access: z.array(
     z.object({
       table: z.string(),
@@ -46,7 +47,7 @@ export const convertInviteUserToServer = (
   data: InviteUserForm,
 ): InviteUserServer => {
   const gift: InviteUserServer = { email: data.email, access: data.access };
-  if (data.role) gift.role = Roles.map((e: OptionValue): string => e.label).indexOf(data.role);
+  if (data.role) gift.role = data.role.value as number;
   if (data.name) gift.name = data.name;
   return gift;
 };
@@ -54,7 +55,7 @@ export const convFromAPIToForm = (data: UserAccess): InviteUserForm => {
   const gift: InviteUserForm = initalInviteUser();
   gift.email = data.email;
   gift.name = data.f_name;
-  gift.role = Roles[data.role].label;
+  gift.role = Roles[data.role];
   for (const { access, table } of data.access) {
     if (table !== null && access !== null) {
       const matchedTable = Tables[table - 1].label;

@@ -2,22 +2,17 @@
 
 import useGetProfile from "@/api/user/useGetProfile";
 import Avatar from "@/components/Avatar";
+import Spinner from "@/components/Spinner";
 import { ModalType, useModal } from "@/store/useModalStore";
 import { User, getUserFromSource } from "@/types/user";
-import { Spinner } from "@nextui-org/react";
-import { useSession } from "next-auth/react";
+import { useMemo } from "react";
 
 export default function ProfileCard() {
   const { data, error, isError, isLoading, id } = useGetProfile();
   const openModal = useModal();
-  if (isLoading)
-    return (
-      <>
-        <Spinner></Spinner>
-      </>
-    );
 
-  let user: User = getUserFromSource(data);
+  const user: User | null = useMemo(() => getUserFromSource(data), [data]);
+  if (!user || isLoading) return <Spinner />
   return (
     <>
       <div className="rounded-md bg-white shadow-lg  w-[920px] p-7">
@@ -54,17 +49,17 @@ export default function ProfileCard() {
 
           <div>
             <div className="text-gray-lighter text-xl">Gender:</div>
-            <div className="mt-2 text-xl">{user.gender}</div>
+            <div className="mt-2 text-xl">{user.gender?.label}</div>
           </div>
           <div>
             <div className="text-gray-lighter text-xl">Language:</div>
-            <div className="mt-2 text-xl">{user.language}</div>
+            <div className="mt-2 text-xl">{user.language?.label}</div>
           </div>
         </div>
         <div className="flex space-x-36 mb-5">
           <div>
             <div className="text-gray-lighter text-xl">Timezone:</div>
-            <div className="mt-2 text-xl">{user.timezone}</div>
+            <div className="mt-2 text-xl">{user.timezone?.label}</div>
           </div>
         </div>
         <div className="flex space-x-36 mb-5">

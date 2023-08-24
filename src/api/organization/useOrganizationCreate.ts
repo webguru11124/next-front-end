@@ -4,12 +4,12 @@ import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { OrgForm } from "@/types/organization";
+import { OrgForm, OrganizationFormServer } from "@/types/organization";
 export default function useOrganizationCreate() {
   const axios = useAxios();
 
   const router = useRouter();
-  const orgCreate = (formData: OrgForm) =>
+  const orgCreate = (formData: OrganizationFormServer) =>
     axios.post("organization", { ...formData, email: "abc@abc.com" });
   const { mutate, isLoading, isError, error, data } = useMutation({
     mutationFn: orgCreate,

@@ -2,17 +2,19 @@ import { OptionValue } from "@/components/SelectBox";
 import { Tables } from "@/constants";
 import { z } from "zod";
 
-export const OptionZodSchema = z.object({
+export const optionalSchema = z.object({
   value: z.union([z.number(), z.string()]),
   label: z.string()
 }).optional();
 
+export type OptionType = z.infer<typeof optionalSchema>;
+
 export const ExtraSchema = z.object({
   name: z.string().min(1),
-  table: OptionZodSchema,
-  show_in_table: OptionZodSchema,
-  required: OptionZodSchema,
-  drop_down: OptionZodSchema,
+  table: optionalSchema,
+  show_in_table: optionalSchema,
+  required: optionalSchema,
+  drop_down: optionalSchema,
 });
 
 export type ExtraFormWithServer = {

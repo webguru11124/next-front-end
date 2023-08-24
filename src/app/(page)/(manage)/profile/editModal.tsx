@@ -20,22 +20,12 @@ import { useEffect } from "react";
 import useGetProfile from "@/api/user/useGetProfile";
 import { Countries, Genders, Languages, Timezones } from "@/constants";
 import useUserMutation from "@/api/user/useUserMutation";
-import { UserForm, UserSchema, getUserFromSource } from "@/types/user";
+import { User, UserForm, UserSchema, getUserFromSource, userTOAPIFormat } from "@/types/user";
 import Spinner from "@/components/Spinner";
 
 export default function EditProfileModal() {
   const close = useClose();
   const modal = useModalType();
-  let initalData: UserForm = {
-    email: "jack@test.com",
-    f_name: "jai",
-    l_name: "smith",
-    number: "123-4567",
-    gender: "male",
-    country: "US",
-    language: "english",
-    timezone: "EST",
-  };
   const { data, error, isError, isLoading, refetch, id } = useGetProfile();
   const {
     register,
@@ -44,14 +34,14 @@ export default function EditProfileModal() {
     formState: { errors: formErrors, isSubmitted },
     watch,
     reset,
-  } = useForm({
-    defaultValues: initalData,
+  } = useForm<User>({
     resolver: zodResolver(UserSchema),
     mode: "onChange",
   });
   useEffect(() => {
-    if (data) {
-      reset(getUserFromSource(data));
+    const form: User | null = getUserFromSource(data);
+    if (form) {
+      reset(form);
     }
   }, [data, reset]);
   const {
@@ -59,8 +49,8 @@ export default function EditProfileModal() {
     isLoading: updateLoading,
     isError: updateError,
   } = useUserMutation();
-  const onSubmit = async (data: UserForm) => {
-    if (id) mutate({ id, ...data });
+  const onSubmit = async (data: User) => {
+    if (id) mutate({ ...userTOAPIFormat(data), id });
   };
   if (modal !== ModalType.PorfileEditModal) return <div></div>;
   if (isLoading)

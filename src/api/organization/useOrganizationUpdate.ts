@@ -5,14 +5,14 @@ import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useClose } from "@/store/useModalStore";
-import { Organization } from "@/types/organization";
+import { Organization, OrganizationFormServer, OrganizationServer } from "@/types/organization";
 import { queryKeys } from "./queryKeys";
 export default function useOrganizationUpdate() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
   const close = useClose();
   let id: string | null;
-  const orgUpdate = (formData: Organization) => {
+  const orgUpdate = (formData: OrganizationServer) => {
     id = formData.id;
     return axios.put(`organization/${formData.id}`, { ...formData });
   };

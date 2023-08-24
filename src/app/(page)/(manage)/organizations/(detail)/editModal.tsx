@@ -28,6 +28,7 @@ import {
   OrgSchema,
   Organization,
   convertOrgToServerFormat,
+  fromAPIToOrgForm,
   initalOrg,
 } from "@/types/organization";
 import { useForm } from "react-hook-form";
@@ -45,7 +46,7 @@ export default function OrganizationEditModal() {
     formState: { errors: formErrors, isSubmitted },
     watch,
     reset,
-  } = useForm({
+  } = useForm<Organization>({
     defaultValues: initalData,
     resolver: zodResolver(OrgSchema),
     mode: "onChange",
@@ -53,22 +54,15 @@ export default function OrganizationEditModal() {
   const id = useSelected();
   const { data } = useOrganizationQuery(id);
   useEffect(() => {
-    if (data) {
-      const resetData: OrgForm = {
-        ...data,
-        country: Countries[data.country],
-        type: OrgTypes[data.type],
-        currency: Currencies[data.currency],
-        language: Languages[data.language],
-        province: data.province ?? null,
-        time_zone: data.time_zone ?? null,
-      };
-      reset(resetData);
+    const form = fromAPIToOrgForm(data);
+    console.log(form, data);
+    if (form) {
+      reset(form);
     }
   }, [data, reset]);
   const { mutate } = useOrganizationUpdate();
   const onSubmit = (data: OrgForm) => {
-    const mutateData: Organization = { id, ...convertOrgToServerFormat(data) };
+    const mutateData = { id, ...convertOrgToServerFormat(data) };
     mutate(mutateData);
   };
   return (

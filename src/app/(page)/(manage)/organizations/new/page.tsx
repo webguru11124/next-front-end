@@ -36,7 +36,7 @@ export default function CreateOrganization() {
     formState: { errors: formErrors, isSubmitted },
     watch,
     reset,
-  } = useForm({
+  } = useForm<OrgForm>({
     defaultValues: initalData,
     resolver: zodResolver(OrgSchema),
     mode: "onChange",

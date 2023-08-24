@@ -1,6 +1,6 @@
 import { Tables } from "@/constants";
 import { z } from "zod";
-import { ExtraFormWithServer, OptionZodSchema } from "./extra";
+import { ExtraFormWithServer, optionalSchema } from "./extra";
 import { Organization } from "./organization";
 import { OptionValue } from "@/components/SelectBox";
 
@@ -9,13 +9,13 @@ export const VendorSchema = z.object({
     email: z.string().email(),
     phone: z.string(),
     website: z.string().url(),
-    currency: OptionZodSchema,
-    organization: OptionZodSchema,
+    currency: optionalSchema,
+    organization: optionalSchema,
     reg_document: z.string(),
     reg_number: z.string(),
     billing_address: z.string(),
     shipping_address: z.string(),
-    extra: z.array(z.union([OptionZodSchema, z.string(), z.null(), z.undefined()]))
+    extra: z.array(z.union([optionalSchema, z.string(), z.null(), z.undefined()]))
 
 });
 
@@ -59,11 +59,6 @@ export type VendorServer = VendorFormWithServer & {
 export interface Vendor extends VendorForm {
     id: string | null;
 }
-// export interface VendorWithServer extends VendorFormWithServer {
-//     id: string | null;
-//     dropdowns: Array<string>;
-// }
-
 
 export const initialVendorForm = () => ({
     name: "",
