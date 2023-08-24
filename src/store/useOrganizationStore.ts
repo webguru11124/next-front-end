@@ -7,17 +7,25 @@ import useCurrentUser from "@/api/user/useCurrentUser";
 import useGetProfile from "@/api/user/useGetProfile";
 import { Organization } from "@/types/organization";
 import { create } from "zustand";
-
+import { persist, createJSONStorage } from 'zustand/middleware'
 type State = {
   org_id: number;
 };
 type Action = {
   setOrg: (value: number) => void;
 };
-const useOrganizationStore = create<State & Action>((set) => ({
-  org_id: 0,
-  setOrg: (value: number) => set((state) => ({ org_id: value })),
-}));
+const useOrganizationStore = create<State & Action>()(
+  persist(
+    (set) => ({
+      org_id: 0,
+      setOrg: (value: number) => set((state) => ({ org_id: value })),
+    }),
+    {
+      name: 'food-storage', // name of the item in the storage (must be unique)
+      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+    }
+  )
+);
 
 export default useOrganizationStore;
 export const useCurrentOrganizationIndex = () =>

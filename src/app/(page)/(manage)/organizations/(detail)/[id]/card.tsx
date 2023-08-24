@@ -15,7 +15,7 @@ export default function OrganiaztionCard({ id }: { id: string }) {
 
   useEffect(() => {
     if (id) refetch();
-  }, [id])
+  }, [id, refetch])
 
   const organization = useMemo(() => fromAPIToOrgForm(data), [data]);
   const { mutate } = useOrganizationDelete();

@@ -1,4 +1,4 @@
-import { Tables } from "@/constants";
+import { Tables, findValue } from "@/constants";
 import { z } from "zod";
 import { ExtraFormWithServer, optionalSchema } from "./extra";
 import { Organization } from "./organization";
@@ -78,19 +78,21 @@ export const fromExtraToForm = (data: VendorFromServer, organizations: Array<Opt
         email: data.email,
         phone: data.phone,
         website: data.website,
-        organization: {
-            value: data.orginaztion_id,
-            label: organizations?.find((org: OptionValue) => org.value == data.orginaztion_id)?.label ?? ""
-        },
         reg_document: data.reg_document,
         reg_number: data.reg_number,
         billing_address: data.billing_address,
         shipping_address: data.shipping_address,
-        extra: data.atr ? data.atr.map((extra) => ({
-            value: extra.drop_name ? extra.name : extra.value,
-            label: extra.drop_name ?? extra.value as string
-        })) : []
+        extra: data.atr ? data.atr.map((extra) => {
+
+            if (extra.drop_name) return {
+                value: extra.value,
+                label: extra.drop_name as string
+            }
+            else return extra.value as string;
+        }) : []
     };
+
+    if (organizations) mutateData.organization = findValue(organizations, data.orginaztion_id);
     return mutateData;
 };
 export const convertVendorToServer = (form: VendorForm, extra_fields: Array<ExtraFormWithServer> | null) => {
@@ -108,7 +110,7 @@ export const convertVendorToServer = (form: VendorForm, extra_fields: Array<Extr
     };
     if (extra_fields)
         form.extra.forEach((extra, index) => {
-            data[extra_fields[index].name] = typeof extra === "string" ? extra : extra?.value as string;
+            data[extra_fields[index].name] = typeof extra === "string" ? extra : extra?.label as string;
         });
     return data;
 };

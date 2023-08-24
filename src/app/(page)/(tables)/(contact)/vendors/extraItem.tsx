@@ -9,7 +9,7 @@ export default function ExtraItem({ extra, index }: { extra: ExtraWithServer, in
     return (extra && extra.type === 0 ?
         <Input
             register={register}
-            name={`extra.${index}.value`}
+            name={`extra.${index}`}
             label={extra.name}
             placeholder={`Enter ${extra.name} here`}
         /> : <SelectBox

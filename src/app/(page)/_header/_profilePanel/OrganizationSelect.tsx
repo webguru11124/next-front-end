@@ -85,7 +85,7 @@ export default function OrganizationSelect({
           ))}
       </RadioGroup>
       {
-        organizations.length === 0 && <div className="my-20 text-gray-lighter">
+        organizations && organizations.length === 0 && <div className="my-20 text-gray-lighter">
           <p>You haven’t added
             any organization yet
           </p>
