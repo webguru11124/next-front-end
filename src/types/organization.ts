@@ -27,22 +27,24 @@ function nullableEmail() {
 
 export const OrgSchema = z.object({
   invite_email: nullableEmail().optional(),
+  invite_role: optionalSchema,
+  invite_name: z.string().optional(),
   name: z.string().min(1),
   email: z.string().email().optional(),
+
   country: optionalSchema,
   language: optionalSchema,
   time_zone: optionalSchema,
   province: optionalSchema,
   type: optionalSchema,
-  invite_role: optionalSchema,
   currency: optionalSchema,
 });
 
 export type OrgForm = z.infer<typeof OrgSchema>;
 
-export const initalOrg = () => ({
+export const initalOrg = (): OrgForm => ({
   invite_email: null,
-  invite_name: null,
+  invite_name: "",
   name: "",
 });
 export interface Organization extends OrgForm {
@@ -95,6 +97,6 @@ export const convertOrgToServerFormat = (form: OrgForm): OrganizationFormServer 
   if (form.invite_email) data.invite_email = form.invite_email;
   if (form.invite_role)
     data.invite_role = form.invite_role.value as number;
-
+  data.invite_name = form.invite_name;
   return data;
 };

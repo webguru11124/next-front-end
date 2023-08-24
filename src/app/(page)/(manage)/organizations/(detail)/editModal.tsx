@@ -55,7 +55,6 @@ export default function OrganizationEditModal() {
   const { data } = useOrganizationQuery(id);
   useEffect(() => {
     const form = fromAPIToOrgForm(data);
-    console.log(form, data);
     if (form) {
       reset(form);
     }

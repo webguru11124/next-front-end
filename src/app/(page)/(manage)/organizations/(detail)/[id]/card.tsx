@@ -1,28 +1,21 @@
 "use client";
 
-import Avatar from "@/components/Avatar";
 import Card from "@/components/Card";
 import { ModalType, useModal } from "@/store/useModalStore";
 import { FiEdit, FiTrash } from "react-icons/fi";
-import { useRouter } from "next/navigation";
 import useOrganizationQuery from "@/api/organization/useOrganizationQuery";
 import Spinner from "@/components/Spinner";
-import {
-  Countries,
-  Currencies,
-  Languages,
-  OrgTypes,
-  Province,
-  Roles,
-  Timezones,
-} from "@/constants";
+
 import useOrganizationDelete from "@/api/organization/useOrganizationDelete";
 import { fromAPIToOrgForm } from "@/types/organization";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 export default function OrganiaztionCard({ id }: { id: string }) {
-  const router = useRouter();
   const open = useModal();
-  const { data, isLoading } = useOrganizationQuery(id);
+  const { data, isLoading, refetch } = useOrganizationQuery(id);
+
+  useEffect(() => {
+    if (id) refetch();
+  }, [id])
 
   const organization = useMemo(() => fromAPIToOrgForm(data), [data]);
   const { mutate } = useOrganizationDelete();
