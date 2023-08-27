@@ -84,7 +84,79 @@
 //     < /p>
 //                   )
 // }
-// </div>
+// </div>import { useState } from 'react';
+// import { useForm, Controller } from 'react-hook-form';
+// const FileUploader = () => {
+//   const { control, handleSubmit } = useForm();
+//   const [files, setFiles] = useState<any>([]);
+//   const [loading, setLoading] = useState(false);
+//   const onSubmit = async (data: any) => {
+//     // Handle submit logic here
+//   };
+//   const onChangeFile = async (e: any) => {
+//     const file = e.target.files[0];
+//     setFiles([...files, { loading: true }]);
+//     const formData = new FormData();
+//     formData.append("Image", file);
+//     setLoading(true);
+//     try {
+//       const res = await fetch("api link" + "upload", {
+//         method: "POST",
+//         redirect: "follow",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//         body: formData,
+//       });
+//       const data = await res.json();
+//       setFiles([...files.filter((e: any) => !e.loading), { url: process.env.public_link + data.result }]);
+//     } catch (e) {
+//       setLoading(false);
+//       // Display a toast or other notification here
+//       console.error("Error Uploading file", e);
+//     }
+//   };
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)}>
+//       <div className="flex items-center justify-center w-full gap-2 mt-4">
+//         <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-[40px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-100">
+//           <div className="flex flex-row items-start align-start  justify-start mt-4">
+//             <svg className="w-8 h-8 mb-4 text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+//               {/* SVG Path */}
+//             </svg>
+//             {
+//               loading
+//                 ? <p>Loading...</p>
+//                 : <p className="mb-2 text-sm text-main mt-[5px] ml-[5px]">
+//                     <span className="font-semibold">Click to upload</span> or drag and drop
+//                   </p>
+//             }
+//           </div>
+//           <Controller
+//             name="upload"
+//             control={control}
+//             defaultValue=""
+//             render={({ field }) => (
+//               <input
+//                 {...field}
+//                 id="dropzone-file"
+//                 type="file"
+//                 accept="image/*,video/*"
+//                 onChange={(e) => {
+//                   onChangeFile(e);
+//                   field.onChange(e);
+//                 }}
+//                 className="hidden"
+//               />
+//             )}
+//           />
+//         </label>
+//       </div>
+//       <button type="submit">Submit</button>
+//     </form>
+//   );
+// };
+// export default FileUploader;
 
 //   < input
 // id = { "dropzone-file"}

@@ -29,6 +29,7 @@ import { useEffect, useMemo } from "react";
 import useVendorCreate from "@/api/vendor/useVendorCreate";
 import useVendorQuery from "@/api/vendor/useVendorQuery";
 import useVendorUpdate from "@/api/vendor/useVendorUpdate";
+import FileUpload from "@/components/Upload";
 
 
 
@@ -152,13 +153,7 @@ export default function VendorEditModal() {
                   placeholder={`${('Enter registration number')}`}
                 />
               </div>
-              <Input
-                register={register}
-                name="reg_document"
-                righticon={<BsCloudArrowUp />}
-                label="Reg Documents"
-                placeholder={`${('Click to upload')}`}
-              />
+              <FileUpload name="reg_document" />
               <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
                 Vendor Address
               </div>

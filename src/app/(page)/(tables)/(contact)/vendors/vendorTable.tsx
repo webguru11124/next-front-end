@@ -113,15 +113,16 @@ export default function VendorTable() {
                 {vendor.phone}
               </td>
               {
-                vendor.atr && vendor.atr.filter(drop => drop.shown).map(drop => (< td className="border border-lighter-border py-3" onClick={() => {
-                  open({
-                    modalType: ModalType.VendorDetail,
-                    id: vendor.id,
-                  });
-                }} key={drop.drop_name}
-                >
-                  {drop.drop_name ?? drop.value}
-                </td>
+                vendor.atr && vendor.atr.filter(drop => drop.shown).map((drop, index) => (
+                  < td className="border border-lighter-border py-3" onClick={() => {
+                    open({
+                      modalType: ModalType.VendorDetail,
+                      id: vendor.id,
+                    });
+                  }} key={index}
+                  >
+                    {drop.drop_name ?? drop.value}
+                  </td>
                 ))
               }
             </tr>
