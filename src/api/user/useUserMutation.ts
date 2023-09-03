@@ -1,4 +1,4 @@
-import { LoginFormData } from "@/types";
+import { LoginFormData, ResponseError } from "@/types";
 import useAxios from "../instance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useClose } from "@/store/useModalStore";
 import { User, UserAPIType } from "@/types/user";
+import { AxiosError } from "axios";
 export default function useUserMutation() {
     const axios = useAxios();
     const close = useClose();
@@ -30,8 +31,8 @@ export default function useUserMutation() {
 
             close();
         },
-        onError: (error) => {
-            toast.error(`Server Error: ${error}`, {
+        onError: (error: AxiosError<ResponseError>, variables: UserAPIType, context: any) => {
+            toast.error(`Server Error: ${error?.response?.data?.message}`, {
                 hideProgressBar: true,
                 autoClose: 5000,
                 type: "error",

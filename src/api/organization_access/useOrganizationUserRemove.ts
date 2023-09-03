@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useClose } from "@/store/useModalStore";
 import { useCurrentOrganizationId } from "@/store/useOrganizationStore";
+import { ResponseError } from "@/types";
+import { AxiosError } from "axios";
 export default function useOrganizationUserRemove() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
@@ -24,8 +26,8 @@ export default function useOrganizationUserRemove() {
       close();
       queryClient.invalidateQueries();
     },
-    onError: (error) => {
-      toast.error(`Server Error: ${error}`, {
+    onError: (error: AxiosError<ResponseError>) => {
+      toast.error(`Server Error: ${error?.response?.data?.message}`, {
         hideProgressBar: true,
         autoClose: 5000,
         type: "error",

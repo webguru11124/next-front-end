@@ -1,23 +1,37 @@
 import useFileUpload from "@/api/upload";
 import useUploadAPI from "@/api/upload";
-import { useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { Controller, useController, useForm, useFormContext } from "react-hook-form";
 import { BsCloudArrowUp } from "react-icons/bs";
 import Spinner from "../Spinner";
 
-export default function FileUpload({ name }: { name: string }) {
+const path = require('path')
+const FileType = {
+    image: "image/*",
+    all: "*/*",
+};
+
+type FileUploadProps = {
+    name: string;
+    label?: string;
+    type?: keyof typeof FileType;
+    placeholder: string;
+    children: ({ value, placeholder }: { value: any, placeholder: string }) => ReactNode;
+}
+
+export default function FileUpload(props: FileUploadProps) {
     const { register, control, } = useFormContext();
     let inputRef: HTMLInputElement | null;
-    const label = "Registration Documents";
-    const placeholder = "Click to upload"
-    const righticon = < BsCloudArrowUp />;
 
     const {
         field: { ref, onChange, value }
     } = useController({
         control,
-        name,
+        name: props.name,
     });
+    const { label, placeholder } = props;
+
+    const type: keyof typeof FileType = props.type ?? "all";
 
     // const [loading, setLoading] = useState(false);
     //   const onSubmit = async (data: any) => {
@@ -28,8 +42,7 @@ export default function FileUpload({ name }: { name: string }) {
 
     useEffect(() => {
         if (data) {
-            console.log(JSON.stringify(data.result).length);
-            onChange(JSON.stringify(data.result));
+            onChange(type === "image" ? data.result.filename : JSON.stringify(data.result));
         }
 
     }, [data, onChange])
@@ -41,18 +54,12 @@ export default function FileUpload({ name }: { name: string }) {
 
 
     return (<div>
-        <div>
-            {<label>{label}</label>}
-            <div className="relative mt-2" onClick={() => inputRef?.click()}>
-                <div
-                    className="w-full rounded-md border border-gray-border px-[1em] outline-none py-2 text-lg"
-                >
-                    {!value ? <span className="text-gray-placeholder">{placeholder}</span> :
-                        <span>{JSON.parse(value).originalname}</span>}
-                </div>
-                {/* {error && <div className="text-red">{error.message}</div>} */}
-                {righticon && <div className="absolute  inset-y-0 right-3  py-3 text-blue-primary">{righticon}</div>}
-            </div>
+        {label && <label>{label}</label>}
+        <div className="cursor-pointer" onClick={() => inputRef?.click()}>
+            {
+                props.children({ value: value ? (type === "image" ? value : JSON.parse(value)) : null, placeholder })
+            }
+            {/* {error && <div className="text-red">{error.message}</div>} */}
         </div>
         <input
             type="file"
@@ -62,6 +69,7 @@ export default function FileUpload({ name }: { name: string }) {
             onChange={(e) => {
                 onChangeFile(e);
             }}
+            accept={FileType[type]}
             className="hidden"
         />
         {isLoading && <Spinner />}

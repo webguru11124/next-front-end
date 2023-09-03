@@ -85,7 +85,7 @@ export default function VendorTable() {
                 });
               }}>
                 <div className="flex justify-center">
-                  <Avatar size="sm"></Avatar>
+                  <Avatar size="sm" href={vendor.imgUrl} />
                 </div>
               </td>
               <td className="border border-lighter-border py-3" onClick={() => {

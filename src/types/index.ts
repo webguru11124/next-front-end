@@ -34,3 +34,8 @@ export interface LoginResult {
     user_id: string;
   };
 }
+export interface ResponseError {
+  message: string;
+  status: number;
+  success: string;
+}

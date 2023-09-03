@@ -38,6 +38,7 @@ module.exports = {
       red: "#FF5647",
       "gray-max-light": "#F0F0F0",
       "gray-light": "#d3dce6",
+      "gray-back": "#EBEBEB",
       "gray-lighter": "#7E7E7E",
       "gray-border": "#e2e2e2",
       "gray-placeholder": "#9CA3AF",

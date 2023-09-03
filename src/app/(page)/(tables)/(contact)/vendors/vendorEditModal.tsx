@@ -75,24 +75,35 @@ export default function VendorEditModal() {
   return ((
     <Modal width="xl" className="h-[714px] py-4">
       <div className="flex flex-col h-full">
-        <div className="flex relative justify-center">
-          <div className="flex flex-col  justify-center">
-            <span className="font-bold  text-blue-main text-2xl">
-              {`${id ? "Edit" : "ADD New"} Vendor`}
-            </span>
-            <div className="mt-5 mb-4 flex justify-center">
-              <Avatar size="md" />
-            </div>
-          </div>
-          <button
-            className="h-10 w-10 flex justify-center items-center rounded bg-white text-grayscale-secondary absolute right-0"
-            onClick={close}
-          >
-            <GrClose />
-          </button>
-        </div>
 
         <FormProvider {...methods}>
+          <div className="flex relative justify-center">
+            <div className="flex flex-col  justify-center">
+              <span className="font-bold  text-blue-main text-2xl">
+                {`${id ? "Edit" : "ADD New"} Vendor`}
+              </span>
+              <div className="mt-5 mb-4 flex justify-center">
+                <FileUpload name="imgUrl" placeholder="Click to upload Image" type="image" >
+                  {
+                    ({ value, placeholder }) =>
+                    (!value ? <div className="rounded mt-3 w-[140px] h-[140px] bg-gray-back rounded-full flex justify-center items-center">
+                      {<span className="text-center">{placeholder}</span>}
+                    </div>
+                      :
+                      < Avatar size="2md" href={value} />
+                    )
+                  }
+                </FileUpload>
+              </div>
+            </div>
+            <button
+              className="h-10 w-10 flex justify-center items-center rounded bg-white text-grayscale-secondary absolute right-0"
+              onClick={close}
+            >
+              <GrClose />
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-x-14  gap-y-6 px-6  ">
               <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
@@ -153,7 +164,23 @@ export default function VendorEditModal() {
                   placeholder={`${('Enter registration number')}`}
                 />
               </div>
-              <FileUpload name="reg_document" />
+
+              <FileUpload name="reg_document"
+                label="Registration Documents"
+                placeholder="Click to upload">
+                {
+                  ({ value, placeholder }) =>
+                  (<div className="relative mt-2">
+                    <div
+                      className="w-full rounded-md border border-gray-border px-[1em] outline-none py-2 text-lg"
+                    >
+                      {!value ? <span className="text-gray-placeholder">{placeholder}</span> :
+                        <span>{value.originalname}</span>}
+                    </div>
+                    {<div className="absolute  inset-y-0 right-3  py-3 text-blue-primary">< BsCloudArrowUp /></div>}
+                  </div>)
+                }
+              </FileUpload>
               <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
                 Vendor Address
               </div>
@@ -201,7 +228,7 @@ export default function VendorEditModal() {
           </form>
         </FormProvider>
       </div>
-    </Modal>
+    </Modal >
   )
   );
 }

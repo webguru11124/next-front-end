@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useClose } from "@/store/useModalStore";
 import { Extra } from "@/types/extra";
+import { AxiosError } from "axios";
+import { ResponseError } from "@/types";
 export default function useExtraFieldUpdate() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
@@ -27,8 +29,8 @@ export default function useExtraFieldUpdate() {
       });
       close();
     },
-    onError: (error) => {
-      toast.error(`Server Error: ${error}`, {
+    onError: (error: AxiosError<ResponseError>) => {
+      toast.error(`Server Error: ${error?.response?.data?.message}`, {
         hideProgressBar: true,
         autoClose: 5000,
         type: "error",
