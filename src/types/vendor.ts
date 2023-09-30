@@ -83,6 +83,7 @@ export const fromExtraToForm = (data: VendorFromServer, organizations: Array<Opt
         website: data.website,
         reg_document: data.reg_document,
         reg_number: data.reg_number,
+        imgUrl: data.imgUrl,
         billing_address: data.billing_address,
         shipping_address: data.shipping_address,
         extra: data.atr ? data.atr.map((extra) => {

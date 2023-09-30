@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useClose } from "@/store/useModalStore";
 import { Organization, OrganizationFormServer, OrganizationServer } from "@/types/organization";
 import { queryKeys } from "./queryKeys";
+import { AxiosError } from "axios";
+import { ResponseError } from "@/types";
 export default function useOrganizationUpdate() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
@@ -29,8 +31,8 @@ export default function useOrganizationUpdate() {
 
       if (id) queryClient.invalidateQueries(queryKeys.getOrganization(id));
     },
-    onError: (error) => {
-      toast.error(`Server Error: ${error}`, {
+    onError: (error: AxiosError<ResponseError>) => {
+      toast.error(`Server Error: ${error?.response?.data?.message}`, {
         hideProgressBar: true,
         autoClose: 5000,
         type: "error",

@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { useClose } from "@/store/useModalStore";
 import { Extra } from "@/types/extra";
 import { VendorFormWithServer, VendorServer } from "@/types/vendor";
+import { ResponseError } from "@/types";
+import { AxiosError } from "axios";
 export default function useVendorUpdate() {
   const axios = useAxios();
   const queryClient = useQueryClient(); // Create a queryClient instance
@@ -28,8 +30,8 @@ export default function useVendorUpdate() {
       });
       close();
     },
-    onError: (error) => {
-      toast.error(`Server Error: ${error}`, {
+    onError: (error: AxiosError<ResponseError>) => {
+      toast.error(`Server Error: ${error?.response?.data?.message}`, {
         hideProgressBar: true,
         autoClose: 5000,
         type: "error",

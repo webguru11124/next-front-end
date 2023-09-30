@@ -26,9 +26,8 @@ export default function useVendorCreate() {
       });
       close();
       queryClient.invalidateQueries();
-    },
-    onError: (error) => {
-      toast.error(`Server Error: ${error}`, {
+    }, onError: (error: AxiosError<ResponseError>, variables: UserAPIType, context: any) => {
+      toast.error(`Server Error: ${error?.response?.data?.message}`, {
         hideProgressBar: true,
         autoClose: 5000,
         type: "error",
