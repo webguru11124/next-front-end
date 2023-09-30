@@ -14,6 +14,7 @@ export const VendorSchema = z.object({
     reg_document: z.string(),
     reg_number: z.string(),
     billing_address: z.string(),
+    imgUrl: z.string().optional(),
     shipping_address: z.string(),
     extra: z.array(z.union([optionalSchema, z.string(), z.null(), z.undefined()]))
 
@@ -34,6 +35,7 @@ export type VendorFromServer = {
     phone: string,
     website: string,
     orginaztion_id: number,
+    imgUrl: string;
     reg_document: string,
     reg_number: string,
     billing_address: string,
@@ -47,6 +49,7 @@ export type VendorFormWithServer = {
     website: string,
     organization_id: number,
     reg_document: string,
+    imgUrl: string;
     reg_number: string,
     billing_address: string,
     shipping_address: string,
@@ -106,7 +109,7 @@ export const convertVendorToServer = (form: VendorForm, extra_fields: Array<Extr
         reg_number: form.reg_number,
         billing_address: form.billing_address,
         shipping_address: form.shipping_address,
-        imgUrl: "",
+        imgUrl: form.imgUrl ?? "",
     };
     if (extra_fields)
         form.extra.forEach((extra, index) => {

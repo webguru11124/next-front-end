@@ -153,7 +153,7 @@ export default function VendorEditModal() {
                   placeholder={`${('Enter registration number')}`}
                 />
               </div>
-              <FileUpload name="reg_document" />
+              {/* <FileUpload name="reg_document" /> */}
               <div className="col-start-1 bg-gray-max-light text-xl py-2 mt-5 text-blue-main ml-[-48px] px-12">
                 Vendor Address
               </div>

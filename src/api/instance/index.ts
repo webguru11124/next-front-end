@@ -3,12 +3,12 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 export default function useAxios() {
   const { data: session } = useSession();
-  const apiUrl = process.env.API_URL || "http://localhost:4000/api/v1";
+  const apiUrl = process.env.API_URL ;
   const instance = axios.create({
     baseURL: apiUrl,
   });
   const queryClient = useQueryClient(); // Create a queryClient instance
-  const API_HOSTNAME_VERSION = "v2";
+  const API_HOSTNAME_VERSION = "v1";
   const contentLanguage = "en";
   const token = session?.user?.token;
   instance.interceptors.request.use((requestConfig) => {

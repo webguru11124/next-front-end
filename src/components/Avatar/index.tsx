@@ -1,6 +1,8 @@
 import Img from "@/assets/img/avatar.png";
 import Image from "next/image";
 
+const path = require('path')
+
 export enum AvatarSize {
   sm = 30,
   md = 100,
@@ -19,10 +21,10 @@ export default function Avatar({
 
   // Access the actual size value using the size prop.
   const imageSize = AvatarSize[size];
-
+  if (href) href = path.join(process.env.API_URL, 'static', href)
   return (
     <Image
-      src={Img}
+      src={href ?? Img}
       alt="avatar"
       width={imageSize}
       height={imageSize}

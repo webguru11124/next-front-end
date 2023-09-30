@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['localhost', '342dcfrwewdcvfrdf.org'],
+  },
+
   pageExtensions: ["mdx", "md", "jsx", "js", "tsx", "ts"],
   env: {
     NEXTAUTH_SECRET: "my_ultra_secure_nextauth_secret",
